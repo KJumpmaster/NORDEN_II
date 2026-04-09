@@ -1,46 +1,44 @@
-/* General Cockpit Background */
+/* Core cockpit background (Dark like the B-2) */
 body {
-    background-color: #050505; /* Deep black */
-    color: #00FF41; /* "Matrix" / Radar Green */
-    font-family: 'Consolas', 'Courier New', monospace; /* Monospaced tech font */
-    padding: 20px;
+    background-color: #050505;
+    overflow: hidden; /* Lock scrollbars during the intro zoom */
+    perspective: 1000px; /* Optional: adds a 3D depth effect */
 }
 
-/* Master Arm Logic Styling */
-#systemStatus {
-    font-weight: bold;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
+/* The Zoom Animation Blueprint */
+@keyframes mission-zoom-intro {
+    0% {
+        /* Start super zoomed-in (like F-35 style) and offset */
+        transform: translate3d(-100px, -50px, 0) scale(4); 
+        filter: blur(2px); /* Optional: slight blur that clears */
+    }
+    100% {
+        /* Finish focused on the NORDEN II MFD at normal size */
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: blur(0px);
+    }
 }
 
-/* Making the buttons look like cockpit toggles */
-button {
-    background-color: #1a1a1a;
-    color: #00FF41;
-    border: 1px solid #00FF41;
-    padding: 10px 15px;
-    cursor: pointer;
-    text-transform: uppercase;
+/* Applying the animation to the container */
+#camera-frame {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Center the MFD */
+    align-items: center;
+
+    /* (The 10-second ease-out zoom) */
+    animation: mission-zoom-intro 10s ease-out forwards;
+    
+    /* Ensure the scale starts big before the animation triggers */
+    transform-origin: center center;
 }
 
-button:hover {
-    background-color: #00FF41;
-    color: #000;
-}
-
-/* Master Arm - ARMED state styling */
-.armed {
-    background-color: #900 !important; /* Warning Red */
-    color: #fff !important;
-    border-color: #f00 !important;
-    box-shadow: 0 0 10px #f00;
-}
-
-/* Weapon Bay Readouts */
-.display-readout {
-    background: #001100;
-    border: 1px solid #004400;
-    padding: 10px;
-    margin: 10px 0;
-    width: fit-content;
+/* Style the contents to look like the B-2 display from your image */
+#cockpit-container {
+    background: #001100; /* Dark green CRT background */
+    border: 3px solid #00FF41; /* The glowing green frame */
+    padding: 30px;
+    font-family: 'Consolas', monospace; /* The B-2 data font */
+    color: #00FF41; /* The green text vibe from Image 1 */
 }
