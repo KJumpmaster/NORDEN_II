@@ -1,24 +1,72 @@
-/* The 'Atoms' Bezel Glow */
-.mfd-panel {
-    border: 2px solid #1a1a1a;
-    background: rgba(0, 20, 0, 0.9); /* Transparent dark green */
-    box-shadow: inset 0 0 15px #000;
-    transition: all 0.5s ease;
+/* Core Layout */
+body {
+    background-color: #050505;
+    font-family: 'Consolas', 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* When the Master Arm is ON, light up the panel */
-.system-armed .mfd-panel {
-    border-color: #00FF41;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+/* F-35 to B-2 Zoom Intro Animation */
+@keyframes cockpit-zoom {
+    0% { transform: scale(5) translate(-10%, -10%); filter: blur(5px); opacity: 0; }
+    100% { transform: scale(1) translate(0, 0); filter: blur(0); opacity: 1; }
 }
 
-/* The 'Fuzzy' CRT boot effect */
-.boot-flicker {
-    animation: flicker 0.2s infinite;
+#camera-frame {
+    animation: cockpit-zoom 8s ease-out forwards;
 }
 
-@keyframes flicker {
-    0% { opacity: 0.9; }
-    50% { opacity: 1; }
-    100% { opacity: 0.8; }
+/* B-2 Style MFD Display */
+#cockpit-container {
+    background: #000b00;
+    border: 2px solid #004400;
+    padding: 40px;
+    width: 600px;
+    box-shadow: inset 0 0 30px #000;
+    position: relative;
+}
+
+/* Tactical Green Glow */
+.tactical-text, .label, .value, #systemStatus {
+    color: #00FF41;
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+}
+
+/* Master Arm Styles */
+#masterArm {
+    background: #1a1a1a;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#masterArm.armed {
+    background: #900 !important;
+    color: #fff !important;
+    border-color: #f00 !important;
+    box-shadow: 0 0 15px #f00;
+}
+
+/* Hidden elements until Power On */
+.bomb-bay, #systemStatus {
+    opacity: 0.1;
+    transition: opacity 1s ease;
+}
+
+.system-online .bomb-bay, 
+.system-online #systemStatus {
+    opacity: 1;
+}
+
+/* Scanline Effect */
+#cockpit-container::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 2px);
+    pointer-events: none;
 }
