@@ -1,1 +1,46 @@
+/* General Cockpit Background */
+body {
+    background-color: #050505; /* Deep black */
+    color: #00FF41; /* "Matrix" / Radar Green */
+    font-family: 'Consolas', 'Courier New', monospace; /* Monospaced tech font */
+    padding: 20px;
+}
 
+/* Master Arm Logic Styling */
+#systemStatus {
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+/* Making the buttons look like cockpit toggles */
+button {
+    background-color: #1a1a1a;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+    padding: 10px 15px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #00FF41;
+    color: #000;
+}
+
+/* Master Arm - ARMED state styling */
+.armed {
+    background-color: #900 !important; /* Warning Red */
+    color: #fff !important;
+    border-color: #f00 !important;
+    box-shadow: 0 0 10px #f00;
+}
+
+/* Weapon Bay Readouts */
+.display-readout {
+    background: #001100;
+    border: 1px solid #004400;
+    padding: 10px;
+    margin: 10px 0;
+    width: fit-content;
+}
