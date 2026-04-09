@@ -1,44 +1,24 @@
-/* Core cockpit background (Dark like the B-2) */
-body {
-    background-color: #050505;
-    overflow: hidden; /* Lock scrollbars during the intro zoom */
-    perspective: 1000px; /* Optional: adds a 3D depth effect */
+/* The 'Atoms' Bezel Glow */
+.mfd-panel {
+    border: 2px solid #1a1a1a;
+    background: rgba(0, 20, 0, 0.9); /* Transparent dark green */
+    box-shadow: inset 0 0 15px #000;
+    transition: all 0.5s ease;
 }
 
-/* The Zoom Animation Blueprint */
-@keyframes mission-zoom-intro {
-    0% {
-        /* Start super zoomed-in (like F-35 style) and offset */
-        transform: translate3d(-100px, -50px, 0) scale(4); 
-        filter: blur(2px); /* Optional: slight blur that clears */
-    }
-    100% {
-        /* Finish focused on the NORDEN II MFD at normal size */
-        transform: translate3d(0, 0, 0) scale(1);
-        filter: blur(0px);
-    }
+/* When the Master Arm is ON, light up the panel */
+.system-armed .mfd-panel {
+    border-color: #00FF41;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
 }
 
-/* Applying the animation to the container */
-#camera-frame {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center; /* Center the MFD */
-    align-items: center;
-
-    /* (The 10-second ease-out zoom) */
-    animation: mission-zoom-intro 10s ease-out forwards;
-    
-    /* Ensure the scale starts big before the animation triggers */
-    transform-origin: center center;
+/* The 'Fuzzy' CRT boot effect */
+.boot-flicker {
+    animation: flicker 0.2s infinite;
 }
 
-/* Style the contents to look like the B-2 display from your image */
-#cockpit-container {
-    background: #001100; /* Dark green CRT background */
-    border: 3px solid #00FF41; /* The glowing green frame */
-    padding: 30px;
-    font-family: 'Consolas', monospace; /* The B-2 data font */
-    color: #00FF41; /* The green text vibe from Image 1 */
+@keyframes flicker {
+    0% { opacity: 0.9; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
 }
