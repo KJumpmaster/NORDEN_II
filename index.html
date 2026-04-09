@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
-  /* Prevents the 'White Flash' on load */
-  html, body { background-color: #000 !important; color: #00FF41; }
-</style>
 <head>
     <meta charset="UTF-8">
     <title>CAOC | NORDEN II Integration</title>
+    
+    <style>
+        html, body { 
+            background-color: #000 !important; 
+            color: #00FF41 !important; 
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="mission-start">
@@ -15,12 +21,18 @@
         <div id="cockpit-container">
             
             <button id="masterArm">SAFE</button>
-            <div id="bombA">...</div>
+            
+            <div id="systemStatus">SYSTEM READY</div>
+
+            <div id="bombA">
+                <h3>BOMB A</h3>
+                <div class="display">LATENCY: 0ms</div>
+            </div>
             
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 
 </body>
 </html>
