@@ -2,36 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NORDEN II | Sky Pilot UI</title>
+    <title>CAOC | NORDEN II Integration</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="cockpit">
-        <header>
-            <div class="control-group">
-                <label>MASTER ARM</label>
-                <button id="masterArm" class="safe">SAFE</button>
-            </div>
-            <div id="systemStatus">SYSTEM LOCKED</div>
-        </header>
+<body class="mission-start">
 
-        <main id="weaponSystem">
-            <section class="bomb-bay" id="bayA">
-                <h3>BOMB A</h3>
-                <select class="payload">
-                    <option value="he">High Explosive</option>
-                    <option value="inc">Incendiary</option>
-                </select>
-                <div class="display">LATENCY: <span class="val">0ms</span></div>
-                <div class="display">TARGET: <span class="val">00.000</span></div>
-            </section>
-        </main>
-
-        <footer>
-            <button id="dropBtn" disabled>DROP / RUN SIM</button>
-            <button id="cancelBtn">CANCEL DROP: OFF</button>
-        </footer>
+    <div id="camera-frame">
+        <div id="cockpit-container">
+            
+            <button id="masterArm">SAFE</button>
+            <div id="bombA">...</div>
+            
+        </div>
     </div>
-    <script src="script.js"></script>
+
 </body>
 </html>
