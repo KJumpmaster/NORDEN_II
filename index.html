@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CAOC | NORDEN II Integration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAOC | NORDEN II TACTICAL HUB</title>
     
     <style>
-        html, body { 
-            background-color: #000 !important; 
-            color: #00FF41 !important; 
-            margin: 0;
-            padding: 0;
-        }
+        html, body { background-color: #000 !important; color: #00FF41 !important; margin: 0; padding: 0; overflow: hidden; }
     </style>
 
     <link rel="stylesheet" href="style.css">
@@ -18,16 +14,34 @@
 <body class="mission-start">
 
     <div id="camera-frame">
-        <div id="cockpit-container">
+        <div id="cockpit-container" class="mfd-screen">
             
-            <button id="masterArm">SAFE</button>
-            
-            <div id="systemStatus">SYSTEM READY</div>
+            <header class="tactical-header">
+                <div class="master-arm-block">
+                    <label>MASTER ARM</label>
+                    <button id="masterArm">SAFE</button>
+                </div>
+                <div id="systemStatus">SYSTEM COLD</div>
+            </header>
 
-            <div id="bombA">
-                <h3>BOMB A</h3>
-                <div class="display">LATENCY: 0ms</div>
-            </div>
+            <main id="weaponSystem">
+                <section class="bomb-bay" id="bayA">
+                    <h3 class="tactical-text">BOMB A</h3>
+                    <div class="readout-block">
+                        <div class="label">LATENCY</div>
+                        <div class="value">000ms</div>
+                    </div>
+                    <div class="readout-block">
+                        <div class="label">TARGET</div>
+                        <div class="value">00.000</div>
+                    </div>
+                    <button class="drop-btn" disabled>DROP / RUN SIM</button>
+                </section>
+            </main>
+
+            <footer class="tactical-footer">
+                <div class="classification">CLASSIFICATION: SECRET</div>
+            </footer>
             
         </div>
     </div>
