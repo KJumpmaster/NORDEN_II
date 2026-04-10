@@ -1,23 +1,31 @@
-// --- NORDEN II: AVIONICS & LOGIC CORE ---
+// --- NORDEN II: MASTER CONTROL LOGIC ---
 let registry = {};
 
-// 1. BOOT SEQUENCE: Fetch the Registry
+// 1. BOOT SEQUENCE: Load the Registry from GitHub
 fetch('aircraft_registry.json')
     .then(response => {
-        if (!response.ok) throw new Error("Registry file not found");
+        if (!response.ok) throw new Error("Registry not found");
         return response.json();
     })
     .then(data => {
         registry = data;
-        populateNationMenu(); // Start the UI once data is loaded
+        console.log("Systems Online: Registry Loaded.");
     })
-    .catch(err => console.error("FATAL ERROR:", err));
+    .catch(err => {
+        console.error("AVIONICS FAILURE:", err);
+        alert("Data Link Failed. Check aircraft_registry.json for typos.");
+    });
 
-// 2. NATION SELECTOR: Fills the first dropdown
-function populateNationMenu() {
+// 2. NATION FILTER: Triggered when Theater or Nation changes
+function updateNationMenu() {
     const nationSel = document.getElementById('nation-select');
-    const nations = Object.keys(registry); // Gets ["USA", "Great Britain"]
+    const acSel = document.getElementById('aircraft-select');
     
+    // Clear menus
+    nationSel.innerHTML = '<option value="">-- SELECT NATION --</option>';
+    acSel.innerHTML = '<option value="">-- SELECT AIRCRAFT --</option>';
+
+    const nations = Object.keys(registry);
     nations.forEach(nation => {
         let opt = document.createElement('option');
         opt.value = nation;
@@ -26,32 +34,32 @@ function populateNationMenu() {
     });
 }
 
-// 3. AIRCRAFT SELECTOR: Fills the second dropdown based on Nation
+// 3. AIRCRAFT FILTER: Triggered by Nation selection
 function updateAircraftMenu() {
     const nation = document.getElementById('nation-select').value;
     const acSel = document.getElementById('aircraft-select');
-    
-    // Clear previous aircraft
     acSel.innerHTML = '<option value="">-- SELECT AIRCRAFT --</option>';
-    
+
     if (registry[nation]) {
         registry[nation].forEach(ac => {
             let opt = document.createElement('option');
             opt.value = ac.max_speed_kmh;
             opt.innerHTML = ac.wt_name;
-            
-            // SECURITY FIX: Match the 'aircraft_ID' from your JSON
-            opt.setAttribute('data-key', ac.aircraft_ID); 
-            
+            opt.setAttribute('data-key', ac.aircraft_ID); // Matches your security fix
             acSel.appendChild(opt);
         });
     }
 }
 
-// 4. PHYSICS ENGINE: Calculate CdA (STEM Education Block)
-function calculateCdA(caliber, dragCx) {
-    const radius = caliber / 2;
-    const area = Math.PI * Math.pow(radius, 2);
-    const cda = area * dragCx;
-    return cda;
+// 4. MASTER ARM & SIMULATION
+function toggleMasterArm() {
+    const isArmed = document.getElementById('master-arm').checked;
+    const simBtn = document.getElementById('run-sim');
+    simBtn.disabled = !isArmed; // Only enables button if switch is ON
+    console.log("Master Arm:", isArmed ? "HOT" : "SAFE");
+}
+
+function runSimulation() {
+    console.log("Bombs Away! Running ABE Physics...");
+    // Your ABE Math loop goes here
 }
