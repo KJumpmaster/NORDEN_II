@@ -1,51 +1,58 @@
 // --- NORDEN II: TACTICAL CONTROL LOGIC ---
 let registry = {};
 
-// 1. DATA LINK: Load the JSON from GitHub
+// 1. DATA LINK: Connect to GitHub
 fetch('aircraft_registry.json')
     .then(response => {
-        if (!response.ok) throw new Error("Registry File Not Found");
+        if (!response.ok) throw new Error("Registry Missing");
         return response.json();
     })
     .then(data => {
         registry = data;
-        console.log("Systems Online: Registry Loaded.");
+        console.log("Systems Online: Data Handshake Successful.");
     })
-    .catch(err => {
-        console.error("AVIONICS FAILURE:", err);
-        alert("CRITICAL: Data Link Failed. Check your JSON for typos!");
-    });
+    .catch(err => console.error("DATA LINK FAILURE:", err));
 
-// 2. AIRCRAFT HANGAR: Fills the dropdown based on Nation
+// 2. AIRCRAFT LOADER
 function updateAircraftMenu() {
     const nation = document.getElementById('nation-select').value;
     const acSel = document.getElementById('aircraft-select');
     
-    // Clear previous aircraft
-    acSel.innerHTML = '<option value="">-- INITIALIZING HANGAR --</option>';
+    acSel.innerHTML = '<option value="">-- SELECT AIRFRAME --</option>';
 
     if (registry[nation]) {
-        acSel.innerHTML = '<option value="">-- SELECT AIRFRAME --</option>';
-        
-        registry[nation].forEach(ac => {
+        registry[nation].forEach((ac, index) => {
             let opt = document.createElement('option');
-            
-            // Matches "max_speed_kmh" in your JSON
-            opt.value = ac.max_speed_kmh; 
-            
-            // Matches "aircraft_ID" in your JSON (The visible name)
-            opt.innerHTML = ac.aircraft_ID; 
-            
-            // Matches "data_key" in your JSON (The secret-free ID)
-            opt.setAttribute('data-key', ac.data_key); 
-            
+            opt.value = index; // We use the index to find the plane later
+            opt.innerHTML = ac.aircraft_ID;
             acSel.appendChild(opt);
         });
-        console.log("Hangar populated for: " + nation);
     }
 }
 
-// 3. MASTER ARM: Safety Switch Logic
+// 3. WEAPON LOADER: Triggered when Aircraft is selected
+function updateWeaponMenu() {
+    const nation = document.getElementById('nation-select').value;
+    const acIndex = document.getElementById('aircraft-select').value;
+    const bombSel = document.getElementById('bombA-select');
+
+    bombSel.innerHTML = '<option value="">-- SELECT MUNITION --</option>';
+
+    if (nation && acIndex !== "") {
+        const selectedPlane = registry[nation][acIndex];
+        
+        selectedPlane.loadout.forEach(bomb => {
+            let opt = document.createElement('option');
+            // Store the physics data in the value
+            opt.value = JSON.stringify({cx: bomb.drag_cx, cal: bomb.caliber_m});
+            opt.innerHTML = bomb.bomb_name;
+            bombSel.appendChild(opt);
+        });
+        console.log("Munitions loaded for " + selectedPlane.aircraft_ID);
+    }
+}
+
+// 4. MASTER ARM: Safety Switch
 function toggleMasterArm() {
     const isArmed = document.getElementById('master-arm').checked;
     const simBtn = document.getElementById('run-sim');
@@ -56,7 +63,6 @@ function toggleMasterArm() {
     status.style.color = isArmed ? "#FF0000" : "#00FF41";
 }
 
-// 4. SIMULATION: Placeholder for the ABE Engine
 function runSimulation() {
-    alert("BOMBS AWAY! Initiating NORDEN II Physics...");
+    alert("BOMBS AWAY! Calculation engine engaged.");
 }
