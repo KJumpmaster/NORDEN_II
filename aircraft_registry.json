@@ -7,7 +7,7 @@
       "loadout": [
         { "bomb_name": "Mk 82 (500lb)", "drag_cx": 0.012, "caliber_m": 0.273 },
         { "bomb_name": "Mk 84 (2000lb)", "drag_cx": 0.015, "caliber_m": 0.457 },
-        { "bomb_name": "BLU-1 (Napalm)", "drag_cx": 0.025, "caliber_m": 0.400 }
+        { "bomb_name": "M117 (750lb)", "drag_cx": 0.013, "caliber_m": 0.350 }
       ]
     },
     {
