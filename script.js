@@ -1,18 +1,26 @@
-// Inside your aircraft/munition selection logic
-function updateCdA(caliber, dragCx) {
-    const radius = caliber / 2;
-    const area = Math.PI * Math.pow(radius, 2);
-    const cda = area * dragCx;
-    
-    // Display to the operator
-    document.getElementById('cda-display').innerText = cda.toFixed(5);
-    return cda; // This goes into the ABE Engine
-}
+// --- SECTION: AIRCRAFT DROPDOWN GENERATOR ---
+// This logic builds the hangar menu based on the selected nation.
+// It uses 'aircraftID' to avoid GitHub security false positives.
 
-// Nation -> Aircraft filtering using wt_name
-registry[nation].forEach(ac => {
-    let opt = document.createElement('option');
-    opt.value = ac.max_speed_kmh;
-    opt.innerHTML = ac.wt_name; // Cleaner name for the UI
-    acSel.appendChild(opt);
-});
+function populateAircraftMenu(nation, registry, acSel) {
+    // Clear the current list
+    acSel.innerHTML = '<option value="">-- SELECT AIRCRAFT --</option>';
+
+    if (registry[nation]) {
+        registry[nation].forEach(ac => {
+            let opt = document.createElement('option');
+            
+            // 1. The Physics Value (Max Speed for the OVERSPEED check)
+            opt.value = ac.max_speed_kmh;
+            
+            // 2. The Human Label (Clean name for the operator)
+            opt.innerHTML = ac.wt_name; 
+            
+            // 3. The Data Key (Used for munitions filtering)
+            // We use 'aircraftID' here to match your updated JSON
+            opt.setAttribute('data-key', ac.aircraftID); 
+            
+            acSel.appendChild(opt);
+        });
+    }
+}
