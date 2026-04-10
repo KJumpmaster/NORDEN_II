@@ -1,0 +1,2991 @@
+[
+  {
+    "name": "bomb_de_375mm_erika",
+    "mass": 250.0,
+    "dragCx": 0.007,
+    "caliber": 0.375,
+    "cda": 0.000773
+  },
+  {
+    "name": "bomb_it_bas",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.305,
+    "cda": 0.005114
+  },
+  {
+    "name": "bomb_it_mk4",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.305,
+    "cda": 0.005114
+  },
+  {
+    "name": "bomb_mark36_srboc_launcher",
+    "mass": 7.84,
+    "dragCx": 0.027,
+    "caliber": 0.13,
+    "cda": 0.000358
+  },
+  {
+    "name": "bomb_uk_107mm_17",
+    "mass": 9.08,
+    "dragCx": 0.07,
+    "caliber": 0.107,
+    "cda": 0.000629
+  },
+  {
+    "name": "bomb_uk_hedgehog",
+    "mass": 29.5,
+    "dragCx": 0.07,
+    "caliber": 0.018,
+    "cda": 1.8e-05
+  },
+  {
+    "name": "bomb_uk_limbo",
+    "mass": 177.0,
+    "dragCx": 0.07,
+    "caliber": 0.305,
+    "cda": 0.005114
+  },
+  {
+    "name": "bomb_uk_mk15_hedgehog",
+    "mass": 29.5,
+    "dragCx": 0.07,
+    "caliber": 0.018,
+    "cda": 1.8e-05
+  },
+  {
+    "name": "bomb_uk_mk4",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "bomb_ussr_82mm_o_832",
+    "mass": 3.31,
+    "dragCx": 0.07,
+    "caliber": 0.82,
+    "cda": 0.036967
+  },
+  {
+    "name": "bomb_ussr_mbu600",
+    "mass": 29.5,
+    "dragCx": 0.07,
+    "caliber": 0.018,
+    "cda": 1.8e-05
+  },
+  {
+    "name": "bomb_ussr_rbm",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "bomb_ussr_rgb12",
+    "mass": 71.5,
+    "dragCx": 0.007,
+    "caliber": 0.251,
+    "cda": 0.000346
+  },
+  {
+    "name": "bomb_ussr_rgb25",
+    "mass": 84.0,
+    "dragCx": 0.007,
+    "caliber": 0.212,
+    "cda": 0.000247
+  },
+  {
+    "name": "bomb_ussr_rgb60",
+    "mass": 113.5,
+    "dragCx": 0.007,
+    "caliber": 0.212,
+    "cda": 0.000247
+  },
+  {
+    "name": "bomb_ussr_rku36u",
+    "mass": 180.0,
+    "dragCx": 0.007,
+    "caliber": 0.302,
+    "cda": 0.000501
+  },
+  {
+    "name": "bomb_us_t37",
+    "mass": 29.5,
+    "dragCx": 0.07,
+    "caliber": 0.183,
+    "cda": 0.001841
+  },
+  {
+    "name": "br_bafg_230",
+    "mass": 248.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "br_bafg_230_2",
+    "mass": 250.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "br_bafg_230_2_default",
+    "mass": 250.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "br_bafg_230_default",
+    "mass": 248.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "br_bafg_460",
+    "mass": 452.0,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "br_bafg_460_2",
+    "mass": 486.0,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "br_bafg_920",
+    "mass": 930.0,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "br_binc_300",
+    "mass": 401.4,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "br_lizard_2",
+    "mass": 277.14,
+    "dragCx": 0.0257,
+    "caliber": 0.2794,
+    "cda": 0.001576
+  },
+  {
+    "name": "br_lizard_3",
+    "mass": 277.14,
+    "dragCx": 0.0257,
+    "caliber": 0.2794,
+    "cda": 0.001576
+  },
+  {
+    "name": "china_250kg_mk_82",
+    "mass": 216.5,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "cn_250_2_250m44",
+    "mass": 250.0,
+    "dragCx": 0.0257,
+    "caliber": 0.32,
+    "cda": 0.002067
+  },
+  {
+    "name": "cn_gp_100_2",
+    "mass": 140.0,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "cn_gp_1500_2",
+    "mass": 1447.0,
+    "dragCx": 0.134,
+    "caliber": 0.63,
+    "cda": 0.041771
+  },
+  {
+    "name": "cn_gp_250_1",
+    "mass": 252.2,
+    "dragCx": 0.0257,
+    "caliber": 0.32,
+    "cda": 0.002067
+  },
+  {
+    "name": "cn_gp_250_1_incendiary",
+    "mass": 342.0,
+    "dragCx": 0.07,
+    "caliber": 0.4,
+    "cda": 0.008796
+  },
+  {
+    "name": "cn_gp_250_2",
+    "mass": 236.0,
+    "dragCx": 0.097,
+    "caliber": 0.41,
+    "cda": 0.012806
+  },
+  {
+    "name": "cn_gp_250_2_incendiary",
+    "mass": 135.0,
+    "dragCx": 0.07,
+    "caliber": 0.325,
+    "cda": 0.005807
+  },
+  {
+    "name": "cn_gp_250_3",
+    "mass": 216.5,
+    "dragCx": 0.0257,
+    "caliber": 0.3,
+    "cda": 0.001817
+  },
+  {
+    "name": "cn_gp_250_3_default",
+    "mass": 216.5,
+    "dragCx": 0.0257,
+    "caliber": 0.3,
+    "cda": 0.001817
+  },
+  {
+    "name": "cn_gp_250_4",
+    "mass": 240.0,
+    "dragCx": 0.0257,
+    "caliber": 0.3,
+    "cda": 0.001817
+  },
+  {
+    "name": "cn_gp_3000_2",
+    "mass": 2840.0,
+    "dragCx": 0.134,
+    "caliber": 0.82,
+    "cda": 0.070766
+  },
+  {
+    "name": "cn_gp_500_2",
+    "mass": 473.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "cn_gp_500_3",
+    "mass": 469.0,
+    "dragCx": 0.097,
+    "caliber": 0.38,
+    "cda": 0.011001
+  },
+  {
+    "name": "cn_gp_500_4",
+    "mass": 508.3,
+    "dragCx": 0.097,
+    "caliber": 0.38,
+    "cda": 0.011001
+  },
+  {
+    "name": "cn_lgb_gb250_mod_laser",
+    "mass": 260.816,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "cn_ls_1000j",
+    "mass": 1090.0,
+    "dragCx": 0.0257,
+    "caliber": 0.377,
+    "cda": 0.002869
+  },
+  {
+    "name": "cn_ls_500j",
+    "mass": 570.0,
+    "dragCx": 0.0257,
+    "caliber": 0.377,
+    "cda": 0.002869
+  },
+  {
+    "name": "cn_ls_6_250",
+    "mass": 290.0,
+    "dragCx": 0.0257,
+    "caliber": 0.377,
+    "cda": 0.002869
+  },
+  {
+    "name": "cn_ls_6_250_ir",
+    "mass": 300.0,
+    "dragCx": 0.0257,
+    "caliber": 0.377,
+    "cda": 0.002869
+  },
+  {
+    "name": "cn_ls_6_500",
+    "mass": 630.0,
+    "dragCx": 0.097,
+    "caliber": 0.377,
+    "cda": 0.010828
+  },
+  {
+    "name": "cn_ls_6_500_ir",
+    "mass": 640.0,
+    "dragCx": 0.097,
+    "caliber": 0.377,
+    "cda": 0.010828
+  },
+  {
+    "name": "cn_ts_250",
+    "mass": 260.0,
+    "dragCx": 0.0257,
+    "caliber": 0.299,
+    "cda": 0.001805
+  },
+  {
+    "name": "cz_ofab_100mb",
+    "mass": 114.0,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "cz_ofab_100_110_tu_jupiter",
+    "mass": 121.0,
+    "dragCx": 0.07,
+    "caliber": 0.273,
+    "cda": 0.004097
+  },
+  {
+    "name": "depth_charge_de_wbd",
+    "mass": 196.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_de_wbf",
+    "mass": 139.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_de_wbg",
+    "mass": 180.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_de_wbg_mortar",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.45,
+    "cda": 0.011133
+  },
+  {
+    "name": "depth_charge_fr_guiraud_100",
+    "mass": 176.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_it_btg",
+    "mass": 63.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_it_btg100",
+    "mass": 126.0,
+    "dragCx": 0.07,
+    "caliber": 0.425,
+    "cda": 0.00993
+  },
+  {
+    "name": "depth_charge_jp_type3",
+    "mass": 50.0,
+    "dragCx": 0.07,
+    "caliber": 0.45,
+    "cda": 0.011133
+  },
+  {
+    "name": "depth_charge_jp_type95",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.45,
+    "cda": 0.011133
+  },
+  {
+    "name": "depth_charge_jp_type95_mortar",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.45,
+    "cda": 0.011133
+  },
+  {
+    "name": "depth_charge_mk_6",
+    "mass": 196.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_mk_6_mortar",
+    "mass": 190.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_mk_9",
+    "mass": 190.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_mk_9_mortar",
+    "mass": 190.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_mk_vii",
+    "mass": 196.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_mk_vii_mortar",
+    "mass": 196.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_uk_flower_mortar",
+    "mass": 160.0,
+    "dragCx": 0.07,
+    "caliber": 0.45,
+    "cda": 0.011133
+  },
+  {
+    "name": "depth_charge_ussr_bb1_mortar",
+    "mass": 165.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_ussr_bm1",
+    "mass": 45.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_ussr_pr_183",
+    "mass": 165.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "depth_charge_ussr_rbm",
+    "mass": 56.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "de_250_matra_25e",
+    "mass": 223.0,
+    "dragCx": 0.0257,
+    "caliber": 0.36,
+    "cda": 0.002616
+  },
+  {
+    "name": "de_flam_250",
+    "mass": 110.0,
+    "dragCx": 0.07,
+    "caliber": 0.368,
+    "cda": 0.007445
+  },
+  {
+    "name": "de_flam_500",
+    "mass": 225.0,
+    "dragCx": 0.07,
+    "caliber": 0.457,
+    "cda": 0.011482
+  },
+  {
+    "name": "de_fx1400",
+    "mass": 1570.0,
+    "dragCx": 0.134,
+    "caliber": 0.562,
+    "cda": 0.03324
+  },
+  {
+    "name": "de_hosbo_glide_bomb",
+    "mass": 305.0,
+    "dragCx": 0.025,
+    "caliber": 0.2794,
+    "cda": 0.001533
+  },
+  {
+    "name": "de_pc1000_ap",
+    "mass": 988.0,
+    "dragCx": 0.097,
+    "caliber": 0.5,
+    "cda": 0.019046
+  },
+  {
+    "name": "de_pc1000_rs_ap",
+    "mass": 987.0,
+    "dragCx": 0.097,
+    "caliber": 0.398,
+    "cda": 0.012068
+  },
+  {
+    "name": "de_pc1600_ap",
+    "mass": 1600.0,
+    "dragCx": 0.097,
+    "caliber": 0.536,
+    "cda": 0.021887
+  },
+  {
+    "name": "de_pc1800_rs_ap",
+    "mass": 2057.0,
+    "dragCx": 0.097,
+    "caliber": 0.536,
+    "cda": 0.021887
+  },
+  {
+    "name": "de_pc500_ap",
+    "mass": 500.0,
+    "dragCx": 0.097,
+    "caliber": 0.396,
+    "cda": 0.011947
+  },
+  {
+    "name": "de_pc500_rs_ap",
+    "mass": 490.0,
+    "dragCx": 0.097,
+    "caliber": 0.3,
+    "cda": 0.006857
+  },
+  {
+    "name": "de_pd500_ap",
+    "mass": 500.0,
+    "dragCx": 0.097,
+    "caliber": 0.2794,
+    "cda": 0.005947
+  },
+  {
+    "name": "de_sb2500",
+    "mass": 2500.0,
+    "dragCx": 0.134,
+    "caliber": 0.785,
+    "cda": 0.064854
+  },
+  {
+    "name": "de_sc1000",
+    "mass": 1000.0,
+    "dragCx": 0.134,
+    "caliber": 0.66,
+    "cda": 0.045844
+  },
+  {
+    "name": "de_sc1000_default",
+    "mass": 1000.0,
+    "dragCx": 0.134,
+    "caliber": 0.66,
+    "cda": 0.045844
+  },
+  {
+    "name": "de_sc1800b",
+    "mass": 1832.0,
+    "dragCx": 0.134,
+    "caliber": 0.66,
+    "cda": 0.045844
+  },
+  {
+    "name": "de_sc250",
+    "mass": 250.0,
+    "dragCx": 0.07,
+    "caliber": 0.368,
+    "cda": 0.007445
+  },
+  {
+    "name": "de_sc2500",
+    "mass": 2400.0,
+    "dragCx": 0.134,
+    "caliber": 0.829,
+    "cda": 0.072328
+  },
+  {
+    "name": "de_sc250_87",
+    "mass": 250.0,
+    "dragCx": 0.07,
+    "caliber": 0.368,
+    "cda": 0.007445
+  },
+  {
+    "name": "de_sc250_default",
+    "mass": 250.0,
+    "dragCx": 0.07,
+    "caliber": 0.368,
+    "cda": 0.007445
+  },
+  {
+    "name": "de_sc50",
+    "mass": 50.0,
+    "dragCx": 0.02,
+    "caliber": 0.203,
+    "cda": 0.000647
+  },
+  {
+    "name": "de_sc500",
+    "mass": 500.0,
+    "dragCx": 0.097,
+    "caliber": 0.457,
+    "cda": 0.015911
+  },
+  {
+    "name": "de_sc500_87",
+    "mass": 500.0,
+    "dragCx": 0.097,
+    "caliber": 0.457,
+    "cda": 0.015911
+  },
+  {
+    "name": "de_sc50_default",
+    "mass": 50.0,
+    "dragCx": 0.02,
+    "caliber": 0.203,
+    "cda": 0.000647
+  },
+  {
+    "name": "de_sc_ag300",
+    "mass": 300.0,
+    "dragCx": 0.07,
+    "caliber": 0.368,
+    "cda": 0.007445
+  },
+  {
+    "name": "de_sd10a",
+    "mass": 10.0,
+    "dragCx": 0.006,
+    "caliber": 0.086,
+    "cda": 3.5e-05
+  },
+  {
+    "name": "de_sd50",
+    "mass": 50.0,
+    "dragCx": 0.006,
+    "caliber": 0.203,
+    "cda": 0.000194
+  },
+  {
+    "name": "de_sd70",
+    "mass": 66.0,
+    "dragCx": 0.006,
+    "caliber": 0.203,
+    "cda": 0.000194
+  },
+  {
+    "name": "de_sd_10a",
+    "mass": 10.0,
+    "dragCx": 0.006,
+    "caliber": 0.086,
+    "cda": 3.5e-05
+  },
+  {
+    "name": "fi_100kg_1938",
+    "mass": 103.5,
+    "dragCx": 0.04,
+    "caliber": 0.254,
+    "cda": 0.002027
+  },
+  {
+    "name": "fi_250kg_1930mod",
+    "mass": 252.2,
+    "dragCx": 0.07,
+    "caliber": 0.318,
+    "cda": 0.00556
+  },
+  {
+    "name": "fi_450kg_1937mod",
+    "mass": 450.0,
+    "dragCx": 0.07,
+    "caliber": 0.406,
+    "cda": 0.009062
+  },
+  {
+    "name": "fi_50kg_1938",
+    "mass": 49.76,
+    "dragCx": 0.02,
+    "caliber": 0.178,
+    "cda": 0.000498
+  },
+  {
+    "name": "fr_1000kg_samp_mk84",
+    "mass": 893.6,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "fr_100kg",
+    "mass": 118.0,
+    "dragCx": 0.04,
+    "caliber": 0.275,
+    "cda": 0.002376
+  },
+  {
+    "name": "fr_125kg_gbu_58_paveway_2",
+    "mass": 161.24,
+    "dragCx": 0.0106,
+    "caliber": 0.229,
+    "cda": 0.000437
+  },
+  {
+    "name": "fr_130kg_samp_mk81",
+    "mass": 130.0,
+    "dragCx": 0.0106,
+    "caliber": 0.229,
+    "cda": 0.000437
+  },
+  {
+    "name": "fr_150kg_i2_navale",
+    "mass": 118.0,
+    "dragCx": 0.04,
+    "caliber": 0.355,
+    "cda": 0.003959
+  },
+  {
+    "name": "fr_200kg",
+    "mass": 225.0,
+    "dragCx": 0.07,
+    "caliber": 0.37,
+    "cda": 0.007526
+  },
+  {
+    "name": "fr_250kg_aasm_250_hammer_gps",
+    "mass": 330.0,
+    "dragCx": 0.025,
+    "caliber": 0.273,
+    "cda": 0.001463
+  },
+  {
+    "name": "fr_250kg_aasm_250_hammer_ir",
+    "mass": 330.0,
+    "dragCx": 0.025,
+    "caliber": 0.273,
+    "cda": 0.001463
+  },
+  {
+    "name": "fr_250kg_aasm_250_hammer_laser",
+    "mass": 330.0,
+    "dragCx": 0.025,
+    "caliber": 0.273,
+    "cda": 0.001463
+  },
+  {
+    "name": "fr_250kg_samp_mk82",
+    "mass": 240.9,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "fr_250_samp_type_25",
+    "mass": 247.0,
+    "dragCx": 0.0257,
+    "caliber": 0.324,
+    "cda": 0.002119
+  },
+  {
+    "name": "fr_250_samp_type_25_200",
+    "mass": 247.0,
+    "dragCx": 0.0257,
+    "caliber": 0.324,
+    "cda": 0.002119
+  },
+  {
+    "name": "fr_250_samp_type_25_200_default",
+    "mass": 247.0,
+    "dragCx": 0.0257,
+    "caliber": 0.324,
+    "cda": 0.002119
+  },
+  {
+    "name": "fr_250_samp_type_25_default",
+    "mass": 247.0,
+    "dragCx": 0.0257,
+    "caliber": 0.324,
+    "cda": 0.002119
+  },
+  {
+    "name": "fr_400_samp_type_21",
+    "mass": 400.0,
+    "dragCx": 0.042,
+    "caliber": 0.449,
+    "cda": 0.00665
+  },
+  {
+    "name": "fr_400_samp_type_21_200",
+    "mass": 400.0,
+    "dragCx": 0.042,
+    "caliber": 0.449,
+    "cda": 0.00665
+  },
+  {
+    "name": "fr_460l_secan_63",
+    "mass": 420.0,
+    "dragCx": 0.07,
+    "caliber": 0.49,
+    "cda": 0.0132
+  },
+  {
+    "name": "fr_500kg_1930",
+    "mass": 508.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "fr_500kg_2",
+    "mass": 520.72,
+    "dragCx": 0.097,
+    "caliber": 0.49,
+    "cda": 0.018292
+  },
+  {
+    "name": "fr_500kg_3",
+    "mass": 542.0,
+    "dragCx": 0.097,
+    "caliber": 0.49,
+    "cda": 0.018292
+  },
+  {
+    "name": "fr_500kg_3_1",
+    "mass": 520.0,
+    "dragCx": 0.097,
+    "caliber": 0.49,
+    "cda": 0.018292
+  },
+  {
+    "name": "fr_500kg_aasm_500_hammer_ir",
+    "mass": 541.0,
+    "dragCx": 0.025,
+    "caliber": 0.356,
+    "cda": 0.002488
+  },
+  {
+    "name": "fr_500kg_aasm_500_hammer_laser",
+    "mass": 541.0,
+    "dragCx": 0.025,
+    "caliber": 0.356,
+    "cda": 0.002488
+  },
+  {
+    "name": "fr_500kg_samp_mk83",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "fr_50kg_a",
+    "mass": 39.0,
+    "dragCx": 0.02,
+    "caliber": 0.2,
+    "cda": 0.000628
+  },
+  {
+    "name": "fr_50kg_dt2",
+    "mass": 55.7,
+    "dragCx": 0.02,
+    "caliber": 0.2,
+    "cda": 0.000628
+  },
+  {
+    "name": "fr_50kg_gammn",
+    "mass": 53.0,
+    "dragCx": 0.02,
+    "caliber": 0.2,
+    "cda": 0.000628
+  },
+  {
+    "name": "fr_50kg_type_61c",
+    "mass": 45.8,
+    "dragCx": 0.02,
+    "caliber": 0.207,
+    "cda": 0.000673
+  },
+  {
+    "name": "fr_750lb_m117_cone_45",
+    "mass": 362.42,
+    "dragCx": 0.038,
+    "caliber": 0.408,
+    "cda": 0.004968
+  },
+  {
+    "name": "fr_750lb_m117_cone_90",
+    "mass": 362.42,
+    "dragCx": 0.038,
+    "caliber": 0.408,
+    "cda": 0.004968
+  },
+  {
+    "name": "fr_75kg_g2_navale",
+    "mass": 73.0,
+    "dragCx": 0.02,
+    "caliber": 0.22,
+    "cda": 0.00076
+  },
+  {
+    "name": "fr_an52",
+    "mass": 996.3,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "fr_bgl_1000",
+    "mass": 970.0,
+    "dragCx": 0.0257,
+    "caliber": 0.4572,
+    "cda": 0.004219
+  },
+  {
+    "name": "fr_bgl_400",
+    "mass": 400.0,
+    "dragCx": 0.0257,
+    "caliber": 0.403,
+    "cda": 0.003278
+  },
+  {
+    "name": "fr_mk13",
+    "mass": 546.5,
+    "dragCx": 0.0257,
+    "caliber": 0.42,
+    "cda": 0.003561
+  },
+  {
+    "name": "fr_mk18",
+    "mass": 546.5,
+    "dragCx": 0.0257,
+    "caliber": 0.42,
+    "cda": 0.003561
+  },
+  {
+    "name": "fr_samp_mk_82_250_ldgp_snakeye",
+    "mass": 254.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "il_100_50_kg_gp",
+    "mass": 134.0,
+    "dragCx": 0.0106,
+    "caliber": 0.274,
+    "cda": 0.000625
+  },
+  {
+    "name": "il_250_50_kg_gp",
+    "mass": 265.7,
+    "dragCx": 0.0257,
+    "caliber": 0.36,
+    "cda": 0.002616
+  },
+  {
+    "name": "il_360_50_kg_gp",
+    "mass": 362.42,
+    "dragCx": 0.038,
+    "caliber": 0.409,
+    "cda": 0.004993
+  },
+  {
+    "name": "il_380l_mk2_fire_bomb",
+    "mass": 401.4,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "il_500_50_kg_gp",
+    "mass": 453.6,
+    "dragCx": 0.042,
+    "caliber": 0.48,
+    "cda": 0.0076
+  },
+  {
+    "name": "il_spice_1000",
+    "mass": 490.0,
+    "dragCx": 0.025,
+    "caliber": 0.356,
+    "cda": 0.002488
+  },
+  {
+    "name": "il_spice_2000",
+    "mass": 970.0,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "il_spice_250",
+    "mass": 130.0,
+    "dragCx": 0.025,
+    "caliber": 0.19,
+    "cda": 0.000709
+  },
+  {
+    "name": "it_100kg_m",
+    "mass": 109.0,
+    "dragCx": 0.04,
+    "caliber": 0.25,
+    "cda": 0.001963
+  },
+  {
+    "name": "it_100kg_m_vert",
+    "mass": 109.0,
+    "dragCx": 0.04,
+    "caliber": 0.25,
+    "cda": 0.001963
+  },
+  {
+    "name": "it_100kg_t",
+    "mass": 100.0,
+    "dragCx": 0.04,
+    "caliber": 0.27,
+    "cda": 0.00229
+  },
+  {
+    "name": "it_100kg_t_vert",
+    "mass": 100.0,
+    "dragCx": 0.04,
+    "caliber": 0.27,
+    "cda": 0.00229
+  },
+  {
+    "name": "it_150kg_ap",
+    "mass": 151.1,
+    "dragCx": 0.04,
+    "caliber": 0.25,
+    "cda": 0.001963
+  },
+  {
+    "name": "it_160kg_ap",
+    "mass": 151.1,
+    "dragCx": 0.04,
+    "caliber": 0.25,
+    "cda": 0.001963
+  },
+  {
+    "name": "it_250kg_gp",
+    "mass": 259.0,
+    "dragCx": 0.07,
+    "caliber": 0.43,
+    "cda": 0.010165
+  },
+  {
+    "name": "it_250kg_gp_stuka",
+    "mass": 259.0,
+    "dragCx": 0.07,
+    "caliber": 0.43,
+    "cda": 0.010165
+  },
+  {
+    "name": "it_250kg_napalm_aerea_559g1",
+    "mass": 253.0,
+    "dragCx": 0.07,
+    "caliber": 0.43,
+    "cda": 0.010165
+  },
+  {
+    "name": "it_500kg_gp",
+    "mass": 508.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "it_500kg_gp_stuka",
+    "mass": 508.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "it_50kg_t",
+    "mass": 58.0,
+    "dragCx": 0.02,
+    "caliber": 0.252,
+    "cda": 0.000998
+  },
+  {
+    "name": "it_50kg_t_vert",
+    "mass": 58.0,
+    "dragCx": 0.02,
+    "caliber": 0.252,
+    "cda": 0.000998
+  },
+  {
+    "name": "it_630kg_ap",
+    "mass": 651.5,
+    "dragCx": 0.04,
+    "caliber": 0.398,
+    "cda": 0.004976
+  },
+  {
+    "name": "it_800kg_gp",
+    "mass": 821.6,
+    "dragCx": 0.2,
+    "caliber": 0.45,
+    "cda": 0.031809
+  },
+  {
+    "name": "jp_500lb_mk82_gcs_1",
+    "mass": 283.0,
+    "dragCx": 0.025,
+    "caliber": 0.273,
+    "cda": 0.001463
+  },
+  {
+    "name": "jp_750lb_m117_gcs_1",
+    "mass": 410.0,
+    "dragCx": 0.025,
+    "caliber": 0.41,
+    "cda": 0.003301
+  },
+  {
+    "name": "jp_ijnaf_type_3_number_150_1500kg_ap",
+    "mass": 1498.6,
+    "dragCx": 0.2,
+    "caliber": 0.51,
+    "cda": 0.040856
+  },
+  {
+    "name": "jp_navy_mod25mark2_250kg",
+    "mass": 257.0,
+    "dragCx": 0.07,
+    "caliber": 0.358,
+    "cda": 0.007046
+  },
+  {
+    "name": "jp_navy_mod25mark2_250kg_default",
+    "mass": 257.0,
+    "dragCx": 0.07,
+    "caliber": 0.358,
+    "cda": 0.007046
+  },
+  {
+    "name": "jp_navy_mod50mark1_500kg",
+    "mass": 491.0,
+    "dragCx": 0.097,
+    "caliber": 0.381,
+    "cda": 0.011059
+  },
+  {
+    "name": "jp_navy_mod50mark2_500kg",
+    "mass": 507.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "jp_navy_mod80mark1_800kg",
+    "mass": 805.0,
+    "dragCx": 0.2,
+    "caliber": 0.449,
+    "cda": 0.031667
+  },
+  {
+    "name": "jp_navy_type97mod6_60kg",
+    "mass": 60.4,
+    "dragCx": 0.02,
+    "caliber": 0.199,
+    "cda": 0.000622
+  },
+  {
+    "name": "jp_navy_type98mod25_250kg",
+    "mass": 242.2,
+    "dragCx": 0.07,
+    "caliber": 0.304,
+    "cda": 0.005081
+  },
+  {
+    "name": "jp_navy_type99mod25_250kg",
+    "mass": 251.0,
+    "dragCx": 0.2,
+    "caliber": 0.304,
+    "cda": 0.014517
+  },
+  {
+    "name": "jp_navy_type99mod80_800kg",
+    "mass": 796.8,
+    "dragCx": 0.2,
+    "caliber": 0.4064,
+    "cda": 0.025943
+  },
+  {
+    "name": "jp_type92mod25",
+    "mass": 250.0,
+    "dragCx": 0.07,
+    "caliber": 0.241,
+    "cda": 0.003193
+  },
+  {
+    "name": "jp_type92mod50",
+    "mass": 495.0,
+    "dragCx": 0.097,
+    "caliber": 0.381,
+    "cda": 0.011059
+  },
+  {
+    "name": "jp_type94mod10",
+    "mass": 112.76,
+    "dragCx": 0.04,
+    "caliber": 0.241,
+    "cda": 0.001825
+  },
+  {
+    "name": "jp_type94mod5",
+    "mass": 48.43,
+    "dragCx": 0.02,
+    "caliber": 0.18,
+    "cda": 0.000509
+  },
+  {
+    "name": "kr_kggb",
+    "mass": 316.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "nld_100kg",
+    "mass": 118.0,
+    "dragCx": 0.04,
+    "caliber": 0.25,
+    "cda": 0.001963
+  },
+  {
+    "name": "nld_300kg",
+    "mass": 300.0,
+    "dragCx": 0.07,
+    "caliber": 0.4,
+    "cda": 0.008796
+  },
+  {
+    "name": "nld_400kg",
+    "mass": 400.0,
+    "dragCx": 0.042,
+    "caliber": 0.4,
+    "cda": 0.005278
+  },
+  {
+    "name": "nld_50kg",
+    "mass": 39.0,
+    "dragCx": 0.02,
+    "caliber": 0.21,
+    "cda": 0.000693
+  },
+  {
+    "name": "ponybomb500",
+    "mass": 508.3,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "ro_ba_100kg_bomb_45",
+    "mass": 114.0,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "ro_ba_250kg_bomb_45",
+    "mass": 250.0,
+    "dragCx": 0.07,
+    "caliber": 0.325,
+    "cda": 0.005807
+  },
+  {
+    "name": "ro_ba_500kg_bomb_45",
+    "mass": 508.3,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "ro_be_50kg_bomb_45",
+    "mass": 55.0,
+    "dragCx": 0.02,
+    "caliber": 0.194,
+    "cda": 0.000591
+  },
+  {
+    "name": "su_ao_25m_1",
+    "mass": 25.5,
+    "dragCx": 0.02,
+    "caliber": 0.122,
+    "cda": 0.000234
+  },
+  {
+    "name": "su_brab_1000m43_ap",
+    "mass": 1012.0,
+    "dragCx": 0.097,
+    "caliber": 0.356,
+    "cda": 0.009655
+  },
+  {
+    "name": "su_brab_1000_1938_ap",
+    "mass": 1046.0,
+    "dragCx": 0.097,
+    "caliber": 0.48,
+    "cda": 0.017553
+  },
+  {
+    "name": "su_brab_220_1930_ap",
+    "mass": 240.0,
+    "dragCx": 0.097,
+    "caliber": 0.278,
+    "cda": 0.005888
+  },
+  {
+    "name": "su_brab_250_ap",
+    "mass": 255.0,
+    "dragCx": 0.097,
+    "caliber": 0.22,
+    "cda": 0.003687
+  },
+  {
+    "name": "su_brab_500m43_ap",
+    "mass": 510.0,
+    "dragCx": 0.097,
+    "caliber": 0.279,
+    "cda": 0.00593
+  },
+  {
+    "name": "su_brab_500_1938_ap",
+    "mass": 531.3,
+    "dragCx": 0.097,
+    "caliber": 0.388,
+    "cda": 0.011469
+  },
+  {
+    "name": "su_fab100",
+    "mass": 103.5,
+    "dragCx": 0.04,
+    "caliber": 0.28,
+    "cda": 0.002463
+  },
+  {
+    "name": "su_fab1000",
+    "mass": 1080.0,
+    "dragCx": 0.134,
+    "caliber": 0.502,
+    "cda": 0.026522
+  },
+  {
+    "name": "su_fab1000x",
+    "mass": 1080.0,
+    "dragCx": 0.134,
+    "caliber": 0.502,
+    "cda": 0.026522
+  },
+  {
+    "name": "su_fab100x",
+    "mass": 103.5,
+    "dragCx": 0.04,
+    "caliber": 0.28,
+    "cda": 0.002463
+  },
+  {
+    "name": "su_fab100_default",
+    "mass": 103.5,
+    "dragCx": 0.04,
+    "caliber": 0.28,
+    "cda": 0.002463
+  },
+  {
+    "name": "su_fab100_short_fin",
+    "mass": 103.5,
+    "dragCx": 0.04,
+    "caliber": 0.28,
+    "cda": 0.002463
+  },
+  {
+    "name": "su_fab250",
+    "mass": 252.2,
+    "dragCx": 0.07,
+    "caliber": 0.318,
+    "cda": 0.00556
+  },
+  {
+    "name": "su_fab250x",
+    "mass": 252.2,
+    "dragCx": 0.07,
+    "caliber": 0.318,
+    "cda": 0.00556
+  },
+  {
+    "name": "su_fab250_270",
+    "mass": 268.0,
+    "dragCx": 0.097,
+    "caliber": 0.41,
+    "cda": 0.012806
+  },
+  {
+    "name": "su_fab250_m54",
+    "mass": 236.0,
+    "dragCx": 0.097,
+    "caliber": 0.325,
+    "cda": 0.008047
+  },
+  {
+    "name": "su_fab50",
+    "mass": 49.76,
+    "dragCx": 0.02,
+    "caliber": 0.24,
+    "cda": 0.000905
+  },
+  {
+    "name": "su_fab500",
+    "mass": 508.3,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab5000",
+    "mass": 5080.0,
+    "dragCx": 0.154,
+    "caliber": 1.0,
+    "cda": 0.120951
+  },
+  {
+    "name": "su_fab500sh",
+    "mass": 515.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab500x",
+    "mass": 508.3,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab500_m54",
+    "mass": 478.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab500_m54_china",
+    "mass": 478.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab50x",
+    "mass": 49.76,
+    "dragCx": 0.02,
+    "caliber": 0.24,
+    "cda": 0.000905
+  },
+  {
+    "name": "su_fab50_default",
+    "mass": 49.76,
+    "dragCx": 0.02,
+    "caliber": 0.24,
+    "cda": 0.000905
+  },
+  {
+    "name": "su_fab_1000m_43",
+    "mass": 1077.0,
+    "dragCx": 0.134,
+    "caliber": 0.502,
+    "cda": 0.026522
+  },
+  {
+    "name": "su_fab_1000m_44",
+    "mass": 890.69,
+    "dragCx": 0.134,
+    "caliber": 0.6,
+    "cda": 0.037888
+  },
+  {
+    "name": "su_fab_100m_43",
+    "mass": 103.5,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "su_fab_1500m_46",
+    "mass": 1400.0,
+    "dragCx": 0.134,
+    "caliber": 0.63,
+    "cda": 0.041771
+  },
+  {
+    "name": "su_fab_1500m_54",
+    "mass": 1550.0,
+    "dragCx": 0.134,
+    "caliber": 0.63,
+    "cda": 0.041771
+  },
+  {
+    "name": "su_fab_250m_43",
+    "mass": 225.96,
+    "dragCx": 0.0257,
+    "caliber": 0.32,
+    "cda": 0.002067
+  },
+  {
+    "name": "su_fab_250m_44",
+    "mass": 250.0,
+    "dragCx": 0.0257,
+    "caliber": 0.32,
+    "cda": 0.002067
+  },
+  {
+    "name": "su_fab_250m_46",
+    "mass": 252.2,
+    "dragCx": 0.0257,
+    "caliber": 0.32,
+    "cda": 0.002067
+  },
+  {
+    "name": "su_fab_250m_62",
+    "mass": 227.0,
+    "dragCx": 0.0257,
+    "caliber": 0.3,
+    "cda": 0.001817
+  },
+  {
+    "name": "su_fab_250ts",
+    "mass": 252.2,
+    "dragCx": 0.0257,
+    "caliber": 0.32,
+    "cda": 0.002067
+  },
+  {
+    "name": "su_fab_3000m_46",
+    "mass": 2983.0,
+    "dragCx": 0.134,
+    "caliber": 0.82,
+    "cda": 0.070766
+  },
+  {
+    "name": "su_fab_3000m_54",
+    "mass": 3067.0,
+    "dragCx": 0.134,
+    "caliber": 0.82,
+    "cda": 0.070766
+  },
+  {
+    "name": "su_fab_500m_43",
+    "mass": 468.57,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab_500m_44",
+    "mass": 477.1,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab_500m_46",
+    "mass": 428.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab_500m_62t",
+    "mass": 508.3,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_fab_500ts",
+    "mass": 428.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "su_grom_2",
+    "mass": 598.0,
+    "dragCx": 0.0257,
+    "caliber": 0.31,
+    "cda": 0.00194
+  },
+  {
+    "name": "su_grom_e2",
+    "mass": 598.0,
+    "dragCx": 0.0257,
+    "caliber": 0.31,
+    "cda": 0.00194
+  },
+  {
+    "name": "su_kab_1500kr",
+    "mass": 1525.0,
+    "dragCx": 0.025,
+    "caliber": 0.58,
+    "cda": 0.006605
+  },
+  {
+    "name": "su_kab_1500l",
+    "mass": 1525.0,
+    "dragCx": 0.0257,
+    "caliber": 0.58,
+    "cda": 0.00679
+  },
+  {
+    "name": "su_kab_1500lg",
+    "mass": 1525.0,
+    "dragCx": 0.0257,
+    "caliber": 0.58,
+    "cda": 0.00679
+  },
+  {
+    "name": "su_kab_1500lg_e",
+    "mass": 1525.0,
+    "dragCx": 0.0257,
+    "caliber": 0.58,
+    "cda": 0.00679
+  },
+  {
+    "name": "su_kab_250lg",
+    "mass": 256.0,
+    "dragCx": 0.0257,
+    "caliber": 0.255,
+    "cda": 0.001313
+  },
+  {
+    "name": "su_kab_250lg_e",
+    "mass": 256.0,
+    "dragCx": 0.0257,
+    "caliber": 0.255,
+    "cda": 0.001313
+  },
+  {
+    "name": "su_kab_500kr",
+    "mass": 520.0,
+    "dragCx": 0.025,
+    "caliber": 0.35,
+    "cda": 0.002405
+  },
+  {
+    "name": "su_kab_500kr_e",
+    "mass": 520.0,
+    "dragCx": 0.025,
+    "caliber": 0.35,
+    "cda": 0.002405
+  },
+  {
+    "name": "su_kab_500kr_m",
+    "mass": 520.0,
+    "dragCx": 0.025,
+    "caliber": 0.35,
+    "cda": 0.002405
+  },
+  {
+    "name": "su_kab_500l",
+    "mass": 560.0,
+    "dragCx": 0.0257,
+    "caliber": 0.4,
+    "cda": 0.00323
+  },
+  {
+    "name": "su_kab_500lg",
+    "mass": 560.0,
+    "dragCx": 0.0257,
+    "caliber": 0.4,
+    "cda": 0.00323
+  },
+  {
+    "name": "su_kab_500lg_e",
+    "mass": 560.0,
+    "dragCx": 0.0257,
+    "caliber": 0.4,
+    "cda": 0.00323
+  },
+  {
+    "name": "su_kab_500s",
+    "mass": 560.0,
+    "dragCx": 0.0257,
+    "caliber": 0.4,
+    "cda": 0.00323
+  },
+  {
+    "name": "su_kab_50l",
+    "mass": 50.0,
+    "dragCx": 0.025,
+    "caliber": 0.12,
+    "cda": 0.000283
+  },
+  {
+    "name": "su_kab_50s",
+    "mass": 50.0,
+    "dragCx": 0.025,
+    "caliber": 0.12,
+    "cda": 0.000283
+  },
+  {
+    "name": "su_kab_50tv",
+    "mass": 50.0,
+    "dragCx": 0.025,
+    "caliber": 0.12,
+    "cda": 0.000283
+  },
+  {
+    "name": "su_ofab100m",
+    "mass": 114.0,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "su_ofab100_120",
+    "mass": 114.0,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "su_ofab250",
+    "mass": 250.0,
+    "dragCx": 0.07,
+    "caliber": 0.325,
+    "cda": 0.005807
+  },
+  {
+    "name": "su_ofab250sh",
+    "mass": 275.0,
+    "dragCx": 0.07,
+    "caliber": 0.325,
+    "cda": 0.005807
+  },
+  {
+    "name": "su_ofab250_olive",
+    "mass": 236.92,
+    "dragCx": 0.07,
+    "caliber": 0.325,
+    "cda": 0.005807
+  },
+  {
+    "name": "su_ofab_100_120",
+    "mass": 114.0,
+    "dragCx": 0.04,
+    "caliber": 0.273,
+    "cda": 0.002341
+  },
+  {
+    "name": "su_ofab_250_270",
+    "mass": 268.0,
+    "dragCx": 0.097,
+    "caliber": 0.325,
+    "cda": 0.008047
+  },
+  {
+    "name": "su_rds4",
+    "mass": 2983.0,
+    "dragCx": 0.134,
+    "caliber": 0.82,
+    "cda": 0.070766
+  },
+  {
+    "name": "su_rn_28",
+    "mass": 2983.0,
+    "dragCx": 0.134,
+    "caliber": 0.82,
+    "cda": 0.070766
+  },
+  {
+    "name": "su_umpk_3000",
+    "mass": 3320.0,
+    "dragCx": 0.0257,
+    "caliber": 0.82,
+    "cda": 0.013572
+  },
+  {
+    "name": "su_umpk_500m62",
+    "mass": 560.0,
+    "dragCx": 0.0257,
+    "caliber": 0.4,
+    "cda": 0.00323
+  },
+  {
+    "name": "su_upab_1500b",
+    "mass": 1525.0,
+    "dragCx": 0.025,
+    "caliber": 0.4,
+    "cda": 0.003142
+  },
+  {
+    "name": "su_upab_1500b_e",
+    "mass": 1525.0,
+    "dragCx": 0.025,
+    "caliber": 0.4,
+    "cda": 0.003142
+  },
+  {
+    "name": "su_upab_500b",
+    "mass": 505.0,
+    "dragCx": 0.0257,
+    "caliber": 0.355,
+    "cda": 0.002544
+  },
+  {
+    "name": "su_upab_500b_e",
+    "mass": 505.0,
+    "dragCx": 0.0257,
+    "caliber": 0.355,
+    "cda": 0.002544
+  },
+  {
+    "name": "su_zab50fp",
+    "mass": 49.76,
+    "dragCx": 0.02,
+    "caliber": 0.219,
+    "cda": 0.000753
+  },
+  {
+    "name": "su_zb_360",
+    "mass": 342.0,
+    "dragCx": 0.07,
+    "caliber": 0.4,
+    "cda": 0.008796
+  },
+  {
+    "name": "su_zb_500",
+    "mass": 374.0,
+    "dragCx": 0.07,
+    "caliber": 0.5,
+    "cda": 0.013744
+  },
+  {
+    "name": "swd_120kg_sb_m61",
+    "mass": 120.0,
+    "dragCx": 0.04,
+    "caliber": 0.21,
+    "cda": 0.001385
+  },
+  {
+    "name": "swd_120kg_sb_m71",
+    "mass": 120.0,
+    "dragCx": 0.04,
+    "caliber": 0.21,
+    "cda": 0.001385
+  },
+  {
+    "name": "swd_120kg_sb_m71_retarded",
+    "mass": 120.0,
+    "dragCx": 0.04,
+    "caliber": 0.21,
+    "cda": 0.001385
+  },
+  {
+    "name": "swd_250kg_minb_m37b",
+    "mass": 252.0,
+    "dragCx": 0.07,
+    "caliber": 0.37,
+    "cda": 0.007526
+  },
+  {
+    "name": "swd_250kg_minb_m40",
+    "mass": 230.0,
+    "dragCx": 0.07,
+    "caliber": 0.37,
+    "cda": 0.007526
+  },
+  {
+    "name": "swd_250kg_minb_m50",
+    "mass": 272.4,
+    "dragCx": 0.07,
+    "caliber": 0.37,
+    "cda": 0.007526
+  },
+  {
+    "name": "swd_500kg_minb_m41",
+    "mass": 513.0,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "swd_500kg_minb_m56",
+    "mass": 500.0,
+    "dragCx": 0.097,
+    "caliber": 0.42,
+    "cda": 0.013439
+  },
+  {
+    "name": "swd_50kg_sb_m37a",
+    "mass": 59.0,
+    "dragCx": 0.02,
+    "caliber": 0.2,
+    "cda": 0.000628
+  },
+  {
+    "name": "swd_50kg_sb_m42",
+    "mass": 50.0,
+    "dragCx": 0.02,
+    "caliber": 0.2,
+    "cda": 0.000628
+  },
+  {
+    "name": "swd_50kg_sb_m47",
+    "mass": 50.0,
+    "dragCx": 0.02,
+    "caliber": 0.2,
+    "cda": 0.000628
+  },
+  {
+    "name": "swd_600kg_minb_m50",
+    "mass": 614.4,
+    "dragCx": 0.097,
+    "caliber": 0.45,
+    "cda": 0.015427
+  },
+  {
+    "name": "sws_200_kg_sprengbombe",
+    "mass": 200.0,
+    "dragCx": 0.0257,
+    "caliber": 0.31,
+    "cda": 0.00194
+  },
+  {
+    "name": "sws_400kg_febb_napalmbombe",
+    "mass": 400.0,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "sws_400_kg_sprengbombe",
+    "mass": 400.0,
+    "dragCx": 0.042,
+    "caliber": 0.4,
+    "cda": 0.005278
+  },
+  {
+    "name": "sws_450_kg_sprengbombe_68_70",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.3,
+    "cda": 0.002969
+  },
+  {
+    "name": "sws_50_kg_sprengbombe",
+    "mass": 50.0,
+    "dragCx": 0.02,
+    "caliber": 0.203,
+    "cda": 0.000647
+  },
+  {
+    "name": "sw_500kg_brandbomb_m58",
+    "mass": 510.0,
+    "dragCx": 0.07,
+    "caliber": 0.4,
+    "cda": 0.008796
+  },
+  {
+    "name": "uk_1000lbs_gp",
+    "mass": 486.0,
+    "dragCx": 0.042,
+    "caliber": 0.41,
+    "cda": 0.005545
+  },
+  {
+    "name": "uk_1000lbs_gp_default",
+    "mass": 486.0,
+    "dragCx": 0.042,
+    "caliber": 0.41,
+    "cda": 0.005545
+  },
+  {
+    "name": "uk_1000lbs_gp_mk1",
+    "mass": 495.7,
+    "dragCx": 0.042,
+    "caliber": 0.41,
+    "cda": 0.005545
+  },
+  {
+    "name": "uk_1000lbs_gp_n117",
+    "mass": 486.0,
+    "dragCx": 0.042,
+    "caliber": 0.41,
+    "cda": 0.005545
+  },
+  {
+    "name": "uk_1000lbs_mc_mk1",
+    "mass": 474.4,
+    "dragCx": 0.042,
+    "caliber": 0.45,
+    "cda": 0.00668
+  },
+  {
+    "name": "uk_1000lbs_mc_mk1_mk2_bomb",
+    "mass": 463.1,
+    "dragCx": 0.042,
+    "caliber": 0.45,
+    "cda": 0.00668
+  },
+  {
+    "name": "uk_1000lb_enhanced_paveway2_mk13",
+    "mass": 546.5,
+    "dragCx": 0.0257,
+    "caliber": 0.42,
+    "cda": 0.003561
+  },
+  {
+    "name": "uk_1000lb_ld_he_mc_mk_1",
+    "mass": 453.6,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "uk_12000lb_hc_mki_n33_bomb",
+    "mass": 5740.6,
+    "dragCx": 0.085,
+    "caliber": 0.965,
+    "cda": 0.062168
+  },
+  {
+    "name": "uk_12000lb_hc_mki_n52_bomb",
+    "mass": 5740.6,
+    "dragCx": 0.085,
+    "caliber": 0.965,
+    "cda": 0.062168
+  },
+  {
+    "name": "uk_1650lb_sn_he",
+    "mass": 748.0,
+    "dragCx": 0.042,
+    "caliber": 0.47,
+    "cda": 0.007287
+  },
+  {
+    "name": "uk_2000lb_ap_mki",
+    "mass": 877.2,
+    "dragCx": 0.0257,
+    "caliber": 0.343,
+    "cda": 0.002375
+  },
+  {
+    "name": "uk_230lbs",
+    "mass": 90.7,
+    "dragCx": 0.015,
+    "caliber": 0.254,
+    "cda": 0.00076
+  },
+  {
+    "name": "uk_250lbs",
+    "mass": 104.3,
+    "dragCx": 0.015,
+    "caliber": 0.259,
+    "cda": 0.00079
+  },
+  {
+    "name": "uk_250lbs_43",
+    "mass": 104.3,
+    "dragCx": 0.015,
+    "caliber": 0.259,
+    "cda": 0.00079
+  },
+  {
+    "name": "uk_250lbs_default",
+    "mass": 104.3,
+    "dragCx": 0.015,
+    "caliber": 0.259,
+    "cda": 0.00079
+  },
+  {
+    "name": "uk_250lbs_late",
+    "mass": 104.3,
+    "dragCx": 0.0106,
+    "caliber": 0.259,
+    "cda": 0.000558
+  },
+  {
+    "name": "uk_250lbs_mc_mk1_mk2_bomb",
+    "mass": 102.0,
+    "dragCx": 0.015,
+    "caliber": 0.254,
+    "cda": 0.00076
+  },
+  {
+    "name": "uk_250lbs_mc_mk1_mk2_bomb_default",
+    "mass": 102.0,
+    "dragCx": 0.015,
+    "caliber": 0.254,
+    "cda": 0.00076
+  },
+  {
+    "name": "uk_4000lb_gp_mk1_mk2_bomb",
+    "mass": 1627.6,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_4000lb_hc_mk1_bomb",
+    "mass": 1782.6,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_4000lb_hc_mk2_bomb",
+    "mass": 1782.6,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_4000lb_hc_mk3_bomb",
+    "mass": 1782.6,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_4000lb_hc_mk4_bomb",
+    "mass": 1835.2,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_4000lb_mc_mk1_mk2_bomb",
+    "mass": 1782.6,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_500lbs",
+    "mass": 213.1,
+    "dragCx": 0.0257,
+    "caliber": 0.327,
+    "cda": 0.002158
+  },
+  {
+    "name": "uk_500lbs_43",
+    "mass": 213.1,
+    "dragCx": 0.0257,
+    "caliber": 0.327,
+    "cda": 0.002158
+  },
+  {
+    "name": "uk_500lbs_43_default",
+    "mass": 213.1,
+    "dragCx": 0.0257,
+    "caliber": 0.327,
+    "cda": 0.002158
+  },
+  {
+    "name": "uk_500lbs_default",
+    "mass": 213.1,
+    "dragCx": 0.0257,
+    "caliber": 0.327,
+    "cda": 0.002158
+  },
+  {
+    "name": "uk_500lb_as_mk4",
+    "mass": 226.8,
+    "dragCx": 0.0257,
+    "caliber": 0.363,
+    "cda": 0.00266
+  },
+  {
+    "name": "uk_500lb_he_mc_mk2",
+    "mass": 213.1,
+    "dragCx": 0.0257,
+    "caliber": 0.325,
+    "cda": 0.002132
+  },
+  {
+    "name": "uk_500lb_mc_mk1_mk4_long_tail_bomb",
+    "mass": 231.7,
+    "dragCx": 0.0257,
+    "caliber": 0.327,
+    "cda": 0.002158
+  },
+  {
+    "name": "uk_500lb_mc_mk1_mk4_long_tail_bomb_default",
+    "mass": 231.7,
+    "dragCx": 0.0257,
+    "caliber": 0.327,
+    "cda": 0.002158
+  },
+  {
+    "name": "uk_500lb_sap_mkii_ap",
+    "mass": 222.3,
+    "dragCx": 0.0257,
+    "caliber": 0.292,
+    "cda": 0.001721
+  },
+  {
+    "name": "uk_520lb_herl_mk_1_n",
+    "mass": 238.1,
+    "dragCx": 0.0257,
+    "caliber": 0.495,
+    "cda": 0.004946
+  },
+  {
+    "name": "uk_540lbs",
+    "mass": 213.1,
+    "dragCx": 0.027,
+    "caliber": 0.327,
+    "cda": 0.002268
+  },
+  {
+    "name": "uk_540lb_mc_mk2_retarded",
+    "mass": 295.0,
+    "dragCx": 0.0257,
+    "caliber": 0.325,
+    "cda": 0.002132
+  },
+  {
+    "name": "uk_8000lb_hc_mki_n33_bomb",
+    "mass": 3787.04,
+    "dragCx": 0.085,
+    "caliber": 0.965,
+    "cda": 0.062168
+  },
+  {
+    "name": "uk_8000lb_hc_mki_n52_bomb",
+    "mass": 3787.04,
+    "dragCx": 0.085,
+    "caliber": 0.965,
+    "cda": 0.062168
+  },
+  {
+    "name": "uk_depth_charge_hedgehog_mortar",
+    "mass": 29.5,
+    "dragCx": 0.07,
+    "caliber": 0.018,
+    "cda": 1.8e-05
+  },
+  {
+    "name": "uk_mk2_cookie",
+    "mass": 1782.61,
+    "dragCx": 0.085,
+    "caliber": 0.762,
+    "cda": 0.038763
+  },
+  {
+    "name": "uk_paveway_iv",
+    "mass": 277.14,
+    "dragCx": 0.0257,
+    "caliber": 0.2794,
+    "cda": 0.001576
+  },
+  {
+    "name": "uk_pgm_2000",
+    "mass": 1060.0,
+    "dragCx": 0.025,
+    "caliber": 0.457,
+    "cda": 0.004101
+  },
+  {
+    "name": "uk_pgm_2000_iir",
+    "mass": 1060.0,
+    "dragCx": 0.025,
+    "caliber": 0.457,
+    "cda": 0.004101
+  },
+  {
+    "name": "uk_pgm_500",
+    "mass": 404.0,
+    "dragCx": 0.025,
+    "caliber": 0.36,
+    "cda": 0.002545
+  },
+  {
+    "name": "uk_pgm_500_iir",
+    "mass": 404.0,
+    "dragCx": 0.025,
+    "caliber": 0.36,
+    "cda": 0.002545
+  },
+  {
+    "name": "us_1000lbs",
+    "mass": 453.6,
+    "dragCx": 0.042,
+    "caliber": 0.477,
+    "cda": 0.007505
+  },
+  {
+    "name": "us_1000lb_anm65a1",
+    "mass": 500.76,
+    "dragCx": 0.042,
+    "caliber": 0.477,
+    "cda": 0.007505
+  },
+  {
+    "name": "us_1000lb_anm65a1_default",
+    "mass": 500.76,
+    "dragCx": 0.042,
+    "caliber": 0.477,
+    "cda": 0.007505
+  },
+  {
+    "name": "us_1000lb_anm65a1_rod",
+    "mass": 439.6,
+    "dragCx": 0.042,
+    "caliber": 0.477,
+    "cda": 0.007505
+  },
+  {
+    "name": "us_1000lb_anm65_cone",
+    "mass": 500.76,
+    "dragCx": 0.042,
+    "caliber": 0.477,
+    "cda": 0.007505
+  },
+  {
+    "name": "us_1000lb_anmk33_box_ap",
+    "mass": 457.22,
+    "dragCx": 0.042,
+    "caliber": 0.3048,
+    "cda": 0.003065
+  },
+  {
+    "name": "us_1000lb_anmk33_box_ap_45",
+    "mass": 457.22,
+    "dragCx": 0.042,
+    "caliber": 0.3048,
+    "cda": 0.003065
+  },
+  {
+    "name": "us_1000lb_anm_44",
+    "mass": 438.17,
+    "dragCx": 0.042,
+    "caliber": 0.457,
+    "cda": 0.006889
+  },
+  {
+    "name": "us_1000lb_gbu32_navy",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "us_1000lb_gbu32_usaf",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "us_1000lb_gp_mk9",
+    "mass": 450.9,
+    "dragCx": 0.042,
+    "caliber": 0.483,
+    "cda": 0.007695
+  },
+  {
+    "name": "us_1000lb_mk_83_ldgp",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "us_1000lb_mk_83_ldgp_air",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "us_1000lb_mk_83_ldgp_default",
+    "mass": 446.8,
+    "dragCx": 0.042,
+    "caliber": 0.356,
+    "cda": 0.004181
+  },
+  {
+    "name": "us_1000_lb_mk_79_mod_0",
+    "mass": 406.0,
+    "dragCx": 0.07,
+    "caliber": 0.498,
+    "cda": 0.013635
+  },
+  {
+    "name": "us_100lbs",
+    "mass": 45.8,
+    "dragCx": 0.007,
+    "caliber": 0.207,
+    "cda": 0.000236
+  },
+  {
+    "name": "us_100lb_anm30",
+    "mass": 49.9,
+    "dragCx": 0.007,
+    "caliber": 0.207,
+    "cda": 0.000236
+  },
+  {
+    "name": "us_1400lb_m63_ap",
+    "mass": 640.5,
+    "dragCx": 0.075,
+    "caliber": 0.363,
+    "cda": 0.007762
+  },
+  {
+    "name": "us_1600lb_ap_an_mk1",
+    "mass": 721.2,
+    "dragCx": 0.075,
+    "caliber": 0.356,
+    "cda": 0.007465
+  },
+  {
+    "name": "us_1600lb_ap_an_mk1_45",
+    "mass": 721.2,
+    "dragCx": 0.075,
+    "caliber": 0.356,
+    "cda": 0.007465
+  },
+  {
+    "name": "us_2000lbs",
+    "mass": 907.2,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_2000lbs_anm34",
+    "mass": 901.3,
+    "dragCx": 0.0793,
+    "caliber": 0.592,
+    "cda": 0.021828
+  },
+  {
+    "name": "us_2000lbs_anm66",
+    "mass": 996.3,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_2000lbs_anm66_cone",
+    "mass": 996.3,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_2000lbs_m_34",
+    "mass": 907.2,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_2000lb_agm_130a",
+    "mass": 1323.0,
+    "dragCx": 0.025,
+    "caliber": 0.4572,
+    "cda": 0.004104
+  },
+  {
+    "name": "us_2000lb_agm_130a_12",
+    "mass": 1323.0,
+    "dragCx": 0.025,
+    "caliber": 0.4572,
+    "cda": 0.004104
+  },
+  {
+    "name": "us_2000lb_egbu_24_paveway_3",
+    "mass": 1079.55,
+    "dragCx": 0.0257,
+    "caliber": 0.4572,
+    "cda": 0.004219
+  },
+  {
+    "name": "us_2000lb_gbu31_usaf",
+    "mass": 893.6,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu31_usnavy",
+    "mass": 893.6,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu_15v1",
+    "mass": 1140.8,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu_15v2",
+    "mass": 1140.8,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu_15v21",
+    "mass": 1140.8,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu_15v22",
+    "mass": 1140.8,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu_24",
+    "mass": 1079.55,
+    "dragCx": 0.0257,
+    "caliber": 0.4572,
+    "cda": 0.004219
+  },
+  {
+    "name": "us_2000lb_gbu_27",
+    "mass": 991.0,
+    "dragCx": 0.0793,
+    "caliber": 0.368,
+    "cda": 0.008434
+  },
+  {
+    "name": "us_2000lb_gbu_64_jdam_er",
+    "mass": 987.0,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_gbu_8_hobos",
+    "mass": 1027.0,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_mk_84_ldgp",
+    "mass": 893.6,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_2000lb_mk_84_ldgp_air",
+    "mass": 893.6,
+    "dragCx": 0.0793,
+    "caliber": 0.457,
+    "cda": 0.013008
+  },
+  {
+    "name": "us_250lb_anm57",
+    "mass": 117.9,
+    "dragCx": 0.0106,
+    "caliber": 0.274,
+    "cda": 0.000625
+  },
+  {
+    "name": "us_250lb_anm57_default",
+    "mass": 117.9,
+    "dragCx": 0.0106,
+    "caliber": 0.274,
+    "cda": 0.000625
+  },
+  {
+    "name": "us_250lb_mk_81_ldgp",
+    "mass": 117.9,
+    "dragCx": 0.0106,
+    "caliber": 0.229,
+    "cda": 0.000437
+  },
+  {
+    "name": "us_250lb_mk_81_ldgp_snakeye",
+    "mass": 138.3,
+    "dragCx": 0.0106,
+    "caliber": 0.229,
+    "cda": 0.000437
+  },
+  {
+    "name": "us_250_lb_blu_10b",
+    "mass": 113.4,
+    "dragCx": 0.07,
+    "caliber": 0.318,
+    "cda": 0.00556
+  },
+  {
+    "name": "us_3000lb_m118",
+    "mass": 1369.8,
+    "dragCx": 0.081,
+    "caliber": 0.613,
+    "cda": 0.023905
+  },
+  {
+    "name": "us_3000lb_m118_90",
+    "mass": 1369.8,
+    "dragCx": 0.081,
+    "caliber": 0.613,
+    "cda": 0.023905
+  },
+  {
+    "name": "us_300lb_m_31",
+    "mass": 124.2,
+    "dragCx": 0.0106,
+    "caliber": 0.277,
+    "cda": 0.000639
+  },
+  {
+    "name": "us_4000lb_anm56_box",
+    "mass": 1981.3,
+    "dragCx": 0.154,
+    "caliber": 0.864,
+    "cda": 0.09029
+  },
+  {
+    "name": "us_500lbs",
+    "mass": 223.0,
+    "dragCx": 0.07,
+    "caliber": 0.36,
+    "cda": 0.007125
+  },
+  {
+    "name": "us_500lb_anm64a1",
+    "mass": 242.6,
+    "dragCx": 0.0257,
+    "caliber": 0.36,
+    "cda": 0.002616
+  },
+  {
+    "name": "us_500lb_anm64a1_rod",
+    "mass": 247.5,
+    "dragCx": 0.0257,
+    "caliber": 0.36,
+    "cda": 0.002616
+  },
+  {
+    "name": "us_500lb_gbu38_usaf",
+    "mass": 253.1,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_gbu38_usnavy",
+    "mass": 253.1,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_gbu_54b",
+    "mass": 260.816,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_gbu_54b_navy",
+    "mass": 260.816,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_gbu_62_jdam_er",
+    "mass": 289.72,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_gbu_62_ljdam_er",
+    "mass": 289.72,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_mk77_mod2",
+    "mass": 235.9,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "us_500lb_mk77_mod4",
+    "mass": 235.9,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "us_500lb_mk_82_ldgp",
+    "mass": 240.9,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_mk_82_ldgp_air",
+    "mass": 240.9,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_mk_82_ldgp_default",
+    "mass": 240.9,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_mk_82_ldgp_snakeye",
+    "mass": 254.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500lb_mk_82_ldgp_snakeye_default",
+    "mass": 254.0,
+    "dragCx": 0.0257,
+    "caliber": 0.273,
+    "cda": 0.001504
+  },
+  {
+    "name": "us_500_lb_blu_23b",
+    "mass": 222.26,
+    "dragCx": 0.013,
+    "caliber": 0.4,
+    "cda": 0.001634
+  },
+  {
+    "name": "us_600lb_m62_ap",
+    "mass": 287.6,
+    "dragCx": 0.0257,
+    "caliber": 0.25654,
+    "cda": 0.001328
+  },
+  {
+    "name": "us_600lb_m_32",
+    "mass": 281.7,
+    "dragCx": 0.0257,
+    "caliber": 0.386,
+    "cda": 0.003007
+  },
+  {
+    "name": "us_750lb_m117_cone_45",
+    "mass": 362.42,
+    "dragCx": 0.038,
+    "caliber": 0.408,
+    "cda": 0.004968
+  },
+  {
+    "name": "us_750lb_m117_cone_45_japan",
+    "mass": 362.42,
+    "dragCx": 0.038,
+    "caliber": 0.408,
+    "cda": 0.004968
+  },
+  {
+    "name": "us_750lb_m117_cone_90",
+    "mass": 362.42,
+    "dragCx": 0.038,
+    "caliber": 0.408,
+    "cda": 0.004968
+  },
+  {
+    "name": "us_750lb_mk77_mod0",
+    "mass": 344.7,
+    "dragCx": 0.07,
+    "caliber": 0.473,
+    "cda": 0.0123
+  },
+  {
+    "name": "us_750lb_mk_78_mod_2",
+    "mass": 416.4,
+    "dragCx": 0.07,
+    "caliber": 0.671,
+    "cda": 0.024753
+  },
+  {
+    "name": "us_750_lb_m116a2",
+    "mass": 310.7,
+    "dragCx": 0.07,
+    "caliber": 0.473,
+    "cda": 0.0123
+  },
+  {
+    "name": "us_agm_154a1_jsow",
+    "mass": 497.0,
+    "dragCx": 0.0257,
+    "caliber": 0.3302,
+    "cda": 0.002201
+  },
+  {
+    "name": "us_agm_62a",
+    "mass": 505.53,
+    "dragCx": 0.025,
+    "caliber": 0.381,
+    "cda": 0.00285
+  },
+  {
+    "name": "us_agm_62a_2_erdl",
+    "mass": 1061.41,
+    "dragCx": 0.025,
+    "caliber": 0.4572,
+    "cda": 0.004104
+  },
+  {
+    "name": "us_agm_62a_er",
+    "mass": 510.3,
+    "dragCx": 0.025,
+    "caliber": 0.381,
+    "cda": 0.00285
+  },
+  {
+    "name": "us_b61",
+    "mass": 996.3,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_blu27b",
+    "mass": 401.4,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "us_blu_1",
+    "mass": 401.4,
+    "dragCx": 0.07,
+    "caliber": 0.47,
+    "cda": 0.012145
+  },
+  {
+    "name": "us_gbu_10_paveway_2",
+    "mass": 943.926,
+    "dragCx": 0.0257,
+    "caliber": 0.4572,
+    "cda": 0.004219
+  },
+  {
+    "name": "us_gbu_12_paveway_2",
+    "mass": 277.14,
+    "dragCx": 0.0257,
+    "caliber": 0.2794,
+    "cda": 0.001576
+  },
+  {
+    "name": "us_gbu_16_paveway_2",
+    "mass": 495.3,
+    "dragCx": 0.0257,
+    "caliber": 0.3556,
+    "cda": 0.002552
+  },
+  {
+    "name": "us_gbu_22_paveway_3",
+    "mass": 299.371,
+    "dragCx": 0.0257,
+    "caliber": 0.2794,
+    "cda": 0.001576
+  },
+  {
+    "name": "us_gbu_39",
+    "mass": 121.563,
+    "dragCx": 0.0257,
+    "caliber": 0.1905,
+    "cda": 0.000733
+  },
+  {
+    "name": "us_gbu_48_paveway_2",
+    "mass": 495.3,
+    "dragCx": 0.0257,
+    "caliber": 0.3556,
+    "cda": 0.002552
+  },
+  {
+    "name": "us_gbu_49_paveway_2",
+    "mass": 277.14,
+    "dragCx": 0.0257,
+    "caliber": 0.2794,
+    "cda": 0.001576
+  },
+  {
+    "name": "us_gbu_50_paveway_2",
+    "mass": 943.926,
+    "dragCx": 0.0257,
+    "caliber": 0.4572,
+    "cda": 0.004219
+  },
+  {
+    "name": "us_mk6",
+    "mass": 996.3,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_mk7",
+    "mass": 996.3,
+    "dragCx": 0.0793,
+    "caliber": 0.591,
+    "cda": 0.021754
+  },
+  {
+    "name": "us_special_weapon",
+    "mass": 24.95,
+    "dragCx": 0.0257,
+    "caliber": 0.25,
+    "cda": 0.001262
+  }
+]
