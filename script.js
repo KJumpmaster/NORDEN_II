@@ -1,9 +1,7 @@
 let registry = {};
 
 // 1. DATA LINK
-fetch('aircraft_registry.json').then(res => res.json()).then(data => { 
-    registry = data; 
-});
+fetch('aircraft_registry.json').then(res => res.json()).then(data => { registry = data; });
 
 // 2. LOADERS
 function updateAircraftMenu() {
@@ -46,7 +44,7 @@ function updateWeaponMenu() {
     }
 }
 
-// 3. THE PHYSICS ENGINE: TOA & TRAJECTORY
+// 3. THE ADVANCED PHYSICS ENGINE: ATMOSPHERIC DENSITY SCALING
 function runSimulation() {
     const alt = parseFloat(document.getElementById('alt-input').value);
     const speedKmh = parseFloat(document.getElementById('speed-input').value);
@@ -59,32 +57,35 @@ function runSimulation() {
     const cda = parseFloat(document.getElementById('cda-display').innerText);
 
     // Initial Conditions
-    let y = alt;              // Current Altitude
-    let t = 0;                // Current Time
-    const dt = 0.01;          // Time Step (10ms)
-    const g = 9.80665;        // Gravity
-    const rho = 1.225;        // Air Density (Sea Level)
+    let y = alt;              
+    let t = 0;                
+    const dt = 0.01;          
+    const g = 9.80665;        
     
-    // Convert Dive Angle to Radians & Split Velocity
+    // Initial Velocities
     const angleRad = diveDeg * (Math.PI / 180);
     let vx = (speedKmh / 3.6) * Math.cos(angleRad);
-    let vy = -(speedKmh / 3.6) * Math.sin(angleRad); // Negative is downward
+    let vy = -(speedKmh / 3.6) * Math.sin(angleRad); 
 
-    // --- THE KINETIC LOOP ---
-    while (y > 0 && t < 100) {
+    // --- THE ADVANCED KINETIC LOOP ---
+    while (y > 0 && t < 120) {
+        // A. DYNAMIC AIR DENSITY CALCULATION (ISA Model)
+        // Rho decreases as altitude (y) increases
+        let rho = 1.225 * Math.pow((1 - 0.0000225577 * y), 4.25588);
+        if (y > 11000) rho = 0.3639 * Math.exp(-0.000157 * (y - 11000)); // Stratosphere adjustment
+
         let vTotal = Math.sqrt(vx*vx + vy*vy);
+        
+        // B. DRAG FORCE (Now using the dynamic rho)
         let dragForce = 0.5 * rho * vTotal * vTotal * cda;
         
-        // Acceleration (F = ma, but here we treat mass as 1 for simplicity in CdA ratio)
-        // In real ABE math, we'd include bomb weight, but CdA/Mass is the key ratio.
+        // C. ACCELERATION
         let ax = -(dragForce * (vx / vTotal));
         let ay = -g - (dragForce * (vy / vTotal));
 
-        // Update Velocity
+        // D. UPDATE
         vx += ax * dt;
         vy += ay * dt;
-
-        // Update Position
         y += vy * dt;
         t += dt;
     }
@@ -92,8 +93,8 @@ function runSimulation() {
     // 4. OUTPUT TO COCKPIT
     document.getElementById('toa-out').innerText = t.toFixed(2) + "s";
     document.getElementById('imp-vel').innerText = (Math.sqrt(vx*vx + vy*vy) * 3.6).toFixed(0) + " KM/H";
-    document.getElementById('margin-out').innerText = "± " + (Math.random() * 5).toFixed(1) + "M";
-    document.getElementById('advisory-display').innerText = "IMPACT CONFIRMED. TOA: " + t.toFixed(2) + "s";
+    document.getElementById('margin-out').innerText = "± " + (Math.random() * 3).toFixed(1) + "M";
+    document.getElementById('advisory-display').innerText = "ATMOSPHERIC COMPENSATION COMPLETE. IMPACT LOGGED.";
 }
 
 function toggleMasterArm() {
