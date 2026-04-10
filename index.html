@@ -4,64 +4,17 @@
     <meta charset="UTF-8">
     <title>NORDEN II | STRATEGIC HUB</title>
     <style>
-        /* THE "PIZAZZ" ENGINE */
         body { 
-            background-color: #050505; 
-            color: #00FF41; 
-            font-family: 'Courier New', monospace;
+            background-color: #050505; color: #00FF41; font-family: 'Courier New', monospace;
             text-shadow: 0 0 5px #00FF41;
             background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%; /* CRT Scanline Effect */
+            background-size: 100% 2px, 3px 100%;
         }
-
-        .mfd-screen {
-            border: 4px double #00FF41;
-            margin: 20px;
-            padding: 20px;
-            background: rgba(0, 20, 0, 0.2);
-            box-shadow: inset 0 0 20px #00FF41, 0 0 15px #00FF41;
-            border-radius: 15px;
-        }
-
-        h1, h2 { text-transform: uppercase; letter-spacing: 5px; color: #00FF41; text-align: center; }
-
-        select, input {
-            background: #000;
-            color: #00FF41;
-            border: 1px solid #00FF41;
-            padding: 10px;
-            font-size: 1.1em;
-            box-shadow: 0 0 5px #00FF41;
-        }
-
-        /* THE MASTER ARM SWITCH - Needs to look dangerous */
-        .master-arm-container {
-            background: #220000;
-            padding: 15px;
-            border: 2px solid #FF0000;
-            color: #FF0000;
-            text-shadow: 0 0 5px #FF0000;
-            display: inline-block;
-            border-radius: 5px;
-        }
-
-        #run-sim {
-            background: #004400;
-            color: #00FF41;
-            font-weight: bold;
-            font-size: 1.5em;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 2px solid #00FF41;
-        }
-
-        #run-sim:hover:not(:disabled) {
-            background: #00FF41;
-            color: #000;
-            box-shadow: 0 0 20px #00FF41;
-        }
-
-        #run-sim:disabled { opacity: 0.3; cursor: not-allowed; border-color: #444; }
+        .mfd-screen { border: 4px double #00FF41; margin: 20px; padding: 20px; background: rgba(0, 20, 0, 0.2); box-shadow: inset 0 0 20px #00FF41, 0 0 15px #00FF41; border-radius: 15px; }
+        select, input, button { background: #000; color: #00FF41; border: 1px solid #00FF41; padding: 10px; margin-top: 5px; }
+        .master-arm-container { background: #220000; padding: 15px; border: 2px solid #FF0000; color: #FF0000; border-radius: 5px; }
+        #run-sim { width: 100%; font-weight: bold; font-size: 1.2em; cursor: pointer; margin-top: 20px; }
+        #run-sim:disabled { opacity: 0.3; }
     </style>
 </head>
 <body>
@@ -74,31 +27,32 @@
             MASTER ARM: <input type="checkbox" id="master-arm" onclick="toggleMasterArm()">
             <span id="systemStatus">SAFE</span>
         </div>
-        <div id="overspeed-warning" style="color: #FF0000; display:none;">⚠️ OVERSPEED LIMIT EXCEEDED ⚠️</div>
     </div>
 
-    <hr style="border: 0.5px solid #00FF41;">
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 10px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
         <div>
-            <label>OPERATIONAL THEATER</label><br>
+            <label>THEATER</label><br>
             <select id="nation-select" onchange="updateAircraftMenu()" style="width:100%;">
-                <option value="">-- SELECT NATION --</option>
-                <option value="USA">USA / NAVY / AIR FORCE</option>
-                <option value="Great Britain">GREAT BRITAIN (RAF)</option>
-                <option value="Germany">LUFTWAFFE</option>
-                <option value="USSR">VVS USSR</option>
+                <option value="">-- SELECT --</option>
+                <option value="USA">USA</option>
+                <option value="Great Britain">GREAT BRITAIN</option>
             </select>
         </div>
         <div>
-            <label>AVAILABLE AIRFRAMES</label><br>
-            <select id="aircraft-select" style="width:100%;">
-                <option>-- WAITING FOR NATION --</option>
+            <label>AIRFRAME</label><br>
+            <select id="aircraft-select" onchange="updateWeaponMenu()" style="width:100%;">
+                <option value="">-- WAITING --</option>
+            </select>
+        </div>
+        <div>
+            <label>MUNITION (BOMB A)</label><br>
+            <select id="bombA-select" style="width:100%;">
+                <option value="">-- WAITING --</option>
             </select>
         </div>
     </div>
 
-    <button id="run-sim" style="width:100%; margin-top: 30px; padding: 20px;" disabled onclick="runSimulation()">INITIATE BOMBING RUN</button>
+    <button id="run-sim" disabled onclick="runSimulation()">INITIATE BOMBING RUN</button>
 </div>
 
 <script src="script.js"></script>
