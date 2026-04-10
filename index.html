@@ -5,42 +5,43 @@
     <title>NORDEN II | STRATEGIC HUB</title>
     <style>
         body { background-color: #050505; color: #00FF41; font-family: 'Courier New', monospace; text-shadow: 0 0 5px #00FF41; background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; }
-        .mfd-screen { border: 4px double #00FF41; margin: 20px auto; padding: 20px; background: rgba(0, 20, 0, 0.2); box-shadow: inset 0 0 20px #00FF41, 0 0 15px #00FF41; border-radius: 15px; max-width: 900px; }
-        select, input, button { background: #000; color: #00FF41; border: 1px solid #00FF41; padding: 10px; margin-top: 5px; font-family: inherit; }
+        .mfd-screen { border: 4px double #00FF41; margin: 20px auto; padding: 20px; background: rgba(0, 20, 0, 0.2); box-shadow: inset 0 0 20px #00FF41, 0 0 15px #00FF41; border-radius: 15px; max-width: 950px; }
+        select, input, button { background: #000; color: #00FF41; border: 1px solid #00FF41; padding: 10px; margin-top: 5px; font-family: inherit; font-size: 1em; }
         .master-arm-container { background: #220000; padding: 10px; border: 2px solid #FF0000; color: #FF0000; border-radius: 5px; }
-        #advisory-display { border: 1px solid #ffa500; color: #ffa500; padding: 10px; margin: 15px 0; text-align: center; font-weight: bold; background: rgba(255, 165, 0, 0.1); }
-        .input-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 15px; border: 1px solid #00FF41; margin-top: 15px; }
-        #run-sim { width: 100%; font-weight: bold; font-size: 1.5em; cursor: pointer; margin-top: 20px; border: 2px solid #00FF41; }
-        #run-sim:disabled { opacity: 0.2; }
-        .results-footer { margin-top: 20px; border-top: 1px solid #00FF41; padding-top: 10px; display: flex; justify-content: space-around; font-size: 0.9em; }
+        #advisory-display { border: 1px solid #ffa500; color: #ffa500; padding: 10px; margin: 15px 0; text-align: center; font-weight: bold; background: rgba(255, 165, 0, 0.1); text-transform: uppercase; }
+        .input-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 15px; border: 1px solid #00FF41; margin-top: 15px; background: rgba(0, 255, 65, 0.05); }
+        #cda-display { font-weight: bold; font-size: 1.4em; border: 1px solid #00FF41; padding: 5px; text-align: center; color: #00FF41; }
+        #run-sim { width: 100%; font-weight: bold; font-size: 1.5em; cursor: pointer; margin-top: 20px; border: 2px solid #00FF41; box-shadow: 0 0 10px #00FF41; }
+        #run-sim:disabled { opacity: 0.1; cursor: not-allowed; box-shadow: none; }
+        .results-footer { margin-top: 20px; border-top: 1px solid #00FF41; padding-top: 15px; display: flex; justify-content: space-around; font-size: 0.85em; }
     </style>
 </head>
 <body>
 
 <div class="mfd-screen">
-    <h1>--- NORDEN II TACTICAL INTERFACE ---</h1>
+    <h1 style="text-align:center;">--- NORDEN II TACTICAL INTERFACE ---</h1>
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div class="master-arm-container">
             ARM: <input type="checkbox" id="master-arm" onclick="toggleMasterArm()">
             <span id="systemStatus">SAFE</span>
         </div>
-        <div id="overspeed-warning" style="color: #FF0000; display:none;">!!! OVERSPEED !!!</div>
+        <div id="overspeed-warning" style="color: #FF0000; font-weight:bold; display:none;">⚠️ OVERSPEED ⚠️</div>
     </div>
 
     <div id="advisory-display">SYSTEM STATUS: READY FOR INPUT</div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
-        <div><label>THEATER</label><br><select id="nation-select" onchange="updateAircraftMenu()" style="width:100%;"><option value="">-- SELECT --</option><option value="USA">USA</option><option value="Great Britain">UK</option></select></div>
-        <div><label>AIRFRAME</label><br><select id="aircraft-select" onchange="updateWeaponMenu()" style="width:100%;"><option value="">-- WAITING --</option></select></div>
-        <div><label>MUNITION</label><br><select id="bombA-select" style="width:100%;"><option value="">-- WAITING --</option></select></div>
+        <div><label>OPERATIONAL THEATER</label><br><select id="nation-select" onchange="updateAircraftMenu()" style="width:100%;"><option value="">-- SELECT --</option><option value="USA">USA / NAVY / AF</option><option value="Great Britain">GREAT BRITAIN (RAF)</option></select></div>
+        <div><label>AVAILABLE AIRFRAMES</label><br><select id="aircraft-select" onchange="updateWeaponMenu()" style="width:100%;"><option value="">-- WAITING --</option></select></div>
+        <div><label>MUNITION (BOMB A)</label><br><select id="bombA-select" style="width:100%;"><option value="">-- WAITING --</option></select></div>
     </div>
 
     <div class="input-grid">
-        <div><label>ALT (M)</label><br><input type="number" id="alt-input" value="3500" style="width:85%;"></div>
-        <div><label>SPD (KM/H)</label><br><input type="number" id="speed-input" value="650" style="width:85%;"></div>
-        <div><label>DIVE (°)</label><br><input type="number" id="dive-input" value="10" style="width:85%;"></div>
-        <div><label>CdA</label><br><div id="cda-display">0.000000</div></div>
+        <div><label>ALTITUDE (M)</label><br><input type="number" id="alt-input" value="3500" style="width:85%;"></div>
+        <div><label>SPEED (KM/H)</label><br><input type="number" id="speed-input" value="650" style="width:85%;"></div>
+        <div><label>DIVE ANGLE (°)</label><br><input type="number" id="dive-input" value="10" style="width:85%;"></div>
+        <div><label>CALC CdA</label><br><div id="cda-display">0.000000</div></div>
     </div>
 
     <button id="run-sim" disabled onclick="runSimulation()">INITIATE BOMBING RUN</button>
