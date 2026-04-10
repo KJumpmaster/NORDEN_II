@@ -2,51 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAOC | NORDEN II TACTICAL HUB</title>
-    
     <style>
-        html, body { background-color: #000 !important; color: #00FF41 !important; margin: 0; padding: 0; overflow: hidden; }
+        html, body { background-color: #000 !important; color: #00FF41 !important; margin: 0; overflow: hidden; font-family: 'Consolas', monospace; }
+        .hidden { display: none; }
+        .warning-text { color: #ff0000; animation: flash 0.5s infinite alternate; font-weight: bold; }
+        @keyframes flash { from { opacity: 1; } to { opacity: 0.2; } }
     </style>
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="mission-start">
-
     <div id="camera-frame">
         <div id="cockpit-container" class="mfd-screen">
-            
-            <header class="tactical-header">
-                <div class="master-arm-block">
-                    <label>MASTER ARM</label>
-                    <button id="masterArm">SAFE</button>
-                </div>
+            <header class="tactical-header" style="display:flex; justify-content:space-between; padding:10px;">
+                <div>MASTER ARM: <button id="masterArm">SAFE</button></div>
                 <div id="systemStatus">SYSTEM COLD</div>
+                <div id="overspeed-warning" class="warning-text hidden">!!! OVERSPEED !!!</div>
             </header>
 
-            <main id="weaponSystem">
-                <section class="bomb-bay" id="bayA">
-                    <h3 class="tactical-text">BOMB A</h3>
-                    <div class="readout-block">
-                        <div class="label">LATENCY</div>
-                        <div class="value">000ms</div>
-                    </div>
-                    <div class="readout-block">
-                        <div class="label">TARGET</div>
-                        <div class="value">00.000</div>
-                    </div>
-                    <button class="drop-btn" disabled>DROP / RUN SIM</button>
-                </section>
+            <div id="advisory-display" class="hidden" style="border:1px solid #ffa500; color:#ffa500; padding:10px; margin:10px;">
+                <span id="advisory-text"></span>
+            </div>
+
+            <section class="ato-phase" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; padding:20px;">
+                <div>
+                    <label>THEATER (NATION)</label><br>
+                    <select id="nation-selector">
+                        <option value="">-- SELECT --</option>
+                        <option value="USA">USA</option>
+                        <option value="Great Britain">UK</option>
+                        <option value="USSR">USSR</option>
+                        <option value="Germany">GERMANY</option>
+                    </select>
+                </div>
+                <div>
+                    <label>AIRCRAFT (ATO)</label><br>
+                    <select id="aircraft-selector"><option>-- SELECT NATION --</option></select>
+                </div>
+            </section>
+
+            <section class="norden-inputs" style="display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; padding:20px;">
+                <div title="Release Altitude: Your height above target in meters.">
+                    <label>ALT (M)</label><br>
+                    <input type="number" id="alt-input" value="3500">
+                </div>
+                <div title="Airspeed: Current velocity. CAOC will check if you are exceeding your plane's structural limit!">
+                    <label>SPD (KM/H)</label><br>
+                    <input type="number" id="speed-input" value="650">
+                </div>
+                <div title="Dive Angle: 0 is level flight. Use positive numbers (e.g. 15) for pointing the nose down.">
+                    <label>DIVE (°)</label><br>
+                    <input type="number" id="dive-input" value="10">
+                </div>
+                <div title="Calculated Drag Area (CdA): Math that combines caliber and shape to show air resistance.">
+                    <label>CALC CdA</label><br>
+                    <div id="cda-display" style="color:#00FF41">0.0000</div>
+                </div>
+            </section>
+
+            <main id="bomb-grid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; padding:20px;">
+                <div class="slot">
+                    <h3>BOMB A</h3>
+                    <select id="bombA-select" class="bomb-selector"><option>SELECT</option></select>
+                    <div id="resA">MARGIN: ---</div>
+                </div>
             </main>
 
-            <footer class="tactical-footer">
-                <div class="classification">CLASSIFICATION: SECRET</div>
-            </footer>
-            
+            <button id="run-sim-btn" style="width:100%; padding:20px; background:#004400; color:#00FF41; border:1px solid #00FF41;" disabled>RUN TRIPLE SIM</button>
         </div>
     </div>
-
     <script src="script.js" defer></script>
-
 </body>
 </html>
