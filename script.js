@@ -1,132 +1,93 @@
-/* GE3M ENGINE V3.1 - TACTICAL DIAGRAMMING */
+/* GE3M V6.0 - THE M.A.C. ENGINE */
 
 const AC_LIST = [
-    { id: "b52h", name: "B-52H STRATOFORTRESS", nation: "USA", speed: 520, maxSpeed: 650 },
-    { id: "a10a", name: "A-10A THUNDERBOLT II", nation: "USA", speed: 350, maxSpeed: 450 },
-    { id: "su25", name: "Su-25 FROGFOOT", nation: "USSR", speed: 420, maxSpeed: 600 }
+    { id: "b52h", name: "B-52H STRATOFORTRESS", nation: "USA", speed: 520 },
+    { id: "a10a", name: "A-10A THUNDERBOLT II", nation: "USA", speed: 350 },
+    { id: "su25", name: "Su-25 FROGFOOT", nation: "USSR", speed: 420 }
 ];
 
 const BOMB_LIST = [
-    { id: "mk82", name: "Mk 82 (CCIP)", nation: "USA", type: "CCIP", cx: 0.012, mass: 227, tnt: 118 },
-    { id: "mk84", name: "Mk 84 (CCIP)", nation: "USA", type: "CCIP", cx: 0.015, mass: 907, tnt: 428 },
-    { id: "fab500", name: "FAB-500 (CCIP)", nation: "USSR", type: "CCIP", cx: 0.015, mass: 500, tnt: 213 }
+    { id: "mk82", name: "Mk 82", tnt: 118 },
+    { id: "mk84", name: "Mk 84", tnt: 428 },
+    { id: "fab500", name: "FAB-500", tnt: 213 }
 ];
-
-let flightTime = 0; 
-
-function updateLiveStats() {
-    const tnt = parseFloat(document.getElementById('tnt-input').value) || 0;
-    const blastRad = Math.round(Math.pow(tnt, 1/3) * 15);
-    document.getElementById('blast-output').value = blastRad + "m";
-}
 
 function applyFilters() {
     const nation = document.getElementById('nation-select').value;
-    const acSelect = document.getElementById('ac-select');
-    acSelect.innerHTML = '<option value="">-- SELECT --</option>';
-    AC_LIST.filter(ac => nation === "ALL" || ac.nation === nation).forEach(ac => acSelect.innerHTML += `<option value="${ac.id}">${ac.name}</option>`);
-    const bombSelect = document.getElementById('bomb-select');
-    bombSelect.innerHTML = '<option value="">-- SELECT --</option>';
-    BOMB_LIST.filter(b => nation === "ALL" || b.nation === nation).forEach(b => bombSelect.innerHTML += `<option value="${b.id}">${b.name}</option>`);
+    const selects = ['ac-select', 'bomb-1', 'bomb-2', 'bomb-3'];
+    
+    selects.forEach(sID => {
+        const el = document.getElementById(sID);
+        el.innerHTML = '<option value="">-- SELECT --</option>';
+        if (sID === 'ac-select') {
+            AC_LIST.filter(a => nation === "ALL" || a.nation === nation).forEach(a => el.innerHTML += `<option value="${a.id}">${a.name}</option>`);
+        } else {
+            BOMB_LIST.forEach(b => el.innerHTML += `<option value="${b.id}">${b.name}</option>`);
+        }
+    });
+}
+
+function syncSlot(num) {
+    const bombID = document.getElementById(`bomb-${num}`).value;
+    const bomb = BOMB_LIST.find(b => b.id === bombID);
+    if (bomb) document.getElementById(`tnt-${num}`).value = bomb.tnt;
+    updateAllSlots();
+}
+
+function updateAllSlots() {
+    const alt = parseFloat(document.getElementById('alt-input').value) || 0;
+    for (let i = 1; i <= 3; i++) {
+        const tnt = parseFloat(document.getElementById(`tnt-${i}`).value) || 0;
+        const blast = Math.round(Math.pow(tnt, 1/3) * 15);
+        const cep = Math.round(alt * 0.005);
+        document.getElementById(`blast-${i}`).value = blast + "m";
+        document.getElementById(`disp-${i}`).value = cep + "m";
+    }
 }
 
 function loadAircraft() {
     const id = document.getElementById('ac-select').value;
     const ac = AC_LIST.find(a => a.id === id);
-    if(ac) { document.getElementById('speed-input').value = ac.speed; updateLiveStats(); }
-}
-
-function loadOrdnance() {
-    const id = document.getElementById('bomb-select').value;
-    const b = BOMB_LIST.find(bomb => bomb.id === id);
-    if(b) { document.getElementById('tnt-input').value = b.tnt; updateLiveStats(); }
+    if(ac) document.getElementById('speed-input').value = ac.speed;
 }
 
 function toggleGuard() {
-    const guard = document.getElementById('switch-guard');
-    const armBtn = document.getElementById('physical-switch');
-    const light = document.getElementById('status-light');
-    guard.classList.toggle('guard-open');
-    if (guard.classList.contains('guard-open')) { armBtn.disabled = false; light.className = 'light-caution'; }
-    else { armBtn.disabled = true; armBtn.innerText = "OFF"; light.className = 'light-off'; }
+    const g = document.getElementById('switch-guard');
+    g.classList.toggle('guard-open');
+    document.getElementById('physical-switch').disabled = !g.classList.contains('guard-open');
 }
 
-function toggleMasterArm() {
-    const armBtn = document.getElementById('physical-switch');
-    const light = document.getElementById('status-light');
-    if (armBtn.innerText === "OFF") { armBtn.innerText = "ARMED"; light.className = 'light-danger'; }
-    else { armBtn.innerText = "OFF"; light.className = 'light-caution'; }
-}
-
-function runPhysics() {
-    const isArmed = document.getElementById('physical-switch').innerText === "ARMED";
-    if (!isArmed) { alert("SYSTEM LOCKED"); return; }
+function generateMAC() {
+    const win = window.open('', '_blank');
     const alt = document.getElementById('alt-input').value;
-    flightTime = Math.sqrt((2 * (alt * 0.3048)) / 9.81);
-    
-    // DSMS Pylons
-    const qty = document.getElementById('salvo-select').value;
-    for (let i = 1; i <= 9; i++) document.getElementById(`py-${i}`).classList.remove('pylon-active');
-    const map = {"1":[5], "2":[4,6], "4":[3,4,6,7], "8":[1,2,3,4,6,7,8,9]};
-    map[qty].forEach(p => document.getElementById(`py-${p}`).classList.add('pylon-active'));
-
-    document.getElementById('mission-map-container').style.display = "none";
-    document.getElementById('mission-readout').innerHTML = `
-        <div style="text-align:center;">
-            <p>TOF: ${(flightTime/4).toFixed(2)}s</p>
-            <button id="final-pickle" onclick="executeRelease()">!!! EXECUTE RELEASE !!!</button>
-        </div>`;
-}
-
-function drawMissionMap() {
-    const canvas = document.getElementById('missionCanvas');
-    const ctx = canvas.getContext('2d');
     const speed = document.getElementById('speed-input').value;
-    const tnt = document.getElementById('tnt-input').value;
-    const blastRad = Math.round(Math.pow(tnt, 1/3) * 15);
     
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    document.getElementById('mission-map-container').style.display = "block";
+    let rows = "";
+    for(let i=1; i<=3; i++) {
+        rows += `<tr><td>#${i}</td><td>${document.getElementById(`tnt-${i}`).value}kg</td><td>${document.getElementById(`blast-${i}`).value}</td><td>${document.getElementById(`disp-${i}`).value}</td></tr>`;
+    }
 
-    // Draw Ground
-    ctx.strokeStyle = "#333";
-    ctx.beginPath(); ctx.moveTo(0, 130); ctx.lineTo(500, 130); ctx.stroke();
-
-    // Draw Flight Path (Arc)
-    ctx.strokeStyle = "#00FF41";
-    ctx.setLineDash([5, 5]);
-    ctx.beginPath();
-    ctx.moveTo(50, 20); // Aircraft pos
-    ctx.quadraticCurveTo(250, 20, 450, 130); // Ballistic arc
-    ctx.stroke();
-
-    // Draw Impact Zone
-    ctx.setLineDash([]);
-    ctx.fillStyle = "rgba(255, 0, 0, 0.4)";
-    ctx.beginPath();
-    ctx.arc(450, 130, blastRad/2, 0, Math.PI * 2);
-    ctx.fill();
-    
-    ctx.fillStyle = "#FF0000";
-    ctx.font = "10px Arial";
-    ctx.fillText("IMPACT ZONE", 410, 145);
+    win.document.write(`
+        <html><body style="font-family:Arial; padding:50px;">
+        <h1>M.A.C. - MISSION ANALYSIS CHART</h1>
+        <p>AIRCRAFT: ${document.getElementById('ac-select').selectedOptions[0].text} | ALT: ${alt}ft | SPEED: ${speed}mph</p>
+        <canvas id="macCanvas" width="800" height="300" style="border:1px solid #000; background:#f0f0f0;"></canvas>
+        <table border="1" width="100%" style="margin-top:20px;">
+            <tr><th>Slot</th><th>TNT EQ</th><th>Blast Rad</th><th>Dispersion</th></tr>
+            ${rows}
+        </table>
+        <button onclick="window.print()">PRINT CHART</button>
+        <script>
+            const ctx = document.getElementById('macCanvas').getContext('2d');
+            ctx.moveTo(0, 250); ctx.lineTo(800, 250); ctx.stroke(); // Ground
+            // Simplified drawing for the finale
+            [1, 2, 3].forEach(i => {
+                ctx.strokeStyle = i==1 ? "green" : (i==2 ? "blue" : "red");
+                ctx.beginPath(); ctx.moveTo(50, 50); ctx.quadraticCurveTo(400, 50, 450 + (i*20), 250); ctx.stroke();
+            });
+        </script>
+        </body></html>
+    `);
 }
 
-function executeRelease() {
-    const readout = document.getElementById('mission-readout');
-    let timeLeft = flightTime;
-    const timer = setInterval(() => {
-        timeLeft -= 0.4; 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            document.getElementById('cockpit-body').classList.add('combat-flash');
-            setTimeout(() => { document.getElementById('cockpit-body').classList.remove('combat-flash'); }, 150);
-            readout.innerHTML = "<h3 style='color:red; text-align:center;'>IMPACT CONFIRMED</h3>";
-            drawMissionMap();
-        } else {
-            readout.innerHTML = `<h1 style="font-size: 2.5em; text-align:center; color:red;">TOF: ${timeLeft.toFixed(1)}s</h1>`;
-        }
-    }, 100);
-}
-
-window.onload = () => { applyFilters(); updateLiveStats(); };
+window.onload = applyFilters;
