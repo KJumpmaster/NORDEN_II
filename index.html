@@ -1,16 +1,24 @@
-<div class="mfd-screen">
-    <h1>--- NORDEN II AVIONICS SUITE ---</h1>
-
-    <div style="background: rgba(0, 255, 65, 0.1); padding: 10px; border: 1px solid #00FF41; margin-bottom: 15px;">
-        <label>FIRE CONTROL MODE:</label>
-        <input type="checkbox" id="ccip-filter" onclick="updateAircraftMenu()"> CCIP CAPABLE ONLY
-        <span id="laser-status" style="float:right; color:#555;">🛰️ LASER LINK: OFFLINE</span>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-        <div><label>THEATER</label><br><select id="nation-select" onchange="updateAircraftMenu()" style="width:100%;"></select></div>
-        <div><label>AIRFRAME</label><br><select id="aircraft-select" onchange="updateWeaponMenu()" style="width:100%;"></select></div>
-        <div><label>MUNITION A</label><br><select id="bombA-select" onchange="checkLaserStatus()" style="width:100%;"></select></div>
-    </div>
+<div id="stores-management" style="margin-top:20px; border: 1px solid #00FF41; padding: 15px; background: rgba(0,255,65,0.05);">
+    <h4 style="text-align:center; margin-top:0;">DSMS: STORES STATUS</h4>
     
+    <div style="display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; text-align: center;">
+        <div id="py-1" class="pylon-box">1</div>
+        <div id="py-2" class="pylon-box">2</div>
+        <div id="py-3" class="pylon-box">3</div>
+        <div id="py-4" class="pylon-box">4</div>
+        <div id="py-5" class="pylon-box" style="border-color:#0088ff;">5</div>
+        <div id="py-6" class="pylon-box">6</div>
+        <div id="py-7" class="pylon-box">7</div>
+        <div id="py-8" class="pylon-box">8</div>
+        <div id="py-9" class="pylon-box">9</div>
     </div>
+
+    <div id="pylon-data" style="margin-top:15px; font-size: 0.7em; border-top: 1px solid #333; padding-top:10px;">
+        SELECTED: <span id="active-store" style="color:#fff;">NONE</span>
+    </div>
+</div>
+
+<style>
+    .pylon-box { border: 1px solid #555; padding: 10px 2px; font-size: 10px; color: #555; transition: 0.3s; }
+    .pylon-active { border-color: #00FF41; color: #00FF41; box-shadow: 0 0 10px #00FF41; background: rgba(0,255,65,0.2); }
+</style>
