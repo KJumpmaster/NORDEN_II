@@ -6,7 +6,7 @@
     <title>NORDEN II | Tactical Command</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="cockpit-body">
 
 <div class="cockpit-grid">
     <div class="mfd-side-panel">
@@ -28,8 +28,8 @@
                 <option value="USA">USA</option>
                 <option value="USSR">USSR</option>
             </select>
-            <label title="Continuously Computed Impact Point">CCIP [?]</label>
-            <label><input type="checkbox" id="ccip-toggle" onchange="applyFilters()" checked> ACTIVE</label>
+            <label>CCIP ACTIVE</label>
+            <input type="checkbox" id="ccip-toggle" onchange="applyFilters()" checked>
         </div>
 
         <div class="registry-select" style="margin-bottom: 20px; text-align: left;">
@@ -42,15 +42,8 @@
         <div class="input-grid">
             <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000" oninput="updateLiveStats()"></div>
             <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400" oninput="updateLiveStats()"></div>
-            <div><label>TNT EQ (KG)</label><input type="number" id="tnt-input" value="118" oninput="updateLiveStats()"></div>
-            <div><label title="Estimated lethal radius">BLAST RAD (M)</label><input type="text" id="blast-output" readonly style="color:yellow;"></div>
             
-            <div style="grid-column: span 2;">
-                <label title="Circular Error Probable / Pattern Spread">DISPERSION (CEP) [?]</label>
-                <input type="text" id="disp-output" readonly style="color:yellow;">
-            </div>
-
-            <div style="grid-column: span 2; margin-top: 10px;">
+            <div style="grid-column: span 2; margin: 10px 0;">
                 <label>SALVO QUANTITY</label>
                 <select id="salvo-select" onchange="updateLiveStats()">
                     <option value="1">SINGLE (1)</option>
@@ -60,10 +53,18 @@
                 </select>
             </div>
 
+            <div><label>TNT EQ (KG)</label><input type="number" id="tnt-input" value="118" oninput="updateLiveStats()"></div>
+            <div><label>BLAST RAD (M)</label><input type="text" id="blast-output" readonly style="color:yellow;"></div>
+            
             <button id="run-sim" onclick="runPhysics()" style="grid-column: span 2; margin-top: 15px;">CALCULATE SOLUTION</button>
         </div>
         
-        <div id="mission-readout" style="margin-top: 20px; min-height: 100px;">READY FOR DATA INPUT...</div>
+        <div id="mission-readout" style="margin-top: 20px;">READY...</div>
+
+        <div id="mission-map-container" style="margin-top: 20px; border-top: 2px solid #333; padding-top: 10px; display:none;">
+            <p style="font-size: 10px; color: #555;">TACTICAL MISSION DIAGRAM</p>
+            <canvas id="missionCanvas" width="500" height="150" style="border: 1px solid #222; background: #000; width: 100%;"></canvas>
+        </div>
     </div>
 
     <div class="mfd-side-panel">
@@ -80,7 +81,6 @@
             <div id="py-4" class="pylon-box">4</div><div id="py-5" class="pylon-box">5</div><div id="py-6" class="pylon-box">6</div>
             <div id="py-7" class="pylon-box">7</div><div id="py-8" class="pylon-box">8</div><div id="py-9" class="pylon-box">9</div>
         </div>
-        <p style="font-size: 10px; margin-top: 5px;">STORES MGMT (DSMS)</p>
     </div>
 </div>
 <script src="script.js"></script>
