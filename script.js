@@ -1,4 +1,4 @@
-/* GE3M ENGINE V2.4 - BLAST RADIUS & KINETICS */
+/* GE3M ENGINE V2.5 - FULL INTERFACE SYNC */
 
 const AC_LIST = [
     { id: "b52h", name: "B-52H STRATOFORTRESS", nation: "USA", speed: 520, maxSpeed: 650 },
@@ -8,28 +8,33 @@ const AC_LIST = [
 
 const BOMB_LIST = [
     { id: "mk82", name: "Mk 82 (CCIP)", nation: "USA", type: "CCIP", cx: 0.012, mass: 227, tnt: 118 },
-    { id: "gbu12", name: "GBU-12 (LASER)", nation: "USA", type: "LASER", cx: 0.014, mass: 230, tnt: 87 },
-    { id: "fab500", name: "FAB-500 (CCIP)", nation: "USSR", type: "CCIP", cx: 0.015, mass: 500, tnt: 213 }
+    { id: "mk84", name: "Mk 84 (CCIP)", nation: "USA", type: "CCIP", cx: 0.015, mass: 907, tnt: 428 },
+    { id: "gbu12", name: "GBU-12 (LASER)", nation: "USA", type: "LASER", cx: 0.014, mass: 230, tnt: 87 }
 ];
 
 let flightTime = 0; 
 
-function applyFilters() {
-    const nation = document.getElementById('nation-select').value;
-    const useCCIP = document.getElementById('ccip-toggle').checked;
-    const useLaser = document.getElementById('laser-toggle').checked;
-    const acSelect = document.getElementById('ac-select');
-    acSelect.innerHTML = '<option value="">-- SELECT AIRFRAME --</option>';
-    AC_LIST.filter(ac => nation === "ALL" || ac.nation === nation).forEach(ac => acSelect.innerHTML += `<option value="${ac.id}">${ac.name}</option>`);
-    const bombSelect = document.getElementById('bomb-select');
-    bombSelect.innerHTML = '<option value="">-- SELECT MUNITION --</option>';
-    BOMB_LIST.filter(b => (nation === "ALL" || b.nation === nation) && ((b.type === "CCIP" && useCCIP) || (b.type === "LASER" && useLaser))).forEach(b => bombSelect.innerHTML += `<option value="${b.id}">${b.name}</option>`);
+function updateLiveStats() {
+    const tnt = parseFloat(document.getElementById('tnt-input').value) || 0;
+    const alt = parseFloat(document.getElementById('alt-input').value) || 0;
+    const qty = parseInt(document.getElementById('salvo-select').value) || 1;
+
+    const blastRad = Math.round(Math.pow(tnt, 1/3) * 15);
+    document.getElementById('blast-output').value = blastRad + "m";
+
+    const cep = Math.round((alt * 0.005) * qty);
+    document.getElementById('disp-output').value = cep + "m Pattern";
 }
 
-function loadAircraft() {
-    const id = document.getElementById('ac-select').value;
-    const ac = AC_LIST.find(a => a.id === id);
-    if(ac) document.getElementById('speed-input').value = ac.speed;
+function applyFilters() {
+    const nation = document.getElementById('nation-select').value;
+    const acSelect = document.getElementById('ac-select');
+    acSelect.innerHTML = '<option value="">-- SELECT --</option>';
+    AC_LIST.filter(ac => nation === "ALL" || ac.nation === nation).forEach(ac => acSelect.innerHTML += `<option value="${ac.id}">${ac.name}</option>`);
+    
+    const bombSelect = document.getElementById('bomb-select');
+    bombSelect.innerHTML = '<option value="">-- SELECT --</option>';
+    BOMB_LIST.filter(b => nation === "ALL" || b.nation === nation).forEach(b => bombSelect.innerHTML += `<option value="${b.id}">${b.name}</option>`);
 }
 
 function loadOrdnance() {
@@ -37,8 +42,16 @@ function loadOrdnance() {
     const b = BOMB_LIST.find(bomb => bomb.id === id);
     if(b) {
         document.getElementById('tnt-input').value = b.tnt;
-        document.getElementById('mass-input').value = b.mass;
-        document.getElementById('drag-input').value = b.cx;
+        updateLiveStats();
+    }
+}
+
+function loadAircraft() {
+    const id = document.getElementById('ac-select').value;
+    const ac = AC_LIST.find(a => a.id === id);
+    if(ac) {
+        document.getElementById('speed-input').value = ac.speed;
+        updateLiveStats();
     }
 }
 
@@ -61,32 +74,18 @@ function toggleMasterArm() {
 function runPhysics() {
     const isArmed = document.getElementById('physical-switch').innerText === "ARMED";
     if (!isArmed) { alert("SYSTEM LOCKED: ENGAGE MASTER ARM"); return; }
-    const acID = document.getElementById('ac-select').value;
-    const speed = parseFloat(document.getElementById('speed-input').value);
-    const ac = AC_LIST.find(a => a.id === acID);
-    if (ac && speed > ac.maxSpeed) {
-        alert(`AIRFRAME LIMIT EXCEEDED: ${ac.name} MAX SPEED IS ${ac.maxSpeed} MPH`);
-        document.getElementById('speed-input').value = ac.maxSpeed;
-        return;
-    }
-
+    
+    const alt = document.getElementById('alt-input').value;
+    flightTime = Math.sqrt((2 * (alt * 0.3048)) / 9.81);
+    
     const qty = document.getElementById('salvo-select').value;
     for (let i = 1; i <= 9; i++) document.getElementById(`py-${i}`).classList.remove('pylon-active');
     const map = {"1":[5], "2":[4,6], "4":[3,4,6,7], "8":[1,2,3,4,6,7,8,9]};
     map[qty].forEach(p => document.getElementById(`py-${p}`).classList.add('pylon-active'));
 
-    const alt = document.getElementById('alt-input').value;
-    const tnt = document.getElementById('tnt-input').value;
-    flightTime = Math.sqrt((2 * (alt * 0.3048)) / 9.81);
-    
-    // BLAST RADIUS CALCULATION (Simplified cube root scaling)
-    const radius = Math.round(Math.pow(tnt, 1/3) * 15);
-
-    const readout = document.getElementById('mission-readout');
-    readout.innerHTML = `
-        <div style="border: 1px solid var(--terminal-green); padding: 10px;">
-            SOLUTION CALCULATED: ${flightTime.toFixed(2)}s | TC: 4X<br>
-            EST. BLAST RADIUS: <span style="color:white">${radius}m</span><br>
+    document.getElementById('mission-readout').innerHTML = `
+        <div style="border: 1px solid var(--terminal-green); padding: 10px; text-align:center;">
+            TIME OF FLIGHT (TC 4X): ${(flightTime/4).toFixed(2)}s<br>
             <button id="final-pickle" onclick="executeRelease()">!!! EXECUTE RELEASE !!!</button>
         </div>
     `;
@@ -99,17 +98,12 @@ function executeRelease() {
         timeLeft -= 0.4; 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            readout.innerHTML = "<h2 style='color:red; text-align:center;'>--- IMPACT CONFIRMED ---</h2>";
+            readout.innerHTML = "<h2 style='color:red; text-align:center;'>--- IMPACT ---</h2>";
             for (let i = 1; i <= 9; i++) document.getElementById(`py-${i}`).classList.remove('pylon-active');
         } else {
-            readout.innerHTML = `
-                <div style="text-align:center;">
-                    <p style="color:red; font-weight:bold;">WEAPONS AWAY</p>
-                    <h1 style="font-size: 2.5em;">TOF: ${timeLeft.toFixed(1)}s</h1>
-                </div>
-            `;
+            readout.innerHTML = `<h1 style="font-size: 2.5em; text-align:center;">TOF: ${timeLeft.toFixed(1)}s</h1>`;
         }
     }, 100);
 }
 
-window.onload = applyFilters;
+window.onload = () => { applyFilters(); updateLiveStats(); };
