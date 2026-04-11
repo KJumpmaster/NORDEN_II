@@ -1,37 +1,29 @@
-function updateAircraftMenu() {
-    const nation = document.getElementById('nation-select').value;
-    const ccipOnly = document.getElementById('ccip-filter').checked;
-    const acSel = document.getElementById('aircraft-select');
+function toggleGuard() {
+    const guard = document.getElementById('switch-guard');
+    const btn = document.getElementById('physical-switch');
     
-    acSel.innerHTML = '<option value="">-- SELECT --</option>';
-
-    if (registry[nation]) {
-        registry[nation].forEach((ac, index) => {
-            // THE CCIP FILTER LOGIC
-            if (ccipOnly && !ac.has_ccip) return; // Skip this plane if it lacks CCIP
-
-            let opt = document.createElement('option');
-            opt.value = index;
-            opt.innerHTML = ac.aircraft_ID + (ac.has_ccip ? " [CCIP]" : "");
-            acSel.appendChild(opt);
-        });
+    if (guard.style.transform === "rotateX(-110deg)") {
+        // Close Guard
+        guard.style.transform = "rotateX(0deg)";
+        btn.disabled = true;
+    } else {
+        // Open Guard
+        guard.style.transform = "rotateX(-110deg)";
+        btn.disabled = false;
+        console.log("MASTER ARM ACCESSIBLE");
     }
 }
 
-function checkLaserStatus() {
-    const bombVal = document.getElementById('bombA-select').value;
-    const laserText = document.getElementById('laser-status');
-    
-    if (bombVal) {
-        const data = JSON.parse(bombVal);
-        if (data.is_laser_guided) {
-            laserText.innerText = "🛰️ LASER LINK: LOCKED";
-            laserText.style.color = "#ff0000";
-            laserText.style.textShadow = "0 0 10px #ff0000";
-        } else {
-            laserText.innerText = "🛰️ LASER LINK: N/A (BALLISTIC)";
-            laserText.style.color = "#555";
-            laserText.style.textShadow = "none";
-        }
+// Update the DSMS light when a bomb is picked
+function updateDSMS(bombName, pylonNum) {
+    // Clear all pylons first
+    for(let i=1; i<=9; i++) {
+        document.getElementById('py-'+i).classList.remove('pylon-active');
+    }
+    // Light up the selected pylon
+    const active = document.getElementById('py-' + pylonNum);
+    if(active) {
+        active.classList.add('pylon-active');
+        document.getElementById('active-store').innerText = bombName;
     }
 }
