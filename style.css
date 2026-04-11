@@ -1,18 +1,30 @@
 :root { --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; }
-body { background: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; padding: 10px; overflow-x: hidden; }
-.cockpit-grid { display: grid; grid-template-columns: 220px 1fr 220px; gap: 10px; max-width: 1400px; margin: auto; }
-.mfd-screen { border: 2px solid var(--terminal-green); padding: 15px; background: rgba(0,40,0,0.1); box-shadow: inset 0 0 10px var(--terminal-green); text-align: center; }
-.ord-slot { border: 1px solid #444; padding: 5px; background: rgba(255,255,255,0.02); }
-label { font-size: 0.7em; color: var(--terminal-green); display: block; }
-input, select { background: #000; color: #fff; border: 1px solid #444; width: 100%; font-size: 0.8em; }
-.yellow-out { color: yellow !important; border-color: yellow !important; text-align: center; }
-.radar-container { height: 180px; border: 1px solid var(--terminal-green); overflow: hidden; }
-#radar-video { width: 100%; height: 100%; object-fit: cover; }
-#switch-guard { width: 50px; height: 70px; background: repeating-linear-gradient(45deg, #000, #000 5px, #fbff00 5px, #fbff00 10px); margin: auto; transition: 0.5s; cursor: pointer; }
-.guard-open { transform: rotateX(-110deg); }
-#physical-switch { width: 40px; height: 40px; margin: -20px auto 0 auto; display: block; background: #222; color: red; border: 1px solid red; }
-.pylon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 10px; }
-.pylon-box { border: 1px solid #333; font-size: 9px; padding: 5px; color: #444; }
-.pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); }
-#final-pickle { background: #900; color: white; border: 2px solid #f00; font-size: 1.2em; width: 100%; margin-top: 10px; padding: 10px; cursor: pointer; }
-.combat-flash { background-color: #fff !important; }
+body { background: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; padding: 20px; }
+
+.cockpit-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; max-width: 1600px; margin: auto; }
+
+.mfd-screen { border: 2px solid var(--terminal-green); padding: 20px; background: rgba(0,40,0,0.1); box-shadow: inset 0 0 15px var(--terminal-green); }
+
+.constants-bar { display: flex; gap: 15px; background: #222; padding: 10px; margin: 15px 0; border: 1px solid #444; }
+.triple-slot-container { display: flex; gap: 15px; margin-top: 20px; }
+.ord-slot { border: 2px solid #444; padding: 15px; flex: 1; background: rgba(255,255,255,0.03); }
+
+.glossary-box { background: #111; border: 1px solid #333; padding: 10px; margin-top: 20px; text-align: left; font-size: 0.8em; }
+.glossary-box h4 { margin: 0 0 5px 0; color: yellow; }
+
+/* AIRCRAFT SILHOUETTE DSMS */
+.pylon-map { display: flex; justify-content: center; align-items: center; margin-top: 20px; }
+.wing-left, .wing-right { display: flex; gap: 5px; border-top: 2px solid #555; padding-top: 10px; }
+.fuselage { width: 30px; height: 60px; background: #333; margin: 0 15px; border-radius: 15px 15px 0 0; display: flex; justify-content: center; align-items: center; }
+.fuselage-tail { width: 10px; height: 30px; background: #333; margin: -5px auto 0 auto; }
+.pylon-node { width: 20px; height: 20px; border: 1px solid #555; font-size: 9px; line-height: 20px; color: #555; }
+.pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); box-shadow: 0 0 8px var(--terminal-green); }
+
+/* EXISTING CONTROLS */
+.yellow-out { color: yellow !important; border-color: yellow !important; text-align: center; font-weight: bold; }
+.cmd-btn { width: 100%; padding: 12px; font-weight: bold; cursor: pointer; border: none; font-size: 1em; }
+#switch-guard { width: 60px; height: 80px; background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px); margin: auto; transition: 0.5s; cursor: pointer; }
+.guard-open { transform: rotateX(-115deg); }
+#physical-switch { width: 60px; height: 45px; margin: -25px auto 10px auto; display: block; background: #222; color: var(--terminal-red); border: 2px solid var(--terminal-red); }
+#status-light { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 5px auto; background: #111; border: 1px solid #333; }
+.light-danger { background: red !important; box-shadow: 0 0 15px red; }
