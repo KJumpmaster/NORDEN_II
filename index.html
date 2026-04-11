@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NORDEN II | STRATEGIC COMMAND</title>
+    <title>NORDEN II | STRATEGIC COMMAND V8</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body id="cockpit-body">
@@ -12,62 +11,97 @@
     <div class="mfd-side-panel">
         <h3>SEARCH RADAR</h3>
         <div class="radar-container"><video id="radar-video" autoplay loop muted playsinline><source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4"></video></div>
-        <p>STATUS: SCANNING...</p>
+        
+        <div class="glossary-box">
+            <h4>TACTICAL GLOSSARY</h4>
+            <p><strong>TOF:</strong> Time of Flight (Seconds to impact)</p>
+            <p><strong>TNT EQ:</strong> Explosive force in KG</p>
+            <p><strong>CEP:</strong> Circular Error Probable (Dispersion pattern)</p>
+            <p><strong>TGT DIST:</strong> Distance bomb travels forward</p>
+        </div>
     </div>
 
     <div class="mfd-screen">
-        <h1>--- NORDEN II HUD ---</h1>
+        <h1>--- NORDEN II STRATEGIC COMMAND ---</h1>
         
         <div class="filter-bar">
-            <select id="nation-select" onchange="applyFilters()">
-                <option value="ALL">ALL NATIONS</option><option value="USA">USA</option><option value="USSR">USSR</option>
-            </select>
-            <label>MISSION FOCUS: 
-                <select id="focus-select" style="width:100px; border-color:yellow; color:yellow;">
-                    <option value="1">LINE 1 (GRN)</option><option value="2">LINE 2 (BLU)</option><option value="3">LINE 3 (RED)</option>
+            <div>
+                <label>THEATRE OF OPS</label>
+                <select id="nation-select" onchange="applyFilters()">
+                    <option value="ALL">ALL NATIONS</option><option value="USA">USA</option><option value="USSR">USSR</option>
                 </select>
-            </label>
+            </div>
+            <div>
+                <label>MISSION FOCUS</label>
+                <select id="focus-select" style="color:yellow; border:1px solid yellow; font-weight:bold;">
+                    <option value="1">BOMB #1 (GREEN)</option>
+                    <option value="2">BOMB #2 (BLUE)</option>
+                    <option value="3">BOMB #3 (RED)</option>
+                </select>
+            </div>
         </div>
 
-        <div class="input-grid" style="border-bottom: 1px solid #333; padding-bottom:10px;">
-            <div><label>AIRCRAFT</label><select id="ac-select" onchange="loadAircraft()"></select></div>
+        <div class="constants-bar">
             <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000" oninput="updateAllSlots()"></div>
             <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400" oninput="updateAllSlots()"></div>
             <div><label>DIVE ANGLE (°)</label><input type="number" id="dive-input" value="0" oninput="updateAllSlots()"></div>
+            <div><label>SALVO QUANTITY</label><select id="salvo-select" onchange="updateAllSlots()"><option value="1">SINGLE</option><option value="4">FLIGHT</option><option value="8">CARPET</option></select></div>
         </div>
 
-        <div class="triple-slot-container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top:10px;">
-            <div class="ord-slot" style="border-color:green;">
-                <label>#1 (GRN)</label><select id="bomb-1" onchange="syncSlot(1)"></select>
-                <input type="number" id="tnt-1" oninput="updateAllSlots()">
-                <input type="text" id="blast-1" readonly class="yellow-out">
+        <div class="triple-slot-container">
+            <div class="ord-slot" style="border-color: #00FF41;">
+                <h3>#1 GREEN LINE</h3>
+                <select id="bomb-1" onchange="syncSlot(1)"></select>
+                <label>TNT EQUIVALENT</label><input type="number" id="tnt-1" oninput="updateAllSlots()">
+                <label>BLAST RADIUS</label><input type="text" id="blast-1" readonly class="yellow-out">
+                <label>TGT DISTANCE</label><input type="text" id="dist-1" readonly class="yellow-out">
             </div>
-            <div class="ord-slot" style="border-color:blue;">
-                <label>#2 (BLU)</label><select id="bomb-2" onchange="syncSlot(2)"></select>
-                <input type="number" id="tnt-2" oninput="updateAllSlots()">
-                <input type="text" id="blast-2" readonly class="yellow-out">
+            <div class="ord-slot" style="border-color: #0088FF;">
+                <h3>#2 BLUE LINE</h3>
+                <select id="bomb-2" onchange="syncSlot(2)"></select>
+                <label>TNT EQUIVALENT</label><input type="number" id="tnt-2" oninput="updateAllSlots()">
+                <label>BLAST RADIUS</label><input type="text" id="blast-2" readonly class="yellow-out">
+                <label>TGT DISTANCE</label><input type="text" id="dist-2" readonly class="yellow-out">
             </div>
-            <div class="ord-slot" style="border-color:red;">
-                <label>#3 (RED)</label><select id="bomb-3" onchange="syncSlot(3)"></select>
-                <input type="number" id="tnt-3" oninput="updateAllSlots()">
-                <input type="text" id="blast-3" readonly class="yellow-out">
+            <div class="ord-slot" style="border-color: #FF0000;">
+                <h3>#3 RED LINE</h3>
+                <select id="bomb-3" onchange="syncSlot(3)"></select>
+                <label>TNT EQUIVALENT</label><input type="number" id="tnt-3" oninput="updateAllSlots()">
+                <label>BLAST RADIUS</label><input type="text" id="blast-3" readonly class="yellow-out">
+                <label>TGT DISTANCE</label><input type="text" id="dist-3" readonly class="yellow-out">
             </div>
         </div>
 
-        <button onclick="runPhysics()" style="width:100%; margin-top:15px; background:#00FF41; color:black; font-weight:bold;">TARGETING SOLUTION</button>
-        <button onclick="generateMAC()" style="width:100%; margin-top:5px; background:white; color:black;">GENERATE M.A.C. DIAGRAM</button>
+        <div class="button-row">
+            <button onclick="runPhysics()" class="cmd-btn" style="background:#00FF41; color:black;">GENERATE TARGETING SOLUTION</button>
+            <button onclick="generateMAC()" class="cmd-btn" style="background:white; color:black;">GENERATE M.A.C. ANALYSIS</button>
+        </div>
         
-        <div id="mission-readout" style="margin-top:10px;">READY...</div>
+        <div id="mission-readout">SYSTEM STATUS: READY FOR INPUT</div>
     </div>
 
     <div class="mfd-side-panel">
-        <h3>ARMAMENT</h3>
+        <h3>ARMAMENT CONTROL</h3>
+        <div id="status-light" class="light-off"></div>
         <div id="switch-guard" onclick="toggleGuard()"><p style="padding-top:25px; font-size:9px; color:black;">LIFT</p></div>
-        <button id="physical-switch" disabled>OFF</button>
-        <div class="pylon-grid" id="pylon-display">
-            <div id="py-1" class="pylon-box">1</div><div id="py-2" class="pylon-box">2</div><div id="py-3" class="pylon-box">3</div>
-            <div id="py-4" class="pylon-box">4</div><div id="py-5" class="pylon-box">5</div><div id="py-6" class="pylon-box">6</div>
-            <div id="py-7" class="pylon-box">7</div><div id="py-8" class="pylon-box">8</div><div id="py-9" class="pylon-box">9</div>
+        <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
+        
+        <div class="aircraft-silhouette">
+            <p style="font-size: 10px; margin-bottom: 10px;">STORES MANAGEMENT (DSMS)</p>
+            <div class="pylon-map">
+                <div class="wing-left">
+                    <div id="py-1" class="pylon-node">1</div><div id="py-2" class="pylon-node">2</div>
+                    <div id="py-3" class="pylon-node">3</div><div id="py-4" class="pylon-node">4</div>
+                </div>
+                <div class="fuselage">
+                    <div id="py-5" class="pylon-node">C</div>
+                </div>
+                <div class="wing-right">
+                    <div id="py-6" class="pylon-node">6</div><div id="py-7" class="pylon-node">7</div>
+                    <div id="py-8" class="pylon-node">8</div><div id="py-9" class="pylon-node">9</div>
+                </div>
+            </div>
+            <div class="fuselage-tail"></div>
         </div>
     </div>
 </div>
