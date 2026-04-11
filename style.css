@@ -1,30 +1,33 @@
-:root { --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; }
-body { background: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; padding: 20px; }
-
-.cockpit-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; max-width: 1600px; margin: auto; }
-
-.mfd-screen { border: 2px solid var(--terminal-green); padding: 20px; background: rgba(0,40,0,0.1); box-shadow: inset 0 0 15px var(--terminal-green); }
-
-.constants-bar { display: flex; gap: 15px; background: #222; padding: 10px; margin: 15px 0; border: 1px solid #444; }
-.triple-slot-container { display: flex; gap: 15px; margin-top: 20px; }
-.ord-slot { border: 2px solid #444; padding: 15px; flex: 1; background: rgba(255,255,255,0.03); }
-
-.glossary-box { background: #111; border: 1px solid #333; padding: 10px; margin-top: 20px; text-align: left; font-size: 0.8em; }
-.glossary-box h4 { margin: 0 0 5px 0; color: yellow; }
-
-/* AIRCRAFT SILHOUETTE DSMS */
-.pylon-map { display: flex; justify-content: center; align-items: center; margin-top: 20px; }
-.wing-left, .wing-right { display: flex; gap: 5px; border-top: 2px solid #555; padding-top: 10px; }
-.fuselage { width: 30px; height: 60px; background: #333; margin: 0 15px; border-radius: 15px 15px 0 0; display: flex; justify-content: center; align-items: center; }
-.fuselage-tail { width: 10px; height: 30px; background: #333; margin: -5px auto 0 auto; }
-.pylon-node { width: 20px; height: 20px; border: 1px solid #555; font-size: 9px; line-height: 20px; color: #555; }
-.pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); box-shadow: 0 0 8px var(--terminal-green); }
-
-/* EXISTING CONTROLS */
+:root { --green: #00FF41; --red: #FF0000; --bg: #050505; }
+body { background: var(--bg); color: var(--green); font-family: 'Courier New', monospace; padding: 10px; margin: 0; }
+.cockpit-grid { display: grid; grid-template-columns: 240px 1fr 280px; gap: 10px; max-width: 1550px; margin: auto; }
+.mfd-screen { border: 2px solid var(--green); padding: 15px; background: rgba(0,30,0,0.9); box-shadow: inset 0 0 20px var(--green); position: relative; }
+.constants-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #111; padding: 10px; border: 1px solid #333; margin-bottom: 15px; }
+.triple-slot-container { display: flex; gap: 10px; margin-bottom: 15px; }
+.ord-slot { flex: 1; border: 1px solid #444; padding: 10px; background: rgba(255,255,255,0.02); }
+.command-box { display: flex; gap: 10px; background: #222; padding: 15px; border: 1px solid var(--green); }
+.prime-btn { flex: 2; background: var(--green); color: #000; font-weight: bold; border: none; cursor: pointer; }
+.mac-btn { width: 100%; margin-top: 10px; background: #fff; color: #000; font-weight: bold; padding: 8px; border: none; cursor: pointer; }
+.radar-container { height: 200px; border: 1px solid var(--green); background: #000; overflow: hidden; }
+#radar-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
 .yellow-out { color: yellow !important; border-color: yellow !important; text-align: center; font-weight: bold; }
-.cmd-btn { width: 100%; padding: 12px; font-weight: bold; cursor: pointer; border: none; font-size: 1em; }
-#switch-guard { width: 60px; height: 80px; background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px); margin: auto; transition: 0.5s; cursor: pointer; }
+label { font-size: 0.7em; display: block; margin-bottom: 2px; }
+input, select { background: #000; color: #fff; border: 1px solid #444; width: 100%; padding: 3px; font-size: 0.85em; }
+
+/* B-52 MAP */
+.b52-map { margin-top: 25px; text-align: center; }
+.wings { display: flex; align-items: center; justify-content: center; }
+.node { width: 16px; height: 16px; border: 1px solid #444; font-size: 8px; line-height: 16px; margin: 0 2px; background: #111; }
+.nose { width: 35px; height: 60px; background: #222; border-radius: 20px 20px 0 0; margin: -10px 5px 0 5px; display: flex; align-items: center; justify-content: center; }
+.tail { width: 10px; height: 30px; background: #222; margin: 0 auto; border-radius: 0 0 5px 5px; }
+.pylon-active { border-color: var(--green); color: var(--green); box-shadow: 0 0 10px var(--green); background: #003300; }
+
+/* ARM CONTROLS */
+.arm-row { display: flex; gap: 10px; justify-content: center; }
+#switch-guard { width: 50px; height: 70px; background: repeating-linear-gradient(45deg, #000, #000 5px, #fbff00 5px, #fbff00 10px); cursor: pointer; transition: 0.4s; border: 1px solid #444; }
 .guard-open { transform: rotateX(-115deg); }
-#physical-switch { width: 60px; height: 45px; margin: -25px auto 10px auto; display: block; background: #222; color: var(--terminal-red); border: 2px solid var(--terminal-red); }
-#status-light { width: 12px; height: 12px; border-radius: 50%; margin: 0 auto 5px auto; background: #111; border: 1px solid #333; }
+#bay-door-btn { background: #333; color: orange; border: 1px solid orange; font-size: 9px; padding: 5px; cursor: pointer; }
+#physical-switch { width: 100%; margin-top: 10px; padding: 10px; background: #222; color: var(--red); border: 1px solid var(--red); cursor: pointer; font-weight: bold; }
+#status-light { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 5px auto; border: 1px solid #333; }
 .light-danger { background: red !important; box-shadow: 0 0 15px red; }
+.combat-flash { background-color: #fff !important; }
