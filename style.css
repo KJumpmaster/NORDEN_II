@@ -1,21 +1,16 @@
-:root { --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; } 
-body { background-color: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; margin: 0; padding: 20px; transition: background-color 0.1s; } 
-.cockpit-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; max-width: 1400px; margin: auto; } 
-.mfd-screen { border: 3px solid var(--terminal-green); padding: 20px; background: rgba(0, 40, 0, 0.1); box-shadow: inset 0 0 15px var(--terminal-green); } 
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; }
-label { font-size: 0.8em; display: block; margin-bottom: 2px; }
-input, select { background: #000; color: #fff; border: 1px solid var(--terminal-green); width: 100%; padding: 5px; box-sizing: border-box; }
-.mfd-side-panel { border: 1px solid #444; padding: 15px; background: #111; text-align: center; }
-.radar-container { width: 100%; height: 300px; background: #000; border: 1px solid var(--terminal-green); overflow: hidden; }
-#switch-guard { width: 70px; height: 90px; background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px); border: 2px solid #555; margin: auto; transition: transform 0.5s; transform-origin: top; cursor: pointer; } 
-.guard-open { transform: rotateX(-115deg); }
-#physical-switch { width: 50px; height: 60px; background: #333; border: 2px solid var(--terminal-red); color: var(--terminal-red); font-weight: bold; display: block; margin: -30px auto 0 auto; }
-#status-light { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #333; margin-bottom: 5px; background: #111; display: inline-block; }
-.light-caution { background: #ffa500 !important; box-shadow: 0 0 10px #ffa500; }
-.light-danger { background: #ff0000 !important; box-shadow: 0 0 15px #ff0000; }
-.pylon-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; margin-top: 15px; }
-.pylon-box { border: 1px solid #333; padding: 10px 2px; font-size: 10px; color: #444; }
-.pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); box-shadow: 0 0 5px var(--terminal-green); }
-#final-pickle { background: #900; color: white; border: 2px solid #f00; cursor: pointer; font-size: 1.2em; animation: pulse 1s infinite; width: 100%; margin-top: 10px; padding: 10px; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-.combat-flash { background-color: #fff !important; }
+:root { --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; }
+body { background: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; padding: 10px; }
+.cockpit-grid { display: grid; grid-template-columns: 240px 1fr 240px; gap: 10px; max-width: 1450px; margin: auto; }
+.mfd-screen { border: 2px solid var(--terminal-green); padding: 15px; background: rgba(0,40,0,0.1); box-shadow: inset 0 0 10px var(--terminal-green); }
+.ord-slot { border: 1px solid #444; padding: 8px; background: rgba(255,255,255,0.02); }
+label { font-size: 0.7em; color: var(--terminal-green); display: block; margin-top: 5px; }
+input, select { background: #000; color: #fff; border: 1px solid #444; width: 100%; font-size: 0.8em; padding: 2px; }
+.yellow-out { color: yellow !important; border-color: yellow !important; }
+.radar-container { height: 200px; border: 1px solid var(--terminal-green); overflow: hidden; }
+#radar-video { width: 100%; height: 100%; object-fit: cover; }
+#switch-guard { width: 50px; height: 70px; background: repeating-linear-gradient(45deg, #000, #000 5px, #fbff00 5px, #fbff00 10px); margin: auto; transition: 0.5s; cursor: pointer; }
+.guard-open { transform: rotateX(-110deg); }
+#physical-switch { width: 40px; height: 40px; margin: -20px auto 0 auto; display: block; background: #222; color: red; border: 1px solid red; }
+.pylon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 10px; }
+.pylon-box { border: 1px solid #333; font-size: 9px; padding: 5px; color: #444; }
+.pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); }
