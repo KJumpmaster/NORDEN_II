@@ -46,18 +46,15 @@ function runSimulation() {
     const alt = parseFloat(document.getElementById('alt-input').value);
     const speedKmh = parseFloat(document.getElementById('speed-input').value);
     const diveDeg = parseFloat(document.getElementById('dive-input').value);
+    const targetDist = parseFloat(document.getElementById('tgt-input').value);
     const bombVal = document.getElementById('bombA-select').value;
 
     if(!bombVal) return alert("SELECT MUNITION");
 
-    const bombData = JSON.parse(bombVal);
     const cda = parseFloat(document.getElementById('cda-display').innerText);
 
-    let y = alt;              
-    let x = 0; // Horizontal Distance
-    let t = 0;                
-    const dt = 0.01;          
-    const g = 9.80665;        
+    let y = alt, x = 0, t = 0;
+    const dt = 0.01, g = 9.80665;
     
     const angleRad = diveDeg * (Math.PI / 180);
     let vx = (speedKmh / 3.6) * Math.cos(angleRad);
@@ -68,24 +65,23 @@ function runSimulation() {
         let vTotal = Math.sqrt(vx*vx + vy*vy);
         let dragForce = 0.5 * rho * vTotal * vTotal * cda;
         
-        let ax = -(dragForce * (vx / vTotal));
-        let ay = -g - (dragForce * (vy / vTotal));
-
-        vx += ax * dt;
-        vy += ay * dt;
+        vx += (-(dragForce * (vx / vTotal))) * dt;
+        vy += (-g - (dragForce * (vy / vTotal))) * dt;
         y += vy * dt;
         x += vx * dt;
         t += dt;
     }
 
-    // SHOW TABLE AND FILL DATA
+    const margin = x - targetDist;
+    const marginText = margin > 0 ? `OVERSHOT BY ${margin.toFixed(1)}` : `UNDERSHOT BY ${Math.abs(margin).toFixed(1)}`;
+
     document.getElementById('results-table').style.display = 'table';
     document.getElementById('toa-val').innerText = t.toFixed(2);
     document.getElementById('vel-val').innerText = (Math.sqrt(vx*vx + vy*vy) * 3.6).toFixed(0);
     document.getElementById('dist-val').innerText = x.toFixed(0);
-    document.getElementById('ke-val').innerText = (0.5 * 250 * Math.pow(Math.sqrt(vx*vx + vy*vy), 2) / 1000000).toFixed(2);
+    document.getElementById('margin-val').innerText = marginText;
     
-    document.getElementById('advisory-display').innerText = "MISSION SUMMARY GENERATED. TARGET NEUTRALIZED.";
+    document.getElementById('advisory-display').innerText = (Math.abs(margin) < 15) ? "DIRECT HIT CONFIRMED!" : "IMPACT OUTSIDE MARGIN.";
 }
 
 function toggleMasterArm() {
