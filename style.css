@@ -1,12 +1,12 @@
 :root { --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; }
-body { background: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; padding: 10px; }
-.cockpit-grid { display: grid; grid-template-columns: 240px 1fr 240px; gap: 10px; max-width: 1450px; margin: auto; }
-.mfd-screen { border: 2px solid var(--terminal-green); padding: 15px; background: rgba(0,40,0,0.1); box-shadow: inset 0 0 10px var(--terminal-green); }
-.ord-slot { border: 1px solid #444; padding: 8px; background: rgba(255,255,255,0.02); }
-label { font-size: 0.7em; color: var(--terminal-green); display: block; margin-top: 5px; }
-input, select { background: #000; color: #fff; border: 1px solid #444; width: 100%; font-size: 0.8em; padding: 2px; }
-.yellow-out { color: yellow !important; border-color: yellow !important; }
-.radar-container { height: 200px; border: 1px solid var(--terminal-green); overflow: hidden; }
+body { background: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; padding: 10px; overflow-x: hidden; }
+.cockpit-grid { display: grid; grid-template-columns: 220px 1fr 220px; gap: 10px; max-width: 1400px; margin: auto; }
+.mfd-screen { border: 2px solid var(--terminal-green); padding: 15px; background: rgba(0,40,0,0.1); box-shadow: inset 0 0 10px var(--terminal-green); text-align: center; }
+.ord-slot { border: 1px solid #444; padding: 5px; background: rgba(255,255,255,0.02); }
+label { font-size: 0.7em; color: var(--terminal-green); display: block; }
+input, select { background: #000; color: #fff; border: 1px solid #444; width: 100%; font-size: 0.8em; }
+.yellow-out { color: yellow !important; border-color: yellow !important; text-align: center; }
+.radar-container { height: 180px; border: 1px solid var(--terminal-green); overflow: hidden; }
 #radar-video { width: 100%; height: 100%; object-fit: cover; }
 #switch-guard { width: 50px; height: 70px; background: repeating-linear-gradient(45deg, #000, #000 5px, #fbff00 5px, #fbff00 10px); margin: auto; transition: 0.5s; cursor: pointer; }
 .guard-open { transform: rotateX(-110deg); }
@@ -14,3 +14,5 @@ input, select { background: #000; color: #fff; border: 1px solid #444; width: 10
 .pylon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 10px; }
 .pylon-box { border: 1px solid #333; font-size: 9px; padding: 5px; color: #444; }
 .pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); }
+#final-pickle { background: #900; color: white; border: 2px solid #f00; font-size: 1.2em; width: 100%; margin-top: 10px; padding: 10px; cursor: pointer; }
+.combat-flash { background-color: #fff !important; }
