@@ -1,32 +1,85 @@
-<div class="mfd-screen">
-    <h1>--- NORDEN II HUD ---</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NORDEN II | Tactical Command</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cockpit-grid">
     
-    <div class="filter-bar" style="display: flex; gap: 10px; margin-bottom: 15px; background: #222; padding: 10px;">
-        <select id="nation-select" onchange="applyFilters()">
-            <option value="ALL">ALL NATIONS</option>
-            <option value="USA">USA</option>
-            <option value="USSR">USSR</option>
-        </select>
-        
-        <label><input type="checkbox" id="ccip-toggle" onchange="applyFilters()" checked> CCIP</label>
-        <label><input type="checkbox" id="laser-toggle" onchange="applyFilters()" checked> LASER</label>
+    <div class="mfd-side-panel">
+        <h3>SEARCH RADAR</h3>
+        <div class="radar-container">
+            <video id="radar-video" autoplay loop muted playsinline>
+                <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div id="advisory-display">STATUS: SCANNING...</div>
     </div>
 
-    <div class="registry-select" style="margin-bottom: 20px;">
-        <label>AIRCRAFT</label>
-        <select id="ac-select" onchange="loadAircraft()"></select>
+    <div class="mfd-screen">
+        <h1>--- NORDEN II HUD ---</h1>
         
-        <label style="margin-top:10px;">ORDNANCE</label>
-        <select id="bomb-select" onchange="loadOrdnance()"></select>
+        <div class="filter-bar" style="display: flex; gap: 10px; margin-bottom: 15px; background: #222; padding: 10px;">
+            <select id="nation-select" onchange="applyFilters()">
+                <option value="ALL">ALL NATIONS</option>
+                <option value="USA">USA</option>
+                <option value="USSR">USSR</option>
+            </select>
+            
+            <label><input type="checkbox" id="ccip-toggle" onchange="applyFilters()" checked> CCIP</label>
+            <label><input type="checkbox" id="laser-toggle" onchange="applyFilters()" checked> LASER</label>
+        </div>
+
+        <div class="registry-select" style="margin-bottom: 20px; text-align: left;">
+            <label>AIRCRAFT</label>
+            <select id="ac-select" onchange="loadAircraft()" style="margin-bottom: 10px;">
+                </select>
+            
+            <label>ORDNANCE</label>
+            <select id="bomb-select" onchange="loadOrdnance()">
+                </select>
+        </div>
+
+        <div class="input-grid">
+            <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000"></div>
+            <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400"></div>
+            <div><label>DRAG (Cx)</label><input type="number" id="drag-input" step="0.001" value="0.012"></div>
+            <div><label>MASS (KG)</label><input type="number" id="mass-input" value="227"></div>
+            <button id="run-sim" onclick="runPhysics()">CALCULATE RELEASE</button>
+        </div>
+        
+        <div id="mission-readout">MISSION DATA: STANDBY...</div>
     </div>
 
-    <div class="input-grid">
-        <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000"></div>
-        <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400"></div>
-        <div><label>DRAG (Cx)</label><input type="number" id="drag-input" step="0.001" value="0.012"></div>
-        <div><label>MASS (KG)</label><input type="number" id="mass-input" value="227"></div>
-        <button id="run-sim" onclick="runPhysics()">CALCULATE RELEASE</button>
+    <div class="mfd-side-panel">
+        <h3>ARMAMENT</h3>
+        <div class="switch-container">
+            <div id="status-light" class="light-off"></div>
+            <div id="switch-guard" onclick="toggleGuard()">
+                <p style="font-size: 8px; color: black; font-weight: bold; padding-top: 30px;">LIFT GUARD</p>
+            </div>
+            <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
+        </div>
+
+        <div class="pylon-grid">
+            <div id="py-1" class="pylon-box">1</div>
+            <div id="py-2" class="pylon-box">2</div>
+            <div id="py-3" class="pylon-box">3</div>
+            <div id="py-4" class="pylon-box">4</div>
+            <div id="py-5" class="pylon-box">5</div>
+            <div id="py-6" class="pylon-box">6</div>
+            <div id="py-7" class="pylon-box">7</div>
+            <div id="py-8" class="pylon-box">8</div>
+            <div id="py-9" class="pylon-box">9</div>
+        </div>
+        <p style="font-size: 10px; margin-top: 5px;">STORES MGMT (DSMS)</p>
     </div>
-    
-    <div id="mission-readout">READY FOR PRE-FLIGHT...</div>
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
