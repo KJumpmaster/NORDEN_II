@@ -1,4 +1,4 @@
-/* GE3M ENGINE V2.2 - 4X TIME COMPRESSION */
+/* GE3M ENGINE V2.4 - BLAST RADIUS & KINETICS */
 
 const AC_LIST = [
     { id: "b52h", name: "B-52H STRATOFORTRESS", nation: "USA", speed: 520, maxSpeed: 650 },
@@ -7,9 +7,9 @@ const AC_LIST = [
 ];
 
 const BOMB_LIST = [
-    { id: "mk82", name: "Mk 82 (CCIP)", nation: "USA", type: "CCIP", cx: 0.012, mass: 227 },
-    { id: "gbu12", name: "GBU-12 (LASER)", nation: "USA", type: "LASER", cx: 0.014, mass: 230 },
-    { id: "fab500", name: "FAB-500 (CCIP)", nation: "USSR", type: "CCIP", cx: 0.015, mass: 500 }
+    { id: "mk82", name: "Mk 82 (CCIP)", nation: "USA", type: "CCIP", cx: 0.012, mass: 227, tnt: 118 },
+    { id: "gbu12", name: "GBU-12 (LASER)", nation: "USA", type: "LASER", cx: 0.014, mass: 230, tnt: 87 },
+    { id: "fab500", name: "FAB-500 (CCIP)", nation: "USSR", type: "CCIP", cx: 0.015, mass: 500, tnt: 213 }
 ];
 
 let flightTime = 0; 
@@ -36,8 +36,9 @@ function loadOrdnance() {
     const id = document.getElementById('bomb-select').value;
     const b = BOMB_LIST.find(bomb => bomb.id === id);
     if(b) {
-        document.getElementById('drag-input').value = b.cx;
+        document.getElementById('tnt-input').value = b.tnt;
         document.getElementById('mass-input').value = b.mass;
+        document.getElementById('drag-input').value = b.cx;
     }
 }
 
@@ -68,27 +69,33 @@ function runPhysics() {
         document.getElementById('speed-input').value = ac.maxSpeed;
         return;
     }
+
+    const qty = document.getElementById('salvo-select').value;
+    for (let i = 1; i <= 9; i++) document.getElementById(`py-${i}`).classList.remove('pylon-active');
+    const map = {"1":[5], "2":[4,6], "4":[3,4,6,7], "8":[1,2,3,4,6,7,8,9]};
+    map[qty].forEach(p => document.getElementById(`py-${p}`).classList.add('pylon-active'));
+
     const alt = document.getElementById('alt-input').value;
+    const tnt = document.getElementById('tnt-input').value;
     flightTime = Math.sqrt((2 * (alt * 0.3048)) / 9.81);
+    
+    // BLAST RADIUS CALCULATION (Simplified cube root scaling)
+    const radius = Math.round(Math.pow(tnt, 1/3) * 15);
+
     const readout = document.getElementById('mission-readout');
     readout.innerHTML = `
         <div style="border: 1px solid var(--terminal-green); padding: 10px;">
-            REAL TOF: ${flightTime.toFixed(2)}s | TC: 4X ENABLED<br>
+            SOLUTION CALCULATED: ${flightTime.toFixed(2)}s | TC: 4X<br>
+            EST. BLAST RADIUS: <span style="color:white">${radius}m</span><br>
             <button id="final-pickle" onclick="executeRelease()">!!! EXECUTE RELEASE !!!</button>
         </div>
     `;
 }
 
 function executeRelease() {
-    const qty = document.getElementById('salvo-select').value;
     const readout = document.getElementById('mission-readout');
-    for (let i = 1; i <= 9; i++) document.getElementById(`py-${i}`).classList.remove('pylon-active');
-    const map = {"1":[5], "2":[4,6], "4":[3,4,6,7], "8":[1,2,3,4,6,7,8,9]};
-    map[qty].forEach(p => document.getElementById(`py-${p}`).classList.add('pylon-active'));
-    
     let timeLeft = flightTime;
     const timer = setInterval(() => {
-        // 0.4 instead of 0.1 makes it run 4x faster per step
         timeLeft -= 0.4; 
         if (timeLeft <= 0) {
             clearInterval(timer);
@@ -97,12 +104,12 @@ function executeRelease() {
         } else {
             readout.innerHTML = `
                 <div style="text-align:center;">
-                    <p style="color:red; font-weight:bold;">WEAPONS AWAY (4X TIME)</p>
+                    <p style="color:red; font-weight:bold;">WEAPONS AWAY</p>
                     <h1 style="font-size: 2.5em;">TOF: ${timeLeft.toFixed(1)}s</h1>
                 </div>
             `;
         }
-    }, 100); // 100ms updates
+    }, 100);
 }
 
 window.onload = applyFilters;
