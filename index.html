@@ -1,53 +1,59 @@
-:root {
-    --terminal-green: #00FF41;
-    --terminal-red: #FF0000;
-    --bg-black: #050505;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NORDEN II | Tactical Suite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-body {
-    background-color: var(--bg-black);
-    color: var(--terminal-green);
-    font-family: 'Courier New', monospace;
-    margin: 0; padding: 20px;
-    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 2px, 3px 100%;
-}
+<div class="cockpit-grid">
+    <div class="mfd-side-panel">
+        <h3>SEARCH RADAR</h3>
+        <div class="radar-container">
+            <video id="radar-video" autoplay loop muted playsinline>
+                <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div id="advisory-display">STATUS: SCANNING...</div>
+    </div>
 
-.cockpit-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr 300px;
-    gap: 20px;
-    max-width: 1400px;
-    margin: auto;
-}
+    <div class="mfd-screen">
+        <h1>--- NORDEN II HUD ---</h1>
+        <div class="input-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000"></div>
+            <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400"></div>
+            <div>
+                <label>SALVO QTY</label>
+                <select id="salvo-select">
+                    <option value="1">SINGLE (1)</option>
+                    <option value="2">PAIR (2)</option>
+                    <option value="4">FLIGHT (4)</option>
+                    <option value="8">CARPET (8)</option>
+                </select>
+            </div>
+            <button id="run-sim" onclick="runPhysics()">CALCULATE RELEASE</button>
+        </div>
+    </div>
 
-.mfd-screen {
-    border: 3px solid var(--terminal-green);
-    padding: 20px;
-    background: rgba(0, 40, 0, 0.1);
-    box-shadow: inset 0 0 15px var(--terminal-green);
-}
+    <div class="mfd-side-panel">
+        <h3>ARMAMENT</h3>
+        <div class="switch-container">
+            <div id="status-light" class="light-off"></div>
+            <div id="switch-guard" onclick="toggleGuard()">
+                <p style="font-size: 8px; color: black; font-weight: bold; padding-top: 30px;">LIFT GUARD</p>
+            </div>
+            <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
+        </div>
+        <div class="pylon-grid">
+            <div id="py-1" class="pylon-box">1</div><div id="py-2" class="pylon-box">2</div><div id="py-3" class="pylon-box">3</div>
+            <div id="py-4" class="pylon-box">4</div><div id="py-5" class="pylon-box">5</div><div id="py-6" class="pylon-box">6</div>
+            <div id="py-7" class="pylon-box">7</div><div id="py-8" class="pylon-box">8</div><div id="py-9" class="pylon-box">9</div>
+        </div>
+    </div>
+</div>
 
-.mfd-side-panel {
-    border: 1px solid #444;
-    padding: 15px;
-    background: #111;
-}
-
-/* RADAR */
-.radar-container {
-    width: 100%; height: 300px;
-    background: #000; border: 1px solid var(--terminal-green);
-    overflow: hidden;
-}
-#radar-video { width: 100%; height: 100%; object-fit: fill; }
-
-/* MASTER ARM 3D */
-.switch-container { perspective: 1000px; padding: 20px; }
-#switch-guard {
-    width: 70px; height: 90px;
-    background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px);
-    border: 2px solid #555; margin: auto;
-    transition: transform 0.5s; transform-origin: top;
-    z
+<script src="script.js"></script>
+</body>
+</html>
