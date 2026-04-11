@@ -31,4 +31,15 @@
       ]
     }
   ]
+  {
+  "USA": [
+    {
+      "aircraft_ID": "A-10JK Jumping KJ",
+      "has_ccip": true,
+      "loadout": [
+        { "bomb_name": "Mk 82 (500lb)", "is_laser_guided": false, "tnt_kg": 118 },
+        { "bomb_name": "GBU-12 Paveway", "is_laser_guided": true, "tnt_kg": 87 }
+      ]
+    }
+  ]
 }
