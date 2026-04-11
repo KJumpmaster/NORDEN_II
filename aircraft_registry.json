@@ -5,9 +5,9 @@
       "data_key": "a_10a_early",
       "max_speed_kmh": 676,
       "loadout": [
-        { "bomb_name": "Mk 82 (500lb)", "drag_cx": 0.012, "caliber_m": 0.273 },
-        { "bomb_name": "Mk 84 (2000lb)", "drag_cx": 0.015, "caliber_m": 0.457 },
-        { "bomb_name": "M117 (750lb)", "drag_cx": 0.013, "caliber_m": 0.350 }
+        { "bomb_name": "Mk 82 (500lb)", "drag_cx": 0.012, "caliber_m": 0.273, "tnt_kg": 118 },
+        { "bomb_name": "Mk 84 (2000lb)", "drag_cx": 0.015, "caliber_m": 0.457, "tnt_kg": 428 },
+        { "bomb_name": "M117 (750lb)", "drag_cx": 0.013, "caliber_m": 0.350, "tnt_kg": 175 }
       ]
     },
     {
@@ -15,8 +15,8 @@
       "data_key": "a_20g",
       "max_speed_kmh": 510,
       "loadout": [
-        { "bomb_name": "500lb AN-M64A1", "drag_cx": 0.014, "caliber_m": 0.280 },
-        { "bomb_name": "100lb AN-M30A1", "drag_cx": 0.011, "caliber_m": 0.200 }
+        { "bomb_name": "500lb AN-M64A1", "drag_cx": 0.014, "caliber_m": 0.280, "tnt_kg": 121 },
+        { "bomb_name": "100lb AN-M30A1", "drag_cx": 0.011, "caliber_m": 0.200, "tnt_kg": 24 }
       ]
     }
   ],
@@ -26,8 +26,8 @@
       "data_key": "lancaster_mk1",
       "max_speed_kmh": 462,
       "loadout": [
-        { "bomb_name": "1000lb G.P. Mk.I", "drag_cx": 0.013, "caliber_m": 0.350 },
-        { "bomb_name": "4000lb 'Cookie'", "drag_cx": 0.040, "caliber_m": 0.760 }
+        { "bomb_name": "1000lb G.P. Mk.I", "drag_cx": 0.013, "caliber_m": 0.350, "tnt_kg": 231 },
+        { "bomb_name": "4000lb 'Cookie'", "drag_cx": 0.040, "caliber_m": 0.760, "tnt_kg": 1330 }
       ]
     }
   ]
