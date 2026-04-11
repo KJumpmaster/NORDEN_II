@@ -1,10 +1,6 @@
-/* --- NORDEN II: TACTICAL TERMINAL STYLESHEET --- */
-
 :root {
     --terminal-green: #00FF41;
     --terminal-red: #FF0000;
-    --terminal-blue: #0088ff;
-    --tactical-orange: #ffa500;
     --bg-black: #050505;
 }
 
@@ -12,177 +8,46 @@ body {
     background-color: var(--bg-black);
     color: var(--terminal-green);
     font-family: 'Courier New', monospace;
-    text-shadow: 0 0 5px var(--terminal-green);
-    /* CRT Scanline Effect */
+    margin: 0; padding: 20px;
     background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
                       linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
     background-size: 100% 2px, 3px 100%;
-    margin: 0;
-    padding: 20px;
-    overflow-x: hidden;
 }
 
-/* --- COCKPIT LAYOUT --- */
 .cockpit-grid {
     display: grid;
     grid-template-columns: 280px 1fr 300px;
     gap: 20px;
-    max-width: 1600px;
+    max-width: 1400px;
     margin: auto;
 }
 
 .mfd-screen {
-    border: 4px double var(--terminal-green);
+    border: 3px solid var(--terminal-green);
     padding: 20px;
-    background: rgba(0, 20, 0, 0.2);
-    box-shadow: inset 0 0 20px var(--terminal-green), 0 0 15px var(--terminal-green);
-    border-radius: 15px;
+    background: rgba(0, 40, 0, 0.1);
+    box-shadow: inset 0 0 15px var(--terminal-green);
 }
 
 .mfd-side-panel {
-    border: 2px solid #333;
-    padding: 15px;
-    background: rgba(10, 10, 10, 0.8);
-    border-radius: 10px;
-    text-align: center;
-}
-
-/* --- RADAR CONTAINER (Edge-to-Edge) --- */
-.radar-container {
-    width: 100%;
-    height: 350px;
-    border: 1px solid var(--terminal-green);
-    overflow: hidden;
-    background: #000;
-    position: relative;
-}
-
-#radar-video {
-    width: 100%;
-    height: 100%;
-    object-fit: fill; /* Ensures edge-to-edge digital feed */
-}
-
-/* --- INTERACTIVE 3D MASTER ARM --- */
-.switch-container {
-    perspective: 1000px; /* Enables 3D Space */
-    margin: 30px 0;
-}
-
-#switch-guard {
-    width: 80px;
-    height: 100px;
-    background: repeating-linear-gradient(45deg, #000, #000 10px, #ff0 10px, #ff0 20px);
-    border: 2px solid #555;
-    margin: auto;
-    cursor: pointer;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: top;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* State when flipped up */
-.guard-open {
-    transform: rotateX(-115deg);
-}
-
-#physical-switch {
-    width: 50px;
-    height: 70px;
-    background: #222;
-    border: 2px solid var(--terminal-red);
-    color: var(--terminal-red);
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: -40px;
-    z-index: 1;
-}
-
-#physical-switch:active {
-    background: var(--terminal-red);
-    color: #000;
-}
-
-/* --- DSMS WING STORES --- */
-.pylon-grid {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 5px;
-    margin-top: 20px;
-}
-
-.pylon-box {
     border: 1px solid #444;
-    padding: 12px 2px;
-    font-size: 11px;
-    color: #444;
-    transition: all 0.3s ease;
+    padding: 15px;
+    background: #111;
 }
 
-.pylon-active {
-    border-color: var(--terminal-green);
-    color: var(--terminal-green);
-    box-shadow: 0 0 10px var(--terminal-green);
-    background: rgba(0, 255, 65, 0.15);
+/* RADAR */
+.radar-container {
+    width: 100%; height: 300px;
+    background: #000; border: 1px solid var(--terminal-green);
+    overflow: hidden;
 }
+#radar-video { width: 100%; height: 100%; object-fit: fill; }
 
-/* --- FORM ELEMENTS --- */
-select, input, button {
-    background: #000;
-    color: var(--terminal-green);
-    border: 1px solid var(--terminal-green);
-    padding: 8px;
-    font-family: inherit;
-    font-size: 14px;
-}
-
-input[type="number"] {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#run-sim {
-    width: 100%;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-top: 15px;
-    cursor: pointer;
-    box-shadow: 0 0 5px var(--terminal-green);
-}
-
-#run-sim:disabled {
-    opacity: 0.2;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-/* --- DATA DISPLAYS --- */
-#advisory-display {
-    border: 1px solid var(--tactical-orange);
-    color: var(--tactical-orange);
-    padding: 10px;
-    margin: 15px 0;
-    font-size: 0.9em;
-    background: rgba(255, 165, 0, 0.05);
-}
-
-.mission-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.mission-table td {
-    border: 1px solid #333;
-    padding: 8px;
-    font-size: 0.85em;
-}
-
-.val-glow {
-    color: #fff;
-    text-shadow: 0 0 8px #fff;
-}
+/* MASTER ARM 3D */
+.switch-container { perspective: 1000px; padding: 20px; }
+#switch-guard {
+    width: 70px; height: 90px;
+    background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px);
+    border: 2px solid #555; margin: auto;
+    transition: transform 0.5s; transform-origin: top;
+    z
