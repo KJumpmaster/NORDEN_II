@@ -1,79 +1,108 @@
-/* GE3M V10.0 - RELEASE DAY ENGINE */
-const BOMB_LIST = [{id:"mk82",name:"Mk 82",tnt:118},{id:"mk84",name:"Mk 84",tnt:428},{id:"fab500",name:"FAB-500",tnt:213}];
-let bayDoorsOpen = false;
-
-function applyFilters() {
-    ['bomb-1','bomb-2','bomb-3'].forEach(sID => {
-        const el = document.getElementById(sID); el.innerHTML = '<option value="">-- BOMB --</option>';
-        BOMB_LIST.forEach(b => el.innerHTML += `<option value="${b.id}">${b.name}</option>`);
-    });
-}
-
-function syncSlot(num) {
-    const bombID = document.getElementById(`bomb-${num}`).value;
-    const bomb = BOMB_LIST.find(b => b.id === bombID);
-    if (bomb) document.getElementById(`tnt-${num}`).value = bomb.tnt;
-    updateAllSlots();
-}
-
-function updateAllSlots() {
-    const alt = parseFloat(document.getElementById('alt-input').value) || 0;
-    const speed = parseFloat(document.getElementById('speed-input').value) || 0;
-    const dive = parseFloat(document.getElementById('dive-input').value) || 0;
-    const time = Math.sqrt((2 * (alt * 0.3048)) / 9.81);
-    const dist = Math.round((speed * 0.447) * time * Math.cos(dive * Math.PI / 180));
-    document.getElementById('tgt-dist-const').value = dist + "m";
-    for (let i = 1; i <= 3; i++) {
-        const tnt = parseFloat(document.getElementById(`tnt-${i}`).value) || 0;
-        document.getElementById(`blast-${i}`).value = Math.round(Math.pow(tnt, 1/3) * 15) + "m";
-    }
-}
-
-function toggleBayDoors() {
-    bayDoorsOpen = !bayDoorsOpen;
-    const btn = document.getElementById('bay-door-btn');
-    btn.innerText = bayDoorsOpen ? "BAY: OPEN" : "BAY: CLOSED";
-    btn.style.borderColor = bayDoorsOpen ? "red" : "orange"; btn.style.color = bayDoorsOpen ? "red" : "orange";
-}
-
-function toggleGuard() {
-    const g = document.getElementById('switch-guard'); const btn = document.getElementById('physical-switch');
-    g.classList.toggle('guard-open'); btn.disabled = !g.classList.contains('guard-open');
-}
-
-function toggleMasterArm() {
-    const btn = document.getElementById('physical-switch'); const light = document.getElementById('status-light');
-    if (btn.innerText.includes("OFF")) { btn.innerText = "MASTER ARM: ARMED"; light.className = 'light-danger'; }
-    else { btn.innerText = "MASTER ARM: OFF"; light.className = 'light-off'; }
-}
-
-function runPhysics() {
-    if (document.getElementById('physical-switch').innerText.includes("OFF")) { alert("MASTER ARM DISENGAGED"); return; }
-    if (!bayDoorsOpen) { alert("BOMB BAY DOORS CLOSED"); return; }
-    const alt = document.getElementById('alt-input').value; const flightTime = Math.sqrt((2 * (alt * 0.3048)) / 9.81);
-    const focus = document.getElementById('focus-select').value;
-    document.querySelectorAll('.node').forEach(n => n.classList.remove('pylon-active'));
-    document.getElementById('py-5').classList.add('pylon-active');
-    document.getElementById('mission-readout').innerHTML = `<div style="border:1px solid #00FF41; padding:10px;">SOLUTION ${focus} LOCKED: ${(flightTime/4).toFixed(2)}s<br><button onclick="executeRelease(${flightTime})" id="final-pickle" style="background:red; color:white; width:100%; margin-top:5px; font-weight:bold; cursor:pointer; padding:8px; border:none;">!!! RELEASE !!!</button></div>`;
-}
-
-function executeRelease(flightTime) {
-    let timeLeft = flightTime; const readout = document.getElementById('mission-readout');
-    const timer = setInterval(() => {
-        timeLeft -= 0.4; 
-        if (timeLeft <= 0) {
-            clearInterval(timer); document.getElementById('cockpit-body').classList.add('combat-flash');
-            setTimeout(() => { document.getElementById('cockpit-body').classList.remove('combat-flash'); }, 150);
-            readout.innerHTML = "<h3 style='color:red; text-align:center;'>--- IMPACT ---</h3>";
-        } else { readout.innerHTML = `<h1 style="font-size: 2em; color:red; text-align:center;">TOF: ${timeLeft.toFixed(1)}s</h1>`; }
-    }, 100);
-}
-
 function generateMAC() {
     const win = window.open('', '_blank');
     const alt = document.getElementById('alt-input').value;
-    const focus = document.getElementById('focus-select').value;
-    win.document.write(`<html><body style="font-family:Arial; padding:40px; background:white;"><h1>M.A.C. MISSION ANALYSIS CHART</h1><p>B-52H STRATOFORTRESS | ALTITUDE: ${alt}FT</p><canvas id="c" width="800" height="250" style="border:1px solid #000;"></canvas><table border="1" width="100%" style="margin-top:20px;"><tr><th>SLOT</th><th>TNT</th><th>BLAST</th><th>STATUS</th></tr><tr><td>1</td><td>${document.getElementById('tnt-1').value}kg</td><td>${document.getElementById('blast-1').value}</td><td>RESERVE</td></tr><tr><td>2</td><td>${document.getElementById('tnt-2').value}kg</td><td>${document.getElementById('blast-2').value}</td><td>PRIMARY</td></tr></table><script>const ctx=document.getElementById('c').getContext('2d'); ctx.moveTo(0,200); ctx.lineTo(800,200); ctx.stroke(); [1,2,3].forEach(i=>{ctx.strokeStyle=i==1?"green":(i==2?"blue":"red"); ctx.beginPath(); ctx.moveTo(50,50); ctx.quadraticCurveTo(400,50,450+(i*20),200); ctx.stroke();});</script></body></html>`);
-}
+    const speed = document.getElementById('speed-input').value;
 
-window.onload = () => { applyFilters(); updateAllSlots(); };
+    win.document.write(`
+        <html>
+        <head>
+            <title>M.A.C. TACTICAL PLAYBACK</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 40px; background: white; color: black; }
+                h1 { border-bottom: 3px solid black; margin-bottom: 5px; }
+                .playback-controls { background: #f0f0f0; padding: 15px; border: 1px solid #ccc; margin: 10px 0; display: flex; gap: 20px; align-items: center; }
+                canvas { border: 2px solid #000; background: #fff; width: 100%; height: 350px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+                th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                .play-btn { background: #008000; color: white; padding: 10px 20px; border: none; font-weight: bold; cursor: pointer; }
+                .reset-btn { background: #666; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+                @media print { .playback-controls { display: none; } }
+            </style>
+        </head>
+        <body>
+            <h1>MISSION ANALYSIS CHART (M.A.C.) - V12.0</h1>
+            <p><strong>AIRCRAFT:</strong> B-52H STRATOFORTRESS | <strong>ALT:</strong> ${alt} FT | <strong>SPD:</strong> ${speed} MPH</p>
+            
+            <div class="playback-controls">
+                <button class="play-btn" onclick="startPlayback()">▶ PLAY MISSION VIDEO</button>
+                <button class="reset-btn" onclick="resetMission()">RESET</button>
+                <div id="frame-counter">FRAME: 0 / 20</div>
+            </div>
+
+            <canvas id="macCanvas" width="800" height="350"></canvas>
+
+            <table border="1">
+                <tr><th>SOLUTION</th><th>TNT EQ</th><th>BLAST RAD</th><th>TGT DIST</th></tr>
+                <tr style="color:green;"><td>A: ${document.getElementById('bomb-1', window.opener.document).selectedOptions[0].text}</td><td>${document.getElementById('tnt-1', window.opener.document).value}kg</td><td>${document.getElementById('blast-1', window.opener.document).value}</td><td>${document.getElementById('dist-1', window.opener.document).value}</td></tr>
+                <tr style="color:blue;"><td>B: ${document.getElementById('bomb-2', window.opener.document).selectedOptions[0].text}</td><td>${document.getElementById('tnt-2', window.opener.document).value}kg</td><td>${document.getElementById('blast-2', window.opener.document).value}</td><td>${document.getElementById('dist-2', window.opener.document).value}</td></tr>
+                <tr style="color:red;"><td>C: ${document.getElementById('bomb-3', window.opener.document).selectedOptions[0].text}</td><td>${document.getElementById('tnt-3', window.opener.document).value}kg</td><td>${document.getElementById('blast-3', window.opener.document).value}</td><td>${document.getElementById('dist-3', window.opener.document).value}</td></tr>
+            </table>
+
+            <script>
+                const canvas = document.getElementById('macCanvas');
+                const ctx = canvas.getContext('2d');
+                let currentFrame = 0;
+                let playInterval = null;
+
+                function drawFrame(frame) {
+                    ctx.clearRect(0,0,800,350);
+                    // Ground Line
+                    ctx.strokeStyle="#000"; ctx.setLineDash([]); ctx.lineWidth=2;
+                    ctx.beginPath(); ctx.moveTo(0,300); ctx.lineTo(800,300); ctx.stroke();
+                    // TOC Target
+                    ctx.fillStyle="#000"; ctx.fillRect(720, 275, 30, 25); ctx.fillText("TOC", 725, 315);
+                    // Aircraft Marker
+                    ctx.fillStyle="#333"; ctx.fillRect(20, 30, 60, 15); ctx.fillText("B-52H", 30, 25);
+
+                    const progress = frame / 20;
+                    document.getElementById('frame-counter').innerText = "FRAME: " + frame + " / 20";
+
+                    [1,2,3].forEach(i => {
+                        const color = i==1 ? "green" : (i==2 ? "blue" : "red");
+                        // Pull data from main window
+                        const distVal = parseInt(window.opener.document.getElementById('dist-'+i).value);
+                        const blastVal = parseInt(window.opener.document.getElementById('blast-'+i).value);
+                        
+                        const x = 50 + (distVal * 0.5 * progress);
+                        const y = 40 + (260 * progress);
+
+                        // Draw Path Up to current frame
+                        ctx.strokeStyle = color; ctx.setLineDash([5, 5]);
+                        ctx.beginPath(); ctx.moveTo(50, 40);
+                        ctx.quadraticCurveTo(x, 40, x, y); ctx.stroke();
+
+                        // Draw Bomb at current position
+                        ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+
+                        // Draw Blast on Frame 20
+                        if(frame === 20) {
+                            ctx.setLineDash([]); ctx.fillStyle = color + "33";
+                            ctx.beginPath(); ctx.arc(x, 300, blastVal/2, 0, Math.PI*2); ctx.fill();
+                            ctx.fillStyle = color; ctx.fillText(blastVal + "m BLAST", x - 20, 320);
+                        }
+                    });
+                }
+
+                function startPlayback() {
+                    if (playInterval) return;
+                    currentFrame = 0;
+                    playInterval = setInterval(() => {
+                        currentFrame++;
+                        drawFrame(currentFrame);
+                        if (currentFrame >= 20) clearInterval(playInterval);
+                    }, 100);
+                }
+
+                function resetMission() {
+                    clearInterval(playInterval);
+                    playInterval = null;
+                    currentFrame = 0;
+                    drawFrame(0);
+                }
+
+                drawFrame(0);
+            </script>
+        </body>
+        </html>
+    `);
+}
