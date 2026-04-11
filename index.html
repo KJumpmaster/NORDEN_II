@@ -9,7 +9,6 @@
 <body>
 
 <div class="cockpit-grid">
-    
     <div class="mfd-side-panel">
         <h3>SEARCH RADAR</h3>
         <div class="radar-container">
@@ -22,26 +21,21 @@
 
     <div class="mfd-screen">
         <h1>--- NORDEN II HUD ---</h1>
-        
         <div class="filter-bar" style="display: flex; gap: 10px; margin-bottom: 15px; background: #222; padding: 10px;">
             <select id="nation-select" onchange="applyFilters()">
                 <option value="ALL">ALL NATIONS</option>
                 <option value="USA">USA</option>
                 <option value="USSR">USSR</option>
             </select>
-            
             <label><input type="checkbox" id="ccip-toggle" onchange="applyFilters()" checked> CCIP</label>
             <label><input type="checkbox" id="laser-toggle" onchange="applyFilters()" checked> LASER</label>
         </div>
 
         <div class="registry-select" style="margin-bottom: 20px; text-align: left;">
             <label>AIRCRAFT</label>
-            <select id="ac-select" onchange="loadAircraft()" style="margin-bottom: 10px;">
-                </select>
-            
+            <select id="ac-select" onchange="loadAircraft()" style="margin-bottom: 10px;"></select>
             <label>ORDNANCE</label>
-            <select id="bomb-select" onchange="loadOrdnance()">
-                </select>
+            <select id="bomb-select" onchange="loadOrdnance()"></select>
         </div>
 
         <div class="input-grid">
@@ -49,7 +43,6 @@
             <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400"></div>
             <div><label>DRAG (Cx)</label><input type="number" id="drag-input" step="0.001" value="0.012"></div>
             <div><label>MASS (KG)</label><input type="number" id="mass-input" value="227"></div>
-            
             <div style="grid-column: span 2; margin-top: 10px;">
                 <label>SALVO QUANTITY (# OF BOMBS)</label>
                 <select id="salvo-select" style="width: 100%; padding: 8px; border: 1px solid var(--terminal-green); background: #000; color: #fff;">
@@ -59,13 +52,9 @@
                     <option value="8">CARPET (8)</option>
                 </select>
             </div>
-
             <button id="run-sim" onclick="runPhysics()" style="grid-column: span 2; margin-top: 15px;">CALCULATE SOLUTION</button>
         </div>
-        
-        <div id="mission-readout" style="margin-top: 20px; min-height: 80px;">
-            MISSION DATA: STANDBY...
-        </div>
+        <div id="mission-readout" style="margin-top: 20px; min-height: 80px;">MISSION DATA: STANDBY...</div>
     </div>
 
     <div class="mfd-side-panel">
@@ -77,7 +66,6 @@
             </div>
             <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
         </div>
-
         <div class="pylon-grid">
             <div id="py-1" class="pylon-box">1</div><div id="py-2" class="pylon-box">2</div><div id="py-3" class="pylon-box">3</div>
             <div id="py-4" class="pylon-box">4</div><div id="py-5" class="pylon-box">5</div><div id="py-6" class="pylon-box">6</div>
@@ -86,7 +74,6 @@
         <p style="font-size: 10px; margin-top: 5px;">STORES MGMT (DSMS)</p>
     </div>
 </div>
-
 <script src="script.js"></script>
 </body>
 </html>
