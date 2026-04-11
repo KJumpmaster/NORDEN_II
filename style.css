@@ -1,55 +1,22 @@
-:root { 
-    --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; 
-} 
-
-body { 
-    background-color: var(--bg-black); color: var(--terminal-green); 
-    font-family: 'Courier New', monospace; margin: 0; padding: 20px; 
-    background-image: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), 
-                      linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06)); 
-    background-size: 100% 2px, 3px 100%; 
-} 
-
-.cockpit-grid { 
-    display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; max-width: 1400px; margin: auto; 
-} 
-
-.mfd-screen { 
-    border: 3px solid var(--terminal-green); padding: 20px; background: rgba(0, 40, 0, 0.1); 
-    box-shadow: inset 0 0 15px var(--terminal-green); 
-} 
-
+:root { --terminal-green: #00FF41; --terminal-red: #FF0000; --bg-black: #050505; } 
+body { background-color: var(--bg-black); color: var(--terminal-green); font-family: 'Courier New', monospace; margin: 0; padding: 20px; background-image: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06)); background-size: 100% 2px, 3px 100%; } 
+.cockpit-grid { display: grid; grid-template-columns: 280px 1fr 300px; gap: 20px; max-width: 1400px; margin: auto; } 
+.mfd-screen { border: 3px solid var(--terminal-green); padding: 20px; background: rgba(0, 40, 0, 0.1); box-shadow: inset 0 0 15px var(--terminal-green); } 
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
 label { font-size: 0.8em; display: block; margin-bottom: 2px; }
 input, select { background: #000; color: #fff; border: 1px solid var(--terminal-green); width: 100%; padding: 5px; box-sizing: border-box; }
-
 .mfd-side-panel { border: 1px solid #444; padding: 15px; background: #111; text-align: center; }
 .radar-container { width: 100%; height: 300px; background: #000; border: 1px solid var(--terminal-green); overflow: hidden; }
 #radar-video { width: 100%; height: 100%; object-fit: fill; }
-
-/* MASTER ARM */
 .switch-container { perspective: 1000px; padding: 20px; }
-#switch-guard { 
-    width: 70px; height: 90px; background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px); 
-    border: 2px solid #555; margin: auto; transition: transform 0.5s; transform-origin: top; z-index: 10; cursor: pointer;
-} 
+#switch-guard { width: 70px; height: 90px; background: repeating-linear-gradient(45deg, #000, #000 10px, #fbff00 10px, #fbff00 20px); border: 2px solid #555; margin: auto; transition: transform 0.5s; transform-origin: top; z-index: 10; cursor: pointer; } 
 .guard-open { transform: rotateX(-115deg); }
-#physical-switch { 
-    width: 50px; height: 60px; background: #333; border: 2px solid var(--terminal-red); 
-    color: var(--terminal-red); font-weight: bold; display: block; margin: -30px auto 0 auto; 
-}
-
+#physical-switch { width: 50px; height: 60px; background: #333; border: 2px solid var(--terminal-red); color: var(--terminal-red); font-weight: bold; display: block; margin: -30px auto 0 auto; }
 #status-light { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #333; margin-bottom: 5px; background: #111; display: inline-block; }
 .light-caution { background: #ffa500 !important; box-shadow: 0 0 10px #ffa500; }
 .light-danger { background: #ff0000 !important; box-shadow: 0 0 15px #ff0000; }
-
 .pylon-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; margin-top: 15px; }
 .pylon-box { border: 1px solid #333; padding: 10px 2px; font-size: 10px; color: #444; }
 .pylon-active { border-color: var(--terminal-green); color: var(--terminal-green); box-shadow: 0 0 5px var(--terminal-green); }
-
-/* FINAL RELEASE BUTTON */
-#final-pickle {
-    background: #900; color: white; border: 2px solid #f00; cursor: pointer;
-    font-size: 1.2em; animation: pulse 1s infinite;
-}
+#final-pickle { background: #900; color: white; border: 2px solid #f00; cursor: pointer; font-size: 1.2em; animation: pulse 1s infinite; width: 100%; margin-top: 10px; }
 @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
