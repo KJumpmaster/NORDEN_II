@@ -59,3 +59,56 @@ body {
     color: var(--terminal-red); font-weight: bold;
     display: block; margin: -35px auto 0 auto;
 }
+z-index: 10;
+    cursor: pointer;
+} 
+
+.guard-open { 
+    transform: rotateX(-115deg); 
+}
+
+#physical-switch {
+    width: 50px;
+    height: 70px;
+    background: #333;
+    border: 2px solid var(--terminal-red);
+    color: var(--terminal-red);
+    font-weight: bold;
+    display: block;
+    margin: -35px auto 0 auto;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#physical-switch:active {
+    background: var(--terminal-red);
+    color: #000;
+}
+
+#physical-switch:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: #444;
+}
+/* --- PYLON STYLES --- */
+.pylon-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.pylon-box {
+    border: 1px solid #333;
+    padding: 10px 2px;
+    font-size: 10px;
+    text-align: center;
+    color: #444;
+}
+
+.pylon-active {
+    border-color: var(--terminal-green);
+    color: var(--terminal-green);
+    box-shadow: 0 0 10px var(--terminal-green);
+    background: rgba(0, 255, 65, 0.1);
+}
