@@ -3,9 +3,22 @@ body{background:black;color:#00ff41;font-family:monospace;margin:0}
 .panel{border:2px solid #00ff41;padding:10px}
 .row{display:flex;gap:10px}
 .grow{flex:1}
-.flag{width:70px;height:50px;border:1px solid #444}
-.b52{width:100%;max-height:420px;object-fit:contain}
-.solutions{display:flex;gap:10px}
-.card{border:1px solid #00ff41;padding:5px;font-size:14px}
-.radar{width:100%;margin-top:20px;opacity:.5}
+.flag{width:90px;height:60px;border:1px solid #444}
+
+.b52{width:100%;max-height:450px;object-fit:contain}
+
+.solutions{
+display:flex;
+gap:6px;
+margin-top:5px;
+}
+
+.card{
+flex:1;
+border:1px solid #00ff41;
+padding:6px;
+font-size:14px;
+background:rgba(0,255,65,0.05);
+}
+
 .adv{color:gold;border:1px solid gold;padding:5px;margin-top:10px}

@@ -13,7 +13,9 @@ loadCountry();
 
 [1,2,3].forEach(i=>{
 let b=document.getElementById("bomb"+i);
+let s=document.getElementById("salvo"+i);
 BOMBS.forEach(x=>b.innerHTML+=`<option>${x}</option>`);
+[1,2,4,6,8].forEach(x=>s.innerHTML+=`<option>${x}</option>`);
 });
 }
 
