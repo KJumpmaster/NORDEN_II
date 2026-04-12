@@ -32,21 +32,27 @@ spd.max = ac.maxSpeed;
 spd.dataset.max = ac.maxSpeed;
 }
 
-function clampSpeed(){
-const spd = document.getElementById("spd");
-const max = parseFloat(spd.dataset.max);
+function clampSpeed() {
+  const spd = document.getElementById("spd");
+  const max = parseFloat(spd.dataset.max);
+  const ac = AC[document.getElementById("ac").selectedIndex];
+  const advisory = document.getElementById("advisory");
 
-if(!max) return;
+  if (!max) return;
 
-let val = parseFloat(spd.value);
+  const val = parseFloat(spd.value);
+  if (Number.isFinite(val) && val > max) {
+    spd.value = max;
+    spd.style.borderColor = "red";
 
-if(val > max){
-spd.value = max;
+    if (advisory) {
+      advisory.textContent = `AIRCRAFT LIMIT: ${ac.name} MAX SPEED IS ${max} MPH — INPUT CLAMPED`;
+    }
 
-// quick visual cue
-spd.style.borderColor = "red";
-setTimeout(()=> spd.style.borderColor="#333", 400);
-}
+    setTimeout(() => spd.style.borderColor = "#333", 400);
+  } else if (advisory) {
+    advisory.textContent = "AIRFRAME LIMITS NOMINAL";
+  }
 }
 
 function sync(n){
