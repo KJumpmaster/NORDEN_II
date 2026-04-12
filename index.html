@@ -1,90 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NORDEN II Cockpit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NORDEN II — UI Refinement</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="cockpit">
 
-<!-- LEFT PANEL -->
-<div class="panel left">
-<h2>LOADOUT</h2>
+  <!-- LEFT PANEL -->
+  <section class="panel left-panel">
+    <div class="left-top">
+      <h2>LOADOUT</h2>
 
-<label>Aircraft</label>
-<select id="ac" onchange="loadAC()"></select>
+      <div class="solutions-block">
+        <h3>SOLUTIONS</h3>
 
-<label>Altitude</label>
-<input id="alt" type="number" value="8000">
+        <div class="solution-card sol-a">
+          <div class="solution-head">
+            <span class="solution-title">A</span>
+            <span id="smart-ind-1" class="solution-indicator">STD</span>
+          </div>
+          <select id="bomb1" onchange="syncSolution(1)"></select>
+          <select id="salvo1" onchange="syncSolution(1)">
+            <option value="1">SALVO 1</option>
+            <option value="2">SALVO 2</option>
+            <option value="4">SALVO 4</option>
+            <option value="6">SALVO 6</option>
+            <option value="8">SALVO 8</option>
+          </select>
+          <div id="out1" class="solution-readout">READY</div>
+        </div>
 
-<label>Speed</label>
-<input id="spd" type="number" value="400" oninput="clampSpeed()">
+        <div class="solution-card sol-b">
+          <div class="solution-head">
+            <span class="solution-title">B</span>
+            <span id="smart-ind-2" class="solution-indicator">STD</span>
+          </div>
+          <select id="bomb2" onchange="syncSolution(2)"></select>
+          <select id="salvo2" onchange="syncSolution(2)">
+            <option value="1">SALVO 1</option>
+            <option value="2">SALVO 2</option>
+            <option value="4">SALVO 4</option>
+            <option value="6">SALVO 6</option>
+            <option value="8">SALVO 8</option>
+          </select>
+          <div id="out2" class="solution-readout">READY</div>
+        </div>
 
-<label>Dive</label>
-<input id="dive" type="number" value="0">
+        <div class="solution-card sol-c">
+          <div class="solution-head">
+            <span class="solution-title">C</span>
+            <span id="smart-ind-3" class="solution-indicator">STD</span>
+          </div>
+          <select id="bomb3" onchange="syncSolution(3)"></select>
+          <select id="salvo3" onchange="syncSolution(3)">
+            <option value="1">SALVO 1</option>
+            <option value="2">SALVO 2</option>
+            <option value="4">SALVO 4</option>
+            <option value="6">SALVO 6</option>
+            <option value="8">SALVO 8</option>
+          </select>
+          <div id="out3" class="solution-readout">READY</div>
+        </div>
+      </div>
 
-<label>Standoff (km)</label>
-<input id="dist" type="number" value="3">
+      <div class="input-block">
+        <label>COUNTRY</label>
+        <select id="country" onchange="loadCountry()"></select>
 
-<h3>Solutions</h3>
+        <label>AIRCRAFT</label>
+        <select id="ac" onchange="loadAircraft()"></select>
 
-<div class="sol">
-A <select id="bomb1"></select>
-<select id="salvo1"><option>1</option><option>2</option><option>4</option><option>6</option><option>8</option></select>
-</div>
+        <label>ALTITUDE (FT)</label>
+        <input id="alt" type="number" value="8000">
 
-<div class="sol">
-B <select id="bomb2"></select>
-<select id="salvo2"><option>1</option><option>2</option><option>4</option><option>6</option><option>8</option></select>
-</div>
+        <label>SPEED (MPH)</label>
+        <input id="spd" type="number" value="400" oninput="clampSpeed()">
 
-<div class="sol">
-C <select id="bomb3"></select>
-<select id="salvo3"><option>1</option><option>2</option><option>4</option><option>6</option><option>8</option></select>
-</div>
+        <label>DIVE (°)</label>
+        <input id="dive" type="number" value="0">
 
-</div>
+        <label>STANDOFF (KM)</label>
+        <input id="dist" type="number" value="3">
+      </div>
 
-<!-- CENTER -->
-<div class="panel center">
-<h2>AIRCRAFT STATE</h2>
+      <div id="speed-advisory" class="advisory">AIRFRAME LIMITS NOMINAL</div>
+    </div>
 
-<div class="b52-wrap">
-<img src="b52.png">
+    <div class="flag-wrap">
+      <img id="country-flag" alt="Country flag">
+      <div id="flag-fallback">FLAG</div>
+    </div>
+  </section>
 
-<div id="p1" class="pylon"></div>
-<div id="p2" class="pylon"></div>
-<div id="p3" class="pylon"></div>
-<div id="p4" class="pylon"></div>
-<div id="p5" class="pylon"></div>
-<div id="p6" class="pylon"></div>
-<div id="p7" class="pylon"></div>
-<div id="p8" class="pylon"></div>
+  <!-- CENTER PANEL -->
+  <section class="panel center-panel">
+    <div class="center-head">
+      <h2>AIRCRAFT STATE</h2>
 
-</div>
+      <div class="capability-box">
+        <div id="badge-laser" class="cap-badge">LASER: NO</div>
+        <div id="badge-ccrp" class="cap-badge">CCRP: NO</div>
+        <div id="badge-smart" class="cap-badge smart-off">SMART MUNITIONS: NO</div>
+      </div>
+    </div>
 
-</div>
+    <div class="b52-wrap">
+      <img src="b52.png" alt="B-52 outline" class="b52-img">
 
-<!-- RIGHT PANEL -->
-<div class="panel right">
-<h2>COMMAND</h2>
+      <div id="p1" class="pylon"></div>
+      <div id="p2" class="pylon"></div>
+      <div id="p3" class="pylon"></div>
+      <div id="p4" class="pylon"></div>
+      <div id="p5" class="pylon"></div>
+      <div id="p6" class="pylon"></div>
+      <div id="p7" class="pylon"></div>
+      <div id="p8" class="pylon"></div>
+    </div>
+  </section>
 
-<label>Focus</label>
-<select id="focus">
-<option value="1">A</option>
-<option value="2">B</option>
-<option value="3">C</option>
-</select>
+  <!-- RIGHT PANEL -->
+  <section class="panel right-panel">
+    <h2>COMMAND</h2>
 
-<button onclick="solve()">SOLVE</button>
-<button onclick="applySalvo()">ARM LOAD</button>
+    <label>FOCUS</label>
+    <select id="focus" onchange="updateFocus()">
+      <option value="1">FOCUS A</option>
+      <option value="2">FOCUS B</option>
+      <option value="3">FOCUS C</option>
+    </select>
 
-<div id="result">READY</div>
-<div id="advisory">SYSTEM NOMINAL</div>
+    <button onclick="solve()">SOLVE</button>
+    <button onclick="applySalvo()">ARM LOAD</button>
 
-</div>
+    <div id="focus-status" class="focus-status">ACTIVE SOLUTION: A</div>
+    <div id="result">READY</div>
+    <div id="pattern">PATTERN DATA STANDBY</div>
+  </section>
 
 </div>
 
