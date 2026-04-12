@@ -57,12 +57,19 @@ margin-bottom: 8px;
 }
 
 .outbox {
-min-height: 54px;
-padding: 8px;
+min-height: 70px;
+padding: 10px;
 border: 1px solid #1d1d1d;
-background: rgba(255,255,255,0.03);
-font-size: 13px;
-line-height: 1.4;
+background: rgba(255,255,255,0.04);
+
+/* 👇 readability upgrade */
+font-size: 18px;
+font-weight: bold;
+line-height: 1.6;
+letter-spacing: 0.5px;
+
+/* optional glow for that cockpit feel */
+text-shadow: 0 0 6px rgba(0,255,65,0.4);
 }
 
 .sol-a { border-color: #00ff41; }
