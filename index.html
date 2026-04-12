@@ -12,7 +12,7 @@
         <h3>SEARCH RADAR / TGP</h3>
         <div class="radar-container">
             <video id="radar-video" autoplay loop muted playsinline>
-                <source src="dual_scope_tactical_radar.mp4" type="video/mp4">
+                <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
             </video>
         </div>
         <div class="glossary-box">
@@ -25,43 +25,40 @@
         <h1>--- STRATEGIC TARGETING SUITE ---</h1>
         
         <div class="filter-bar">
-            <div><label>NATION</label><select id="nation-select" onchange="applyFilters()"></select></div>
-            <div><label>AIRCRAFT TYPE</label><select id="ac-select" onchange="loadAircraft()"></select></div>
+            <div><label>THEATRE (NATION)</label><select id="nation-select" onchange="applyFilters()"></select></div>
+            <div><label>AIRCRAFT</label><select id="ac-select" onchange="loadAircraft()"></select></div>
         </div>
 
         <div class="constants-bar">
             <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000" oninput="updateAllSlots()"></div>
             <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400" oninput="updateAllSlots()"></div>
-            <div><label>DIVE ANGLE (°)</label><input type="number" id="dive-input" value="0" oninput="updateAllSlots()"></div>
+            <div><label>DIVE (°)</label><input type="number" id="dive-input" value="0" oninput="updateAllSlots()"></div>
             <div><label>TARGET DISTANCE (M)</label><input type="text" id="tgt-dist-const" readonly class="yellow-out"></div>
         </div>
 
-        <div class="triple-comparison">
-            <div class="ord-slot">
-                <h3>SOL A</h3>
-                <label>SELECT ARMAMENT</label>
-                <select id="bomb-1" onchange="syncSlot(1)"></select>
-                <label>TNT EQUIVALENT</label><input type="number" id="tnt-1" oninput="updateAllSlots()">
-                <label>BLAST RADIUS</label><input type="text" id="blast-1" readonly class="yellow-out">
+        <div class="triple-slot-container">
+            <div class="ord-slot" style="border-color: #00FF41;">
+                <h3>SOL-A (GRN)</h3>
+                <label>ARMAMENT</label><select id="bomb-1" onchange="syncSlot(1)"></select>
+                <label>TNT EQ</label><input type="number" id="tnt-1" oninput="updateAllSlots()">
+                <label>BLAST RAD</label><input type="text" id="blast-1" readonly class="yellow-out">
             </div>
-            <div class="ord-slot">
-                <h3>SOL B</h3>
-                <label>SELECT ARMAMENT</label>
-                <select id="bomb-2" onchange="syncSlot(2)"></select>
-                <label>TNT EQUIVALENT</label><input type="number" id="tnt-2" oninput="updateAllSlots()">
-                <label>BLAST RADIUS</label><input type="text" id="blast-2" readonly class="yellow-out">
+            <div class="ord-slot" style="border-color: #00FFFF;">
+                <h3>SOL-B (BLU)</h3>
+                <label>ARMAMENT</label><select id="bomb-2" onchange="syncSlot(2)"></select>
+                <label>TNT EQ</label><input type="number" id="tnt-2" oninput="updateAllSlots()">
+                <label>BLAST RAD</label><input type="text" id="blast-2" readonly class="yellow-out">
             </div>
-            <div class="ord-slot">
-                <h3>SOL C</h3>
-                <label>SELECT ARMAMENT</label>
-                <select id="bomb-3" onchange="syncSlot(3)"></select>
-                <label>TNT EQUIVALENT</label><input type="number" id="tnt-3" oninput="updateAllSlots()">
-                <label>BLAST RADIUS</label><input type="text" id="blast-3" readonly class="yellow-out">
+            <div class="ord-slot" style="border-color: #FF0000;">
+                <h3>SOL-C (RED)</h3>
+                <label>ARMAMENT</label><select id="bomb-3" onchange="syncSlot(3)"></select>
+                <label>TNT EQ</label><input type="number" id="tnt-3" oninput="updateAllSlots()">
+                <label>BLAST RAD</label><input type="text" id="blast-3" readonly class="yellow-out">
             </div>
         </div>
 
         <div class="command-row">
-            <div style="flex:1;"><label>FOCUS</label><select id="focus-select" style="color:yellow; border:1px solid yellow;"><option value="1">A</option><option value="2">B</option><option value="3">C</option></select></div>
+            <div style="flex:1;"><label>FOCUS</label><select id="focus-select"><option value="1">A</option><option value="2">B</option><option value="3">C</option></select></div>
             <button onclick="runPhysics()" class="prime-btn">TARGETING SOLUTION</button>
         </div>
         <div id="mission-readout">SYSTEM READY...</div>
@@ -71,17 +68,15 @@
     <div class="mfd-side-panel">
         <h3>ARMAMENT CONTROL</h3>
         <div id="status-light" class="light-off"></div>
-        <div class="arm-switches">
-            <div id="switch-guard" onclick="toggleGuard()"></div>
-            <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
-        </div>
+        <div id="switch-guard" onclick="toggleGuard()"><p style="padding-top:28px; font-size:8px;">GUARD</p></div>
+        <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
         <span style="color:yellow; font-size:10px; font-weight:bold;">GUARDED</span>
         
-        <div class="b52-silhouette">
-            <div class="b52-wings">
-                <div class="wing-left"><div id="py-1" class="node">1</div><div id="py-2" class="node">2</div><div id="py-3" class="node">3</div><div id="py-4" class="node">4</div></div>
-                <div class="b52-fuselage"><div id="py-5" class="node">C</div></div>
-                <div class="wing-right"><div id="py-6" class="node">6</div><div id="py-7" class="node">7</div><div id="py-8" class="node">8</div><div id="py-9" class="node">9</div></div>
+        <div class="pylon-diagram-box">
+            <div class="b52-nodes">
+                <div id="py-1" class="node">1</div><div id="py-2" class="node">2</div><div id="py-3" class="node">3</div><div id="py-4" class="node">4</div>
+                <div class="fuselage-c">C</div>
+                <div id="py-6" class="node">6</div><div id="py-7" class="node">7</div><div id="py-8" class="node">8</div><div id="py-9" class="node">9</div>
             </div>
         </div>
     </div>
