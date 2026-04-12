@@ -1,6 +1,6 @@
 const AC = [
-{ name:"B52", speed:520 },
-{ name:"A10", speed:350 }
+{ name:"B52", speed:520, maxSpeed:650 },
+{ name:"A10", speed:350, maxSpeed:439 }
 ];
 
 const BOMBS = [
@@ -20,8 +20,33 @@ BOMBS.forEach(x=>b.innerHTML+=`<option>${x.name}</option>`);
 }
 
 function loadAC(){
-const ac = AC[document.getElementById("ac").selectedIndex];
-document.getElementById("spd").value = ac.speed;
+const index = document.getElementById("ac").selectedIndex;
+const ac = AC[index];
+
+const spd = document.getElementById("spd");
+
+spd.value = ac.speed;
+
+// 🔥 apply hard limit
+spd.max = ac.maxSpeed;
+spd.dataset.max = ac.maxSpeed;
+}
+
+function clampSpeed(){
+const spd = document.getElementById("spd");
+const max = parseFloat(spd.dataset.max);
+
+if(!max) return;
+
+let val = parseFloat(spd.value);
+
+if(val > max){
+spd.value = max;
+
+// quick visual cue
+spd.style.borderColor = "red";
+setTimeout(()=> spd.style.borderColor="#333", 400);
+}
 }
 
 function sync(n){
