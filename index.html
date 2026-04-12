@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NORDEN II Pass 8</title>
+<title>NORDEN II Pass 8.1</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,67 +10,60 @@
 <div class="cockpit">
 
 <!-- LEFT -->
-<div class="panel left">
+<div class="panel left-panel">
 <h2>LOADOUT</h2>
 
 <label>COUNTRY</label>
-<select id="country" onchange="loadCountry()"></select>
+<select id="country"></select>
 
 <label>AIRCRAFT</label>
-<select id="ac" onchange="loadAircraft()"></select>
+<select id="ac"></select>
 
 <label>ALTITUDE</label>
-<input id="alt" value="8000">
+<input value="8000">
 
 <label>SPEED</label>
-<input id="spd" value="400" oninput="clampSpeed()">
+<input value="400">
 
 <label>DIVE</label>
-<input id="dive" value="0">
+<input value="0">
 
 <label>STAND OFF DISTANCE</label>
-<input id="dist" value="3">
+<input value="3">
 
-<div id="adv" class="adv">AIRFRAME LIMITS NOMINAL</div>
-
-<img id="flag" class="flag">
+<div class="adv">AIRFRAME LIMITS NOMINAL</div>
 
 </div>
 
 <!-- CENTER -->
-<div class="panel center">
+<div class="panel center-panel">
 
 <div class="state">
-<div>AIRCRAFT STATE</div>
-<div id="laser">LASER: NO</div>
-<div id="ccrp">CCRP: YES</div>
-<div id="smart">SMART: NO</div>
+<div>LASER: NO</div>
+<div>CCRP: YES</div>
+<div>SMART: NO</div>
 </div>
 
 <img src="b52.png" class="b52">
 
 <div class="solutions">
-<div class="card">A<select id="bomb1"></select><select id="salvo1"></select></div>
-<div class="card">B<select id="bomb2"></select><select id="salvo2"></select></div>
-<div class="card">C<select id="bomb3"></select><select id="salvo3"></select></div>
+<div class="card">A<br>MK82<br>SALVO 1</div>
+<div class="card">B<br>MK82<br>SALVO 1</div>
+<div class="card">C<br>MK82<br>SALVO 1</div>
 </div>
+
+<img src="flag_usa.png" class="flag">
 
 </div>
 
 <!-- RIGHT -->
-<div class="panel right">
+<div class="panel right-panel">
 <h2>COMMAND</h2>
-<select id="focus">
-<option> A </option>
-<option> B </option>
-<option> C </option>
-</select>
-<button onclick="solve()">SOLVE</button>
-<div id="res">READY</div>
+<button>SOLVE</button>
+<div>READY</div>
 </div>
 
 </div>
 
-<script src="script.js"></script>
 </body>
 </html>
