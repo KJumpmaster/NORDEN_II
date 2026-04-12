@@ -1,76 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>NORDEN II v2 — Hardpoints</title>
+<title>NORDEN II Cockpit</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="panel">
+<div class="cockpit">
 
-<h1>NORDEN II — WING LOAD VIEW</h1>
+<!-- LEFT PANEL -->
+<div class="panel left">
+<h2>LOADOUT</h2>
 
-<div class="row">
+<label>Aircraft</label>
 <select id="ac" onchange="loadAC()"></select>
-</div>
 
-<div class="row">
+<label>Altitude</label>
 <input id="alt" type="number" value="8000">
+
+<label>Speed</label>
 <input id="spd" type="number" value="400" oninput="clampSpeed()">
+
+<label>Dive</label>
 <input id="dive" type="number" value="0">
+
+<label>Standoff (km)</label>
 <input id="dist" type="number" value="3">
-</div>
 
-<div class="solutions">
+<h3>Solutions</h3>
+
 <div class="sol">
-<h3>A</h3>
-<select id="bomb1"></select>
-<select id="salvo1">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="4">4</option>
-<option value="6">6</option>
-<option value="8">8</option>
-</select>
+A <select id="bomb1"></select>
+<select id="salvo1"><option>1</option><option>2</option><option>4</option><option>6</option><option>8</option></select>
 </div>
 
 <div class="sol">
-<h3>B</h3>
-<select id="bomb2"></select>
-<select id="salvo2">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="4">4</option>
-<option value="6">6</option>
-<option value="8">8</option>
-</select>
+B <select id="bomb2"></select>
+<select id="salvo2"><option>1</option><option>2</option><option>4</option><option>6</option><option>8</option></select>
 </div>
 
 <div class="sol">
-<h3>C</h3>
-<select id="bomb3"></select>
-<select id="salvo3">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="4">4</option>
-<option value="6">6</option>
-<option value="8">8</option>
-</select>
-</div>
+C <select id="bomb3"></select>
+<select id="salvo3"><option>1</option><option>2</option><option>4</option><option>6</option><option>8</option></select>
 </div>
 
-<div class="row">
-<select id="focus">
-<option value="1">A</option>
-<option value="2">B</option>
-<option value="3">C</option>
-</select>
-<button onclick="applySalvo()">ARM LOAD</button>
 </div>
 
-<div class="b52-container">
-<img src="b52.png" class="b52-img">
+<!-- CENTER -->
+<div class="panel center">
+<h2>AIRCRAFT STATE</h2>
+
+<div class="b52-wrap">
+<img src="b52.png">
 
 <div id="p1" class="pylon"></div>
 <div id="p2" class="pylon"></div>
@@ -80,6 +62,27 @@
 <div id="p6" class="pylon"></div>
 <div id="p7" class="pylon"></div>
 <div id="p8" class="pylon"></div>
+
+</div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="panel right">
+<h2>COMMAND</h2>
+
+<label>Focus</label>
+<select id="focus">
+<option value="1">A</option>
+<option value="2">B</option>
+<option value="3">C</option>
+</select>
+
+<button onclick="solve()">SOLVE</button>
+<button onclick="applySalvo()">ARM LOAD</button>
+
+<div id="result">READY</div>
+<div id="advisory">SYSTEM NOMINAL</div>
 
 </div>
 
