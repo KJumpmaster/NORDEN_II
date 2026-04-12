@@ -1,14 +1,9 @@
-const AC=[
-{name:"A10",max:439,country:"usa"},
-{name:"B52",max:650,country:"usa"},
-{name:"BUCC",max:667,country:"britain"}
-];
-
+const AC=[{name:"A10",max:439,country:"usa"},{name:"B52",max:650,country:"usa"}];
 const BOMBS=["MK82","FAB500","GBU"];
 
 function init(){
 let c=document.getElementById("country");
-["usa","britain"].forEach(x=>c.innerHTML+=`<option>${x}</option>`);
+["usa"].forEach(x=>c.innerHTML+=`<option>${x}</option>`);
 loadCountry();
 
 [1,2,3].forEach(i=>{
@@ -20,19 +15,17 @@ BOMBS.forEach(x=>b.innerHTML+=`<option>${x}</option>`);
 }
 
 function loadCountry(){
-let c=document.getElementById("country").value;
 let a=document.getElementById("ac");
 a.innerHTML="";
-AC.filter(x=>x.country==c).forEach(x=>a.innerHTML+=`<option>${x.name}</option>`);
+AC.forEach(x=>a.innerHTML+=`<option>${x.name}</option>`);
+document.getElementById("flag").src="flag_usa.png";
 loadAircraft();
-document.getElementById("flag").src="flag_"+c+".png";
 }
 
 function loadAircraft(){
 let idx=document.getElementById("ac").selectedIndex;
 let ac=AC[idx];
-let spd=document.getElementById("spd");
-spd.dataset.max=ac.max;
+document.getElementById("spd").dataset.max=ac.max;
 }
 
 function clampSpeed(){
@@ -44,8 +37,6 @@ document.getElementById("adv").innerText="LIMIT "+max;
 }
 }
 
-function solve(){
-document.getElementById("res").innerText="SOLUTION READY";
-}
+function solve(){document.getElementById("res").innerText="READY";}
 
 init();

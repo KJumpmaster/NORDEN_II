@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NORDEN II Pass 7.1</title>
+<title>NORDEN II Pass 8</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,13 +16,8 @@
 <label>COUNTRY</label>
 <select id="country" onchange="loadCountry()"></select>
 
-<div class="row">
-<div class="grow">
 <label>AIRCRAFT</label>
 <select id="ac" onchange="loadAircraft()"></select>
-</div>
-<img id="flag" class="flag">
-</div>
 
 <label>ALTITUDE</label>
 <input id="alt" value="8000">
@@ -38,64 +33,40 @@
 
 <div id="adv" class="adv">AIRFRAME LIMITS NOMINAL</div>
 
+<img id="flag" class="flag">
+
 </div>
 
 <!-- CENTER -->
 <div class="panel center">
 
-<div class="top">
-<h2>AIRCRAFT STATE</h2>
-<div>
+<div class="state">
+<div>AIRCRAFT STATE</div>
 <div id="laser">LASER: NO</div>
 <div id="ccrp">CCRP: YES</div>
 <div id="smart">SMART: NO</div>
-</div>
 </div>
 
 <img src="b52.png" class="b52">
 
 <div class="solutions">
-
-<div class="card">
-<b>A</b>
-<select id="bomb1"></select>
-<select id="salvo1"></select>
-<div id="out1"></div>
-</div>
-
-<div class="card">
-<b>B</b>
-<select id="bomb2"></select>
-<select id="salvo2"></select>
-<div id="out2"></div>
-</div>
-
-<div class="card">
-<b>C</b>
-<select id="bomb3"></select>
-<select id="salvo3"></select>
-<div id="out3"></div>
-</div>
-
+<div class="card">A<select id="bomb1"></select><select id="salvo1"></select></div>
+<div class="card">B<select id="bomb2"></select><select id="salvo2"></select></div>
+<div class="card">C<select id="bomb3"></select><select id="salvo3"></select></div>
 </div>
 
 </div>
 
 <!-- RIGHT -->
 <div class="panel right">
-
 <h2>COMMAND</h2>
-
 <select id="focus">
-<option value="1">A</option>
-<option value="2">B</option>
-<option value="3">C</option>
+<option> A </option>
+<option> B </option>
+<option> C </option>
 </select>
-
 <button onclick="solve()">SOLVE</button>
-
 <div id="res">READY</div>
-
 </div>
 
 </div>
