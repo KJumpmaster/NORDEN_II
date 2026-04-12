@@ -1,38 +1,45 @@
 :root { --green: #00FF41; --red: #FF0000; --bg: #050505; }
 body { background: var(--bg); color: var(--green); font-family: 'Courier New', monospace; padding: 15px; margin: 0; }
-.cockpit-grid { display: grid; grid-template-columns: 280px 1fr 280px; gap: 15px; max-width: 1600px; margin: auto; }
+.cockpit-grid { display: grid; grid-template-columns: 240px 1fr 240px; gap: 15px; max-width: 1600px; margin: auto; }
 .mfd-screen { border: 2px solid var(--green); padding: 20px; background: rgba(0,25,0,0.9); box-shadow: inset 0 0 15px var(--green); text-align: center; }
 
-/* FIXING SELECT/INPUT SIZES */
+/* FIXING DROPDOWNS & INPUTS: RESTORE BLACK BG */
 input, select { 
     background: #000; 
     color: #fff; 
     border: 1px solid #444; 
     width: 100%; 
-    padding: 8px; /* Bigger touch/click area */
-    font-size: 1em; /* Readable text */
+    padding: 5px; 
+    font-size: 0.85em;
 }
-label { font-size: 0.8em; display: block; margin-top: 5px; text-align: left; }
+input:read-only { background: #000; }
+label { font-size: 0.75em; display: block; margin-top: 5px; text-align: left; }
 
-/* RADAR FIX */
-.radar-container { height: 220px; border: 1px solid var(--green); overflow: hidden; background: #000; margin-bottom: 10px; }
-#radar-video { width: 100%; height: 100%; object-fit: cover; }
-
-.constants-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #111; padding: 10px; border: 1px solid #333; margin-bottom: 10px; }
-.triple-comparison { display: flex; gap: 10px; margin-bottom: 15px; }
+.filter-bar, .constants-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #111; padding: 10px; margin-bottom: 10px; border: 1px solid #333; }
+.constants-bar { grid-template-columns: repeat(4, 1fr); }
+.triple-slot-container { display: flex; gap: 10px; margin-bottom: 15px; }
 .ord-slot { flex: 1; border: 1px solid #444; padding: 10px; background: rgba(255,255,255,0.02); }
-.yellow-out { color: yellow !important; border-color: yellow !important; text-align: center; font-weight: bold; }
-.prime-btn { width: 100%; padding: 12px; background: var(--green); color: black; font-weight: bold; border: none; font-size: 1.1em; cursor: pointer; }
-.mac-btn { width: 100%; margin-top: 10px; background: white; color: black; font-weight: bold; padding: 10px; border: none; cursor: pointer; }
 
-/* B-52 SILHOUETTE */
-.b52-silhouette { margin-top: 30px; }
-.b52-wings { display: flex; align-items: center; justify-content: center; border-top: 2px solid #555; padding-top: 15px; }
-.node { width: 20px; height: 20px; border: 1px solid #444; font-size: 9px; line-height: 20px; margin: 2px; }
-.b52-fuselage { width: 35px; height: 60px; background: #222; border-radius: 10px 10px 0 0; margin: -10px 10px 0 10px; display: flex; align-items: center; justify-content: center; }
+.command-row { display: flex; gap: 10px; background: #222; padding: 10px; border: 1px solid var(--green); }
+.prime-btn { flex: 2; background: var(--green); color: black; font-weight: bold; border: none; cursor: pointer; }
+.mac-btn { width: 100%; margin-top: 10px; background: white; color: black; font-weight: bold; padding: 8px; border: none; cursor: pointer; }
+
+/* RADAR FEED RESTORATION */
+.radar-container { height: 180px; border: 1px solid var(--green); overflow: hidden; background: #000; }
+#radar-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+
+/* B-52 PYLON MAP (DIAGRAM ONLY) */
+.pylon-diagram-box { margin-top: 25px; text-align: center; }
+.b52-nodes { display: flex; align-items: center; justify-content: center; border-top: 2px solid #555; padding-top: 15px; }
+.node { width: 18px; height: 18px; border: 1px solid #444; font-size: 8px; line-height: 18px; margin: 0 2px; }
+.fuselage-c { width: 30px; height: 50px; background: #333; border-radius: 10px 10px 0 0; margin: -10px 10px 0 10px; display: flex; align-items: center; justify-content: center; }
 .pylon-active { border-color: var(--green); color: var(--green); box-shadow: 0 0 10px var(--green); }
 
 /* ARM CONTROL */
-#switch-guard { width: 50px; height: 70px; background: repeating-linear-gradient(45deg, #000, #000 5px, #fbff00 5px, #fbff00 10px); margin: auto; transition: 0.5s; cursor: pointer; }
+.arm-switches { display: flex; gap: 10px; justify-content: center; margin-bottom: 5px; }
+#switch-guard { width: 50px; height: 70px; background: repeating-linear-gradient(45deg, #000, #000 5px, #fbff00 5px, #fbff00 10px); cursor: pointer; }
 .guard-open { transform: rotateX(-115deg); }
-#physical-switch { width: 100px; margin: -20px auto 10px auto; display: block; background: #222; color: var(--red); border: 1px solid var(--red); padding: 10px; cursor: pointer; }
+#physical-switch { width: 100%; background: #222; color: var(--red); border: 1px solid var(--red); padding: 10px; cursor: pointer; }
+#status-light { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #333; margin: 0 auto 5px auto; }
+.light-danger { background: red !important; box-shadow: 0 0 10px red; }
+.combat-flash { background-color: #fff !important; }
