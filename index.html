@@ -12,73 +12,92 @@
         <h3>SEARCH RADAR / TGP</h3>
         <div class="radar-container">
             <video id="radar-video" autoplay loop muted playsinline>
-                <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
+                <source src="dual_scope_tactical_radar.mp4" type="video/mp4">
             </video>
         </div>
-        <div class="mission-header-stats">
-            <label>NATION</label><select id="nation-select" onchange="applyFilters()"></select>
-            <label>AC TYPE</label><select id="ac-select" onchange="loadAircraft()"></select>
+        <div class="glossary-box">
+            <h4>WSO DATA LOGIC</h4>
+            <p><span style="color:yellow;">TOF:</span> Time of Flight</p>
         </div>
     </div>
 
     <div class="mfd-screen">
-        <h1>--- STRATEGIC TARGETING SUITE ---</h1>
+        <h1>--- NORDEN II STRATEGIC COMMAND ---</h1>
         
+        <div class="filter-bar">
+            <div><label>NATION</label><select id="nation-select" onchange="applyFilters()"></select></div>
+            <div><label>AIRCRAFT</label><select id="ac-select" onchange="loadAircraft()"></select></div>
+        </div>
+
         <div class="constants-bar">
             <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000" oninput="updateAllSlots()"></div>
             <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400" oninput="updateAllSlots()"></div>
             <div><label>DIVE ANGLE (°)</label><input type="number" id="dive-input" value="0" oninput="updateAllSlots()"></div>
-            <div><label>SALVO QTY</label><select id="salvo-select" onchange="updateAllSlots()"><option value="1">1</option><option value="4">4</option><option value="8">8</option></select></div>
+            <div><label>TARGET DISTANCE (M)</label><input type="text" id="tgt-dist-const" readonly class="yellow-out"></div>
         </div>
 
         <div class="triple-comparison">
-            <div class="ord-slot" id="slot-1">
+            <div class="ord-slot">
                 <h3>SOLUTION A</h3>
+                <label class="header-label">SELECT ARMAMENT</label>
                 <select id="bomb-1" onchange="syncSlot(1)"></select>
                 <label>TNT EQUIVALENT</label><input type="number" id="tnt-1" oninput="updateAllSlots()">
                 <label>BLAST RADIUS</label><input type="text" id="blast-1" readonly class="yellow-out">
-                <label>TGT DISTANCE</label><input type="text" id="dist-1" readonly class="yellow-out">
             </div>
-            <div class="ord-slot" id="slot-2">
+            <div class="ord-slot">
                 <h3>SOLUTION B</h3>
+                <label class="header-label">SELECT ARMAMENT</label>
                 <select id="bomb-2" onchange="syncSlot(2)"></select>
                 <label>TNT EQUIVALENT</label><input type="number" id="tnt-2" oninput="updateAllSlots()">
                 <label>BLAST RADIUS</label><input type="text" id="blast-2" readonly class="yellow-out">
-                <label>TGT DISTANCE</label><input type="text" id="dist-2" readonly class="yellow-out">
             </div>
-            <div class="ord-slot" id="slot-3">
+            <div class="ord-slot">
                 <h3>SOLUTION C</h3>
+                <label class="header-label">SELECT ARMAMENT</label>
                 <select id="bomb-3" onchange="syncSlot(3)"></select>
                 <label>TNT EQUIVALENT</label><input type="number" id="tnt-3" oninput="updateAllSlots()">
                 <label>BLAST RADIUS</label><input type="text" id="blast-3" readonly class="yellow-out">
-                <label>TGT DISTANCE</label><input type="text" id="dist-3" readonly class="yellow-out">
             </div>
         </div>
 
         <div class="focus-bar">
             <label>ACTIVE FOCUS:</label>
-            <select id="focus-select" style="color:yellow; border:1px solid yellow;">
+            <select id="focus-select" style="color:yellow; border:1px solid yellow; width: 60px;">
                 <option value="1">A</option><option value="2">B</option><option value="3">C</option>
             </select>
             <button onclick="runPhysics()" class="prime-btn">TARGETING SOLUTION</button>
         </div>
 
         <div id="mission-readout">SYSTEM READY...</div>
-        
         <button onclick="generateMAC()" class="mac-btn">GENERATE MISSION ANALYSIS CHART (M.A.C.)</button>
     </div>
 
     <div class="mfd-side-panel">
         <h3>ARMAMENT CONTROL</h3>
-        <div id="switch-guard" onclick="toggleGuard()"><p style="padding-top:28px; font-size:8px;">GUARD</p></div>
-        <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
+        <div id="status-light" class="light-off"></div>
+        <div class="arm-row">
+            <div id="switch-guard" onclick="toggleGuard()"></div>
+            <span class="guard-tag">GUARDED</span>
+            <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
+        </div>
         
-        <div class="b52-silhouette">
-            <div class="wing-line">
-                <div id="py-1" class="node">1</div><div id="py-2" class="node">2</div><div id="py-3" class="node">3</div><div id="py-4" class="node">4</div>
-                <div class="fuselage-marker">C</div>
-                <div id="py-6" class="node">6</div><div id="py-7" class="node">7</div><div id="py-8" class="node">8</div><div id="py-9" class="node">9</div>
+        <div class="b52-container">
+            <p style="font-size: 9px; color: #666; margin-bottom: 5px;">STORES MGMT: B-52H</p>
+            <div class="b52-nose"></div>
+            <div class="b52-wings">
+                <div class="wing-left">
+                    <div id="py-1" class="node">1</div><div id="py-2" class="node">2</div>
+                    <div id="py-3" class="node">3</div><div id="py-4" class="node">4</div>
+                </div>
+                <div class="b52-fuselage">
+                    <div id="py-5" class="node">C</div>
+                </div>
+                <div class="wing-right">
+                    <div id="py-6" class="node">6</div><div id="py-7" class="node">7</div>
+                    <div id="py-8" class="node">8</div><div id="py-9" class="node">9</div>
+                </div>
             </div>
+            <div class="b52-tail"></div>
         </div>
     </div>
 </div>
