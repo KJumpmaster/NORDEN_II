@@ -2,78 +2,86 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NORDEN II v2 — Pass 2 Salvo</title>
+<title>NORDEN II v2 — Hardpoints</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="panel">
 
-<h1>NORDEN II — WSO PANEL</h1>
+<h1>NORDEN II — WING LOAD VIEW</h1>
 
 <div class="row">
 <select id="ac" onchange="loadAC()"></select>
 </div>
 
 <div class="row">
-<input id="alt" type="number" value="8000" placeholder="ALT (FT)">
-<input id="spd" type="number" value="400" placeholder="SPD (MPH)" oninput="clampSpeed()">
-<input id="dive" type="number" value="0" placeholder="DIVE (°)">
-<input id="dist" type="number" value="3" placeholder="STANDOFF KM">
+<input id="alt" type="number" value="8000">
+<input id="spd" type="number" value="400" oninput="clampSpeed()">
+<input id="dive" type="number" value="0">
+<input id="dist" type="number" value="3">
 </div>
 
 <div class="solutions">
-  <div class="sol sol-a">
-    <h3>A</h3>
-    <select id="bomb1" onchange="sync(1)"></select>
-    <select id="salvo1" onchange="sync(1)">
-      <option value="1">SALVO 1</option>
-      <option value="2">SALVO 2</option>
-      <option value="4">SALVO 4</option>
-      <option value="6">SALVO 6</option>
-      <option value="8">SALVO 8</option>
-    </select>
-    <div id="out1" class="outbox"></div>
-  </div>
+<div class="sol">
+<h3>A</h3>
+<select id="bomb1"></select>
+<select id="salvo1">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="4">4</option>
+<option value="6">6</option>
+<option value="8">8</option>
+</select>
+</div>
 
-  <div class="sol sol-b">
-    <h3>B</h3>
-    <select id="bomb2" onchange="sync(2)"></select>
-    <select id="salvo2" onchange="sync(2)">
-      <option value="1">SALVO 1</option>
-      <option value="2">SALVO 2</option>
-      <option value="4">SALVO 4</option>
-      <option value="6">SALVO 6</option>
-      <option value="8">SALVO 8</option>
-    </select>
-    <div id="out2" class="outbox"></div>
-  </div>
+<div class="sol">
+<h3>B</h3>
+<select id="bomb2"></select>
+<select id="salvo2">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="4">4</option>
+<option value="6">6</option>
+<option value="8">8</option>
+</select>
+</div>
 
-  <div class="sol sol-c">
-    <h3>C</h3>
-    <select id="bomb3" onchange="sync(3)"></select>
-    <select id="salvo3" onchange="sync(3)">
-      <option value="1">SALVO 1</option>
-      <option value="2">SALVO 2</option>
-      <option value="4">SALVO 4</option>
-      <option value="6">SALVO 6</option>
-      <option value="8">SALVO 8</option>
-    </select>
-    <div id="out3" class="outbox"></div>
-  </div>
+<div class="sol">
+<h3>C</h3>
+<select id="bomb3"></select>
+<select id="salvo3">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="4">4</option>
+<option value="6">6</option>
+<option value="8">8</option>
+</select>
+</div>
 </div>
 
 <div class="row">
 <select id="focus">
-<option value="1">FOCUS A</option>
-<option value="2">FOCUS B</option>
-<option value="3">FOCUS C</option>
+<option value="1">A</option>
+<option value="2">B</option>
+<option value="3">C</option>
 </select>
-<button onclick="solve()">SOLVE</button>
+<button onclick="applySalvo()">ARM LOAD</button>
 </div>
 
-<div id="result">READY</div>
-<div id="advisory" class="advisory">AIRFRAME LIMITS NOMINAL</div>
+<div class="b52-container">
+<img src="b52.png" class="b52-img">
+
+<div id="p1" class="pylon"></div>
+<div id="p2" class="pylon"></div>
+<div id="p3" class="pylon"></div>
+<div id="p4" class="pylon"></div>
+<div id="p5" class="pylon"></div>
+<div id="p6" class="pylon"></div>
+<div id="p7" class="pylon"></div>
+<div id="p8" class="pylon"></div>
+
+</div>
 
 </div>
 
