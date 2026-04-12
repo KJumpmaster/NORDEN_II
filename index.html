@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NORDEN II | STRATEGIC MISSION PLANNER</title>
+    <title>NORDEN II | STRATEGIC TARGETING SUITE</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body id="cockpit-body">
@@ -11,93 +11,86 @@
     <div class="mfd-side-panel">
         <h3>SEARCH RADAR / TGP</h3>
         <div class="radar-container">
-            <video id="radar-video" autoplay loop muted playsinline>
+            <video id="radar-video" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.7;">
                 <source src="dual_scope_tactical_radar.mp4" type="video/mp4">
             </video>
         </div>
-        <div class="glossary-box">
-            <h4>WSO DATA LOGIC</h4>
-            <p><span style="color:yellow;">TOF:</span> Time of Flight</p>
+        <div class="mission-header-stats">
+            <label>NATION</label><select id="nation-select" onchange="applyFilters()"></select>
+            <label>AC TYPE</label><select id="ac-select" onchange="loadAircraft()"></select>
         </div>
     </div>
 
     <div class="mfd-screen">
-        <h1>--- NORDEN II STRATEGIC COMMAND ---</h1>
+        <h1>--- STRATEGIC TARGETING SUITE ---</h1>
         
-        <div class="filter-bar">
-            <div><label>NATION</label><select id="nation-select" onchange="applyFilters()"></select></div>
-            <div><label>AIRCRAFT</label><select id="ac-select" onchange="loadAircraft()"></select></div>
-        </div>
-
         <div class="constants-bar">
             <div><label>ALTITUDE (FT)</label><input type="number" id="alt-input" value="8000" oninput="updateAllSlots()"></div>
             <div><label>SPEED (MPH)</label><input type="number" id="speed-input" value="400" oninput="updateAllSlots()"></div>
             <div><label>DIVE ANGLE (°)</label><input type="number" id="dive-input" value="0" oninput="updateAllSlots()"></div>
-            <div><label>TARGET DISTANCE (M)</label><input type="text" id="tgt-dist-const" readonly class="yellow-out"></div>
+            <div><label>SALVO QTY</label><select id="salvo-select" onchange="updateAllSlots()"><option value="1">1</option><option value="4">4</option><option value="8">8</option></select></div>
         </div>
 
         <div class="triple-comparison">
-            <div class="ord-slot">
-                <h3>SOLUTION A</h3>
-                <label class="header-label">SELECT ARMAMENT</label>
-                <select id="bomb-1" onchange="syncSlot(1)"></select>
-                <label>TNT EQUIVALENT</label><input type="number" id="tnt-1" oninput="updateAllSlots()">
+            <div class="ord-slot" id="slot-1">
+                <h3>SOL A (GRN)</h3>
+                <label>ARMAMENT</label><select id="bomb-1" onchange="syncSlot(1)"></select>
+                <label>TNT EQ</label><input type="number" id="tnt-1" placeholder="TNT KG" oninput="updateAllSlots()">
                 <label>BLAST RADIUS</label><input type="text" id="blast-1" readonly class="yellow-out">
+                <label>TGT DIST</label><input type="text" id="dist-1" readonly class="yellow-out">
             </div>
-            <div class="ord-slot">
-                <h3>SOLUTION B</h3>
-                <label class="header-label">SELECT ARMAMENT</label>
-                <select id="bomb-2" onchange="syncSlot(2)"></select>
-                <label>TNT EQUIVALENT</label><input type="number" id="tnt-2" oninput="updateAllSlots()">
+            <div class="ord-slot" id="slot-2">
+                <h3>SOL B (BLU)</h3>
+                <label>ARMAMENT</label><select id="bomb-2" onchange="syncSlot(2)"></select>
+                <label>TNT EQ</label><input type="number" id="tnt-2" placeholder="TNT KG" oninput="updateAllSlots()">
                 <label>BLAST RADIUS</label><input type="text" id="blast-2" readonly class="yellow-out">
+                <label>TGT DIST</label><input type="text" id="dist-2" readonly class="yellow-out">
             </div>
-            <div class="ord-slot">
-                <h3>SOLUTION C</h3>
-                <label class="header-label">SELECT ARMAMENT</label>
-                <select id="bomb-3" onchange="syncSlot(3)"></select>
-                <label>TNT EQUIVALENT</label><input type="number" id="tnt-3" oninput="updateAllSlots()">
+            <div class="ord-slot" id="slot-3">
+                <h3>SOL C (RED)</h3>
+                <label>ARMAMENT</label><select id="bomb-3" onchange="syncSlot(3)"></select>
+                <label>TNT EQ</label><input type="number" id="tnt-3" placeholder="TNT KG" oninput="updateAllSlots()">
                 <label>BLAST RADIUS</label><input type="text" id="blast-3" readonly class="yellow-out">
+                <label>TGT DIST</label><input type="text" id="dist-3" readonly class="yellow-out">
             </div>
         </div>
 
-        <div class="focus-bar">
+        <button onclick="runPhysics()" class="prime-btn">TARGETING SOLUTION (LOAD ACTIVE FOCUS)</button>
+        <div id="mission-readout">SYSTEM STATUS: READY FOR INPUT</div>
+        
+        <div class="focus-selector">
             <label>ACTIVE FOCUS:</label>
-            <select id="focus-select" style="color:yellow; border:1px solid yellow; width: 60px;">
-                <option value="1">A</option><option value="2">B</option><option value="3">C</option>
+            <select id="focus-select" style="color:yellow; border:2px solid yellow; padding: 5px;">
+                <option value="1">SOL A (GRN)</option>
+                <option value="2">SOL B (BLU)</option>
+                <option value="3">SOL C (RED)</option>
             </select>
-            <button onclick="runPhysics()" class="prime-btn">TARGETING SOLUTION</button>
         </div>
 
-        <div id="mission-readout">SYSTEM READY...</div>
-        <button onclick="generateMAC()" class="mac-btn">GENERATE MISSION ANALYSIS CHART (M.A.C.)</button>
+        <button onclick="generateMAC()" class="mac-btn">GENERATE M.A.C. ANALYSIS CHART (PRINTABLE)</button>
     </div>
 
     <div class="mfd-side-panel">
         <h3>ARMAMENT CONTROL</h3>
         <div id="status-light" class="light-off"></div>
-        <div class="arm-row">
-            <div id="switch-guard" onclick="toggleGuard()"></div>
-            <span class="guard-tag">GUARDED</span>
-            <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
-        </div>
+        <div id="switch-guard" onclick="toggleGuard()"><p style="padding-top:28px; font-size:8px;">GUARD</p></div>
+        <button id="physical-switch" onclick="toggleMasterArm()" disabled>OFF</button>
         
-        <div class="b52-container">
-            <p style="font-size: 9px; color: #666; margin-bottom: 5px;">STORES MGMT: B-52H</p>
-            <div class="b52-nose"></div>
-            <div class="b52-wings">
-                <div class="wing-left">
+        <div class="pylon-diagram-box">
+            <p style="font-size: 10px;">HARPOINT STORES</p>
+            <div class="pylon-block-layout">
+                <div class="wing-nodes">
                     <div id="py-1" class="node">1</div><div id="py-2" class="node">2</div>
                     <div id="py-3" class="node">3</div><div id="py-4" class="node">4</div>
                 </div>
-                <div class="b52-fuselage">
-                    <div id="py-5" class="node">C</div>
+                <div class="center-fuse-node">
+                    <div id="py-5" class="node">5</div>
                 </div>
-                <div class="wing-right">
+                <div class="wing-nodes">
                     <div id="py-6" class="node">6</div><div id="py-7" class="node">7</div>
                     <div id="py-8" class="node">8</div><div id="py-9" class="node">9</div>
                 </div>
             </div>
-            <div class="b52-tail"></div>
         </div>
     </div>
 </div>
