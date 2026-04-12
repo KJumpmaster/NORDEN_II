@@ -43,3 +43,12 @@ border:none;
 font-weight:bold;
 cursor:pointer;
 }
+#advisory {
+margin-top: 10px;
+padding: 10px;
+border: 1px solid #7a6400;
+color: #ffd54a;
+background: rgba(255, 213, 74, 0.08);
+min-height: 22px;
+font-size: 13px;
+}
