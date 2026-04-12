@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NORDEN II — UI Refinement</title>
+<title>NORDEN II — Pass 6 Layout Adjust</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,9 +15,66 @@
     <div class="left-top">
       <h2>LOADOUT</h2>
 
-      <div class="solutions-block">
-        <h3>SOLUTIONS</h3>
+      <label>COUNTRY</label>
+      <select id="country" onchange="loadCountry()"></select>
 
+      <div class="aircraft-flag-row">
+        <div class="aircraft-col">
+          <label>AIRCRAFT</label>
+          <select id="ac" onchange="loadAircraft()"></select>
+        </div>
+
+        <div class="flag-wrap">
+          <img id="country-flag" alt="Country flag">
+          <div id="flag-fallback">FLAG</div>
+        </div>
+      </div>
+
+      <label>ALTITUDE (FT)</label>
+      <input id="alt" type="number" value="8000">
+
+      <label>SPEED (MPH)</label>
+      <input id="spd" type="number" value="400" oninput="clampSpeed()">
+
+      <label>DIVE (°)</label>
+      <input id="dive" type="number" value="0">
+
+      <label>RELEASE OFFSET (KM)</label>
+      <input id="dist" type="number" value="3">
+
+      <div id="speed-advisory" class="advisory">AIRFRAME LIMITS NOMINAL</div>
+    </div>
+  </section>
+
+  <!-- CENTER PANEL -->
+  <section class="panel center-panel">
+    <div class="center-head">
+      <h2>AIRCRAFT STATE</h2>
+
+      <div class="capability-box">
+        <div id="badge-laser" class="cap-badge">LASER: NO</div>
+        <div id="badge-ccrp" class="cap-badge">CCRP: NO</div>
+        <div id="badge-smart" class="cap-badge smart-off">SMART MUNITIONS: NO</div>
+      </div>
+    </div>
+
+    <div class="b52-wrap">
+      <img src="b52.png" alt="B-52 outline" class="b52-img">
+
+      <div id="p1" class="pylon"></div>
+      <div id="p2" class="pylon"></div>
+      <div id="p3" class="pylon"></div>
+      <div id="p4" class="pylon"></div>
+      <div id="p5" class="pylon"></div>
+      <div id="p6" class="pylon"></div>
+      <div id="p7" class="pylon"></div>
+      <div id="p8" class="pylon"></div>
+    </div>
+
+    <div class="solutions-block">
+      <h3>SOLUTIONS</h3>
+
+      <div class="solution-row">
         <div class="solution-card sol-a">
           <div class="solution-head">
             <span class="solution-title">A</span>
@@ -66,59 +123,6 @@
           <div id="out3" class="solution-readout">READY</div>
         </div>
       </div>
-
-      <div class="input-block">
-        <label>COUNTRY</label>
-        <select id="country" onchange="loadCountry()"></select>
-
-        <label>AIRCRAFT</label>
-        <select id="ac" onchange="loadAircraft()"></select>
-
-        <label>ALTITUDE (FT)</label>
-        <input id="alt" type="number" value="8000">
-
-        <label>SPEED (MPH)</label>
-        <input id="spd" type="number" value="400" oninput="clampSpeed()">
-
-        <label>DIVE (°)</label>
-        <input id="dive" type="number" value="0">
-
-        <label>STANDOFF (KM)</label>
-        <input id="dist" type="number" value="3">
-      </div>
-
-      <div id="speed-advisory" class="advisory">AIRFRAME LIMITS NOMINAL</div>
-    </div>
-
-    <div class="flag-wrap">
-      <img id="country-flag" alt="Country flag">
-      <div id="flag-fallback">FLAG</div>
-    </div>
-  </section>
-
-  <!-- CENTER PANEL -->
-  <section class="panel center-panel">
-    <div class="center-head">
-      <h2>AIRCRAFT STATE</h2>
-
-      <div class="capability-box">
-        <div id="badge-laser" class="cap-badge">LASER: NO</div>
-        <div id="badge-ccrp" class="cap-badge">CCRP: NO</div>
-        <div id="badge-smart" class="cap-badge smart-off">SMART MUNITIONS: NO</div>
-      </div>
-    </div>
-
-    <div class="b52-wrap">
-      <img src="b52.png" alt="B-52 outline" class="b52-img">
-
-      <div id="p1" class="pylon"></div>
-      <div id="p2" class="pylon"></div>
-      <div id="p3" class="pylon"></div>
-      <div id="p4" class="pylon"></div>
-      <div id="p5" class="pylon"></div>
-      <div id="p6" class="pylon"></div>
-      <div id="p7" class="pylon"></div>
-      <div id="p8" class="pylon"></div>
     </div>
   </section>
 

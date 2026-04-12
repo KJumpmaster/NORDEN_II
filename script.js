@@ -1,40 +1,8 @@
 const AIRCRAFT = [
-  {
-    id: "b52",
-    name: "B-52H",
-    country: "usa",
-    speed: 520,
-    maxSpeed: 650,
-    laserCapable: false,
-    ccrpCapable: true
-  },
-  {
-    id: "a10",
-    name: "A-10A",
-    country: "usa",
-    speed: 350,
-    maxSpeed: 439,
-    laserCapable: true,
-    ccrpCapable: true
-  },
-  {
-    id: "su25",
-    name: "Su-25",
-    country: "ussr",
-    speed: 420,
-    maxSpeed: 590,
-    laserCapable: true,
-    ccrpCapable: true
-  },
-  {
-    id: "buccaneer",
-    name: "Buccaneer S.2",
-    country: "britain",
-    speed: 500,
-    maxSpeed: 667,
-    laserCapable: false,
-    ccrpCapable: true
-  }
+  { id: "b52", name: "B-52H", country: "usa", speed: 520, maxSpeed: 650, laserCapable: false, ccrpCapable: true },
+  { id: "a10", name: "A-10A", country: "usa", speed: 350, maxSpeed: 439, laserCapable: true, ccrpCapable: true },
+  { id: "su25", name: "Su-25", country: "ussr", speed: 420, maxSpeed: 590, laserCapable: true, ccrpCapable: true },
+  { id: "buccaneer", name: "Buccaneer S.2", country: "britain", speed: 500, maxSpeed: 667, laserCapable: false, ccrpCapable: true }
 ];
 
 const COUNTRIES = [
@@ -55,21 +23,21 @@ function init() {
   const countrySel = document.getElementById("country");
   COUNTRIES.forEach(c => countrySel.innerHTML += `<option value="${c.id}">${c.name}</option>`);
 
-  [1, 2, 3].forEach(i => {
+  [1,2,3].forEach(i => {
     const bombSel = document.getElementById("bomb" + i);
     BOMBS.forEach(b => bombSel.innerHTML += `<option value="${b.id}">${b.name}</option>`);
   });
 
   loadCountry();
   updateFocus();
-  [1, 2, 3].forEach(syncSolution);
+  [1,2,3].forEach(syncSolution);
 }
 
 function loadCountry() {
   const country = document.getElementById("country").value;
   const acSel = document.getElementById("ac");
-
   acSel.innerHTML = "";
+
   AIRCRAFT
     .filter(ac => ac.country === country)
     .forEach(ac => acSel.innerHTML += `<option value="${ac.id}">${ac.name}</option>`);
@@ -82,13 +50,11 @@ function loadAircraft() {
   const ac = getSelectedAircraft();
   const spd = document.getElementById("spd");
   const adv = document.getElementById("speed-advisory");
-
   if (!ac) return;
 
   spd.value = ac.speed;
   spd.dataset.max = ac.maxSpeed;
   adv.textContent = "AIRFRAME LIMITS NOMINAL";
-
   updateCapabilities();
 }
 
@@ -97,11 +63,9 @@ function clampSpeed() {
   const max = parseFloat(spd.dataset.max);
   const ac = getSelectedAircraft();
   const adv = document.getElementById("speed-advisory");
-
   if (!max || !ac) return;
 
   const val = parseFloat(spd.value);
-
   if (Number.isFinite(val) && val > max) {
     spd.value = max;
     adv.textContent = `AIRCRAFT LIMIT: ${ac.name} MAX SPEED IS ${max} MPH — INPUT CLAMPED`;
@@ -122,23 +86,19 @@ function updateFlag() {
     img.style.display = "block";
     fallback.style.display = "none";
   };
-
   img.onerror = () => {
     img.style.display = "none";
     fallback.style.display = "flex";
     fallback.textContent = country.toUpperCase() + " FLAG";
   };
-
   img.src = src;
 }
 
 function updateCapabilities() {
   const ac = getSelectedAircraft();
   if (!ac) return;
-
   document.getElementById("badge-laser").textContent = `LASER: ${ac.laserCapable ? "YES" : "NO"}`;
   document.getElementById("badge-ccrp").textContent = `CCRP: ${ac.ccrpCapable ? "YES" : "NO"}`;
-
   updateSmartStatus();
 }
 
@@ -160,7 +120,6 @@ function syncSolution(n) {
     ind.textContent = "STD";
     ind.classList.remove("smart");
   }
-
   updateSmartStatus();
 }
 
@@ -213,9 +172,7 @@ function solve() {
 
   let vx = spd * Math.cos(dive);
   let vy = spd * Math.sin(dive);
-  let t = 0;
-  let x = 0;
-  let y = alt;
+  let t = 0, x = 0, y = alt;
   const dt = 0.1;
 
   while (y > 0 && t < 120) {
@@ -256,7 +213,6 @@ function applySalvo() {
   const salvo = parseInt(document.getElementById("salvo" + focus).value, 10);
 
   document.querySelectorAll(".pylon").forEach(p => p.classList.remove("active"));
-
   const order = ["p4","p5","p3","p6","p2","p7","p1","p8"];
 
   for (let i = 0; i < Math.min(salvo, order.length); i++) {
