@@ -35,6 +35,8 @@ function loadAC() {
 function clampSpeed() {
   const spd = document.getElementById("spd");
   const max = parseFloat(spd.dataset.max);
+  const ac = AC[document.getElementById("ac").selectedIndex];
+  const advisory = document.getElementById("advisory");
 
   if (!max) return;
 
@@ -42,7 +44,14 @@ function clampSpeed() {
   if (Number.isFinite(val) && val > max) {
     spd.value = max;
     spd.style.borderColor = "red";
+
+    if (advisory) {
+      advisory.textContent = `AIRCRAFT LIMIT: ${ac.name} MAX SPEED IS ${max} MPH — INPUT CLAMPED`;
+    }
+
     setTimeout(() => spd.style.borderColor = "#333", 400);
+  } else if (advisory) {
+    advisory.textContent = "AIRFRAME LIMITS NOMINAL";
   }
 }
 
