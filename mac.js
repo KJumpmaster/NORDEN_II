@@ -187,9 +187,8 @@ function updateRecommendation() {
   const valid = sols.filter((sol) => sol.result === "DIRECT HIT" || sol.result === "NEAR HIT");
 
   if (!valid.length) {
-    const msg = "NO RECOMMENDED FIRING SOLUTION";
     const recEl = document.getElementById("recommendation");
-    if (recEl) recEl.textContent = msg;
+    if (recEl) recEl.textContent = "NO RECOMMENDED FIRING SOLUTION";
 
     const briefRec = document.getElementById("briefRecommended");
     if (briefRec) briefRec.textContent = "NONE";
@@ -212,15 +211,6 @@ function updateRecommendation() {
     recEl.textContent =
       `RECOMMENDED SOLUTION: ${best.label} | ${best.weapon} | ${best.result} | EFFECT ON TARGET ${tntOnTarget} TNT EQ | EST. STANDOFF ${standOffEstimate}m`;
   }
-
-  const briefRec = document.getElementById("briefRecommended");
-  if (briefRec) briefRec.textContent = `${best.label} / ${best.result}`;
-
-  const briefTnt = document.getElementById("briefTnt");
-  if (briefTnt) briefTnt.textContent = `${tntOnTarget} TNT EQ`;
-
-  const briefStandoff = document.getElementById("briefStandoff");
-  if (briefStandoff) briefStandoff.textContent = `${standOffEstimate} M`;
 }
 
 function resizeCanvases() {
@@ -489,13 +479,21 @@ function updateBriefBlock() {
   const sols = visibleSolutions();
   const valid = sols.filter((sol) => sol.result === "DIRECT HIT" || sol.result === "NEAR HIT");
 
-  document.getElementById("briefFilter").textContent = activeFilter === "all" ? "ALL" : activeFilter;
-  document.getElementById("briefPrimary").textContent = ["A","B","C"][Math.max(0, (payload.focus || 1) - 1)] || "A";
+  const briefFilter = document.getElementById("briefFilter");
+  if (briefFilter) briefFilter.textContent = activeFilter === "all" ? "ALL" : activeFilter;
+
+  const briefPrimary = document.getElementById("briefPrimary");
+  if (briefPrimary) briefPrimary.textContent = ["A","B","C"][Math.max(0, (payload.focus || 1) - 1)] || "A";
 
   if (!valid.length) {
-    document.getElementById("briefRecommended").textContent = "NONE";
-    document.getElementById("briefTnt").textContent = "0 TNT EQ";
-    document.getElementById("briefStandoff").textContent = "N/A";
+    const briefRec = document.getElementById("briefRecommended");
+    if (briefRec) briefRec.textContent = "NONE";
+
+    const briefTnt = document.getElementById("briefTnt");
+    if (briefTnt) briefTnt.textContent = "0 TNT EQ";
+
+    const briefStandoff = document.getElementById("briefStandoff");
+    if (briefStandoff) briefStandoff.textContent = "N/A";
     return;
   }
 
@@ -504,7 +502,12 @@ function updateBriefBlock() {
   const tntOnTarget = (best.tnt * best.salvo).toFixed(0);
   const standOffEstimate = Math.max(0, payload.targetRangeMeters + Math.max(0, best.centerError)).toFixed(0);
 
-  document.getElementById("briefRecommended").textContent = `${best.label} / ${best.result}`;
-  document.getElementById("briefTnt").textContent = `${tntOnTarget} TNT EQ`;
-  document.getElementById("briefStandoff").textContent = `${standOffEstimate} M`;
+  const briefRec = document.getElementById("briefRecommended");
+  if (briefRec) briefRec.textContent = `${best.label} / ${best.result}`;
+
+  const briefTnt = document.getElementById("briefTnt");
+  if (briefTnt) briefTnt.textContent = `${tntOnTarget} TNT EQ`;
+
+  const briefStandoff = document.getElementById("briefStandoff");
+  if (briefStandoff) briefStandoff.textContent = `${standOffEstimate} M`;
 }
