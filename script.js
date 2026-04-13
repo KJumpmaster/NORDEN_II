@@ -204,11 +204,20 @@ function calculateSolution(n) {
 
   const impacts = buildSalvoOffsets(salvo, spacing).map(offset => centerError + offset);
 
-  const bestAbsError = Math.min(...impacts.map(v => Math.abs(v)));
-  const avgError = impacts.reduce((sum, v) => sum + v, 0) / impacts.length;
-  const fore = Math.max(...impacts);
-  const aft = Math.min(...impacts);
-  const patternLength = fore - aft;
+  let bestAbsError = Math.min(...impacts.map(v => Math.abs(v)));
+  let avgError = impacts.reduce((sum, v) => sum + v, 0) / impacts.length;
+  let fore = Math.max(...impacts);
+  let aft = Math.min(...impacts);
+  let patternLength = fore - aft;
+
+  // Guided-weapon refinement: modestly tighten error and pattern for smart munitions
+  if (bomb.smart) {
+    bestAbsError *= 0.55;
+    avgError *= 0.6;
+    fore *= 0.75;
+    aft *= 0.75;
+    patternLength *= 0.7;
+  }
 
   let result = "MISS";
   if (bestAbsError <= 15) result = "DIRECT HIT";

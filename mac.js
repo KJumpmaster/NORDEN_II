@@ -416,12 +416,13 @@ function renderTopView() {
   sols.forEach((sol) => {
 
     let error = sol.centerError;
-    if (sol.smart) error *= 0.5;
+    if (sol.smart) error *= 0.55;
 
     const impactCenterY = cy + (error * scale);
 
     const count = sol.salvo || 1;
-    const spacing = (sol.patternLength || 40) * scale / Math.max(count-1,1);
+    let spacing = (sol.patternLength || 40) * scale / Math.max(count-1,1);
+    if (sol.smart) spacing *= 0.72;
 
     // clean axis line
     topCtx.strokeStyle = sol.color;
