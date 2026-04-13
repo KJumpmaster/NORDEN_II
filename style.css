@@ -229,8 +229,8 @@ button {
 
 .radar-video {
   position: static;
-  width: 100%;
-  height: 100%;
+  width: 110%;
+  height: 110%;
   object-fit: cover;   /* no stretch */
   z-index: 1;
   opacity: 0.6;
@@ -239,8 +239,8 @@ button {
 
 .flag {
   position: absolute;
-  right: 150px;
-  bottom: 155px;
+  right: 175px;
+  bottom: 175px;
   width: 120px;
   z-index: 4;
 }
