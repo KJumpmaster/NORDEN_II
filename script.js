@@ -19,6 +19,8 @@ const BOMBS = [
   { id: "gbu10", name: "GBU-10", tnt: 428, drag: 1.35, smart: true }
 ];
 
+let fireTimerIds = [];
+
 function init() {
   const countryEl = document.getElementById("country");
   COUNTRIES.forEach(c => {
@@ -46,6 +48,8 @@ function init() {
   if (video) {
     video.onerror = () => { video.style.display = "none"; };
   }
+
+  resetReleaseOverlay();
 }
 
 function loadCountry() {
@@ -147,6 +151,7 @@ function updateFocus() {
   const labels = { "1": "A", "2": "B", "3": "C" };
   document.getElementById("focusStatus").textContent = `ACTIVE SOLUTION: ${labels[value]}`;
   updateSmartBadge();
+  previewReleaseChain(parseInt(value, 10));
 }
 
 function calculateSolution(n) {
@@ -229,10 +234,96 @@ AFT: ${Math.abs(data.aft).toFixed(0)}m`;
     document.getElementById("pattern").textContent =
       `SALVO ${focused.salvo} | PATTERN ${focused.patternLength.toFixed(0)}m | FORE ${focused.fore.toFixed(0)}m | AFT ${Math.abs(focused.aft).toFixed(0)}m`;
   }
+
+  previewReleaseChain(focus);
 }
 
 function applySalvo() {
   document.getElementById("focusStatus").textContent = document.getElementById("focusStatus").textContent;
+}
+
+function previewReleaseChain(solutionNumber) {
+  clearFireTimers();
+  resetReleaseOverlay();
+
+  const bomb = getBombBySelect(solutionNumber);
+  const salvo = parseInt(document.getElementById("salvo" + solutionNumber).value, 10);
+  const points = getReleasePointOrder(salvo);
+
+  points.forEach(pointNum => {
+    const el = getReleasePointEl(pointNum);
+    if (el) el.classList.add("armed");
+  });
+
+  const labels = { 1: "A", 2: "B", 3: "C" };
+  document.getElementById("releaseStatus").textContent =
+    `ARMED ${labels[solutionNumber]} | ${bomb.name.toUpperCase()} | ${salvo} STATIONS`;
+}
+
+function fireSolution() {
+  clearFireTimers();
+  resetReleaseOverlay();
+
+  const solutionNumber = parseInt(document.getElementById("focus").value, 10);
+  const bomb = getBombBySelect(solutionNumber);
+  const salvo = parseInt(document.getElementById("salvo" + solutionNumber).value, 10);
+  const points = getReleasePointOrder(salvo);
+  const labels = { 1: "A", 2: "B", 3: "C" };
+
+  document.getElementById("releaseStatus").textContent =
+    `FIRING ${labels[solutionNumber]} | ${bomb.name.toUpperCase()} | ${salvo} AWAY`;
+
+  points.forEach((pointNum, index) => {
+    const fireStart = 180 * index;
+    const fireEnd = fireStart + 230;
+    const el = getReleasePointEl(pointNum);
+    if (!el) return;
+
+    fireTimerIds.push(setTimeout(() => {
+      el.classList.add("armed");
+    }, Math.max(0, fireStart - 100)));
+
+    fireTimerIds.push(setTimeout(() => {
+      el.classList.remove("armed");
+      el.classList.add("firing");
+    }, fireStart));
+
+    fireTimerIds.push(setTimeout(() => {
+      el.classList.remove("firing");
+      el.classList.add("spent");
+    }, fireEnd));
+  });
+
+  fireTimerIds.push(setTimeout(() => {
+    document.getElementById("releaseStatus").textContent =
+      `RELEASE COMPLETE | ${bomb.name.toUpperCase()} | ${salvo} STATIONS SPENT`;
+  }, 180 * points.length + 260));
+}
+
+function getReleasePointOrder(salvo) {
+  const chains = {
+    1: [4],
+    2: [4, 5],
+    4: [2, 3, 6, 7],
+    6: [1, 2, 3, 6, 7, 8],
+    8: [1, 2, 3, 4, 5, 6, 7, 8]
+  };
+  return chains[salvo] || [4];
+}
+
+function getReleasePointEl(pointNum) {
+  return document.querySelector(`.release-point[data-point="${pointNum}"]`);
+}
+
+function clearFireTimers() {
+  fireTimerIds.forEach(id => clearTimeout(id));
+  fireTimerIds = [];
+}
+
+function resetReleaseOverlay() {
+  document.querySelectorAll(".release-point").forEach(el => {
+    el.classList.remove("armed", "firing", "spent");
+  });
 }
 
 function estimatePatternLength(salvo, blast) {

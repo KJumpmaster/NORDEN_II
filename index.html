@@ -109,7 +109,19 @@
         </div>
       </div>
 
-      <img src="b52.png" alt="B-52 outline" class="b52">
+      <div class="aircraft-stage">
+        <img src="b52.png" alt="B-52 outline" class="b52">
+        <div id="releaseOverlay" class="release-overlay" aria-hidden="true">
+          <div class="release-point" data-point="1"></div>
+          <div class="release-point" data-point="2"></div>
+          <div class="release-point" data-point="3"></div>
+          <div class="release-point" data-point="4"></div>
+          <div class="release-point" data-point="5"></div>
+          <div class="release-point" data-point="6"></div>
+          <div class="release-point" data-point="7"></div>
+          <div class="release-point" data-point="8"></div>
+        </div>
+      </div>
 
       <div class="state-panel under-aircraft">
         <div class="state-title">AIRCRAFT STATE</div>
@@ -134,11 +146,13 @@
       </select>
 
       <button onclick="solve()">SOLVE</button>
+      <button onclick="fireSolution()">FIRE</button>
       <button onclick="applySalvo()">ARM LOAD</button>
 
       <div id="focusStatus" class="command-box">ACTIVE SOLUTION: A</div>
       <div id="res" class="command-box">READY</div>
       <div id="pattern" class="command-box">PATTERN DATA STANDBY</div>
+      <div id="releaseStatus" class="command-box">RELEASE CHAIN STANDBY</div>
 
       <div class="radar-box">
         <video id="radarVideo" class="radar-video-panel" autoplay loop muted playsinline>
