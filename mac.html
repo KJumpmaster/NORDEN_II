@@ -1,27 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>M.A.C.</title>
-<link rel="stylesheet" href="mac.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.A.C. - Mission Analysis Chart</title>
+  <link rel="stylesheet" href="mac.css">
 </head>
 <body>
-<div class="mac-container">
+  <div class="mac-shell">
+    <header class="mac-header">
+      <div class="mac-title-block">
+        <div class="eyebrow">COMMANDER BRIEFING BOARD</div>
+        <h1>MISSION ANALYSIS CHART <span>(M.A.C.)</span></h1>
+        <div id="missionStamp" class="mission-stamp">ANALYSIS PIPELINE READY</div>
+      </div>
 
-<div class="header">MISSION ANALYSIS CHART (M.A.C.)</div>
+      <div class="mission-summary">
+        <div class="summary-box"><span class="label">AIRCRAFT</span><span id="summaryAircraft" class="value">B-52H</span></div>
+        <div class="summary-box"><span class="label">COUNTRY</span><span id="summaryCountry" class="value">USA</span></div>
+        <div class="summary-box"><span class="label">ALTITUDE</span><span id="summaryAltitude" class="value">8000 FT</span></div>
+        <div class="summary-box"><span class="label">SPEED</span><span id="summarySpeed" class="value">520 MPH</span></div>
+        <div class="summary-box"><span class="label">DIVE</span><span id="summaryDive" class="value">0°</span></div>
+        <div class="summary-box"><span class="label">TARGET RANGE</span><span id="summaryRange" class="value">3000 M</span></div>
+      </div>
+    </header>
 
-<div class="charts">
-  <canvas id="sideView"></canvas>
-  <canvas id="topView"></canvas>
-</div>
+    <main class="mac-grid">
+      <section class="panel side-panel">
+        <div class="panel-head">
+          <div class="panel-title">SIDE VIEW KILL CHAIN</div>
+          <div class="panel-subtitle">RELEASE → FLIGHT PATH → IMPACT</div>
+        </div>
+        <canvas id="sideViewCanvas"></canvas>
+        <div class="legend">
+          <div class="legend-item"><span class="dot a"></span>A TRAJECTORY</div>
+          <div class="legend-item"><span class="dot b"></span>B TRAJECTORY</div>
+          <div class="legend-item"><span class="dot c"></span>C TRAJECTORY</div>
+          <div class="legend-item"><span class="dot target"></span>TARGET / TOC</div>
+        </div>
+      </section>
 
-<div class="controls">
-  <button onclick="prevFrame()">◀</button>
-  <span id="frameLabel">FRAME 1</span>
-  <button onclick="nextFrame()">▶</button>
-</div>
+      <section class="panel top-panel">
+        <div class="panel-head">
+          <div class="panel-title">TOP-DOWN PATTERN / EFFECTS</div>
+          <div class="panel-subtitle">PATTERN LENGTH • FORE • AFT • BLAST OVERLAP</div>
+        </div>
+        <div class="top-panel-stage">
+          <canvas id="topViewCanvas"></canvas>
+          <img id="tocMarker" class="toc-marker" src="toc_target.png" alt="TOC target">
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="dot a"></span>A BLAST / PATTERN</div>
+          <div class="legend-item"><span class="dot b"></span>B BLAST / PATTERN</div>
+          <div class="legend-item"><span class="dot c"></span>C BLAST / PATTERN</div>
+        </div>
+      </section>
 
-</div>
-<script src="mac.js"></script>
+      <section class="panel solutions-panel">
+        <div class="panel-head">
+          <div class="panel-title">COMPARATIVE SOLUTION BOARD</div>
+          <div class="panel-subtitle">INPUT / OUTPUT / EFFECT</div>
+        </div>
+        <div id="solutionCards" class="solution-cards"></div>
+      </section>
+
+      <section class="panel timeline-panel">
+        <div class="panel-head">
+          <div class="panel-title">FRAME ANALYSIS / PLAYBACK</div>
+          <div class="panel-subtitle">20-FRAME BRIEFING STEP-THROUGH</div>
+        </div>
+
+        <div class="timeline-controls">
+          <button id="prevBtn" class="mac-btn">◀</button>
+          <button id="playBtn" class="mac-btn">PLAY</button>
+          <button id="nextBtn" class="mac-btn">▶</button>
+          <button id="printBtn" class="mac-btn">PRINT</button>
+          <div id="frameLabel" class="frame-label">FRAME 01 / 20</div>
+        </div>
+
+        <input id="frameSlider" type="range" min="0" max="19" value="0" step="1">
+
+        <div class="timeline-strip" id="timelineStrip"></div>
+
+        <div id="recommendation" class="recommendation-box">RECOMMENDED SOLUTION: STANDBY</div>
+      </section>
+    </main>
+  </div>
+
+  <script src="mac.js"></script>
 </body>
 </html>

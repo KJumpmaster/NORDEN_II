@@ -352,3 +352,54 @@ init();
 function openMAC() {
   window.open("mac.html", "_blank");
 }
+
+
+function buildMACPayload() {
+  const aircraft = getSelectedAircraft();
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    aircraft: aircraft ? aircraft.name : "UNKNOWN",
+    country: document.getElementById("country")?.selectedOptions?.[0]?.textContent || "UNKNOWN",
+    altitudeFeet: parseFloat(document.getElementById("alt").value || "0"),
+    speedMph: parseFloat(document.getElementById("spd").value || "0"),
+    diveDeg: parseFloat(document.getElementById("dive").value || "0"),
+    targetRangeMeters: parseFloat(document.getElementById("dist").value || "0"),
+    focus: parseInt(document.getElementById("focus").value || "1", 10),
+    solutions: []
+  };
+
+  [1, 2, 3].forEach(n => {
+    const bomb = getBombBySelect(n);
+    const data = calculateSolution(n);
+    payload.solutions.push({
+      id: n,
+      label: ["A", "B", "C"][n - 1],
+      color: ["#00ff41", "#2f7cff", "#ff9a1f"][n - 1],
+      weapon: bomb?.name || "UNKNOWN",
+      tnt: bomb?.tnt || 0,
+      drag: bomb?.drag || 0,
+      smart: !!bomb?.smart,
+      salvo: data.salvo,
+      result: data.result,
+      centerError: data.centerError,
+      bestAbsError: data.bestAbsError,
+      tof: data.tof,
+      patternLength: data.patternLength,
+      fore: data.fore,
+      aft: data.aft,
+      blastRadius: Math.cbrt((bomb?.tnt || 0)) * 15
+    });
+  });
+
+  return payload;
+}
+
+function openMAC() {
+  const payload = buildMACPayload();
+  try {
+    localStorage.setItem("macPayload", JSON.stringify(payload));
+  } catch (err) {
+    console.warn("Failed to store M.A.C. payload", err);
+  }
+  window.open("mac.html", "_blank");
+}
