@@ -491,23 +491,30 @@ function updateBriefBlock() {
 
   if (!valid.length) {
     const briefRec = document.getElementById("briefRecommended");
-    if (briefRec) briefRec.textContent = "NONE";
+    if (briefRec) briefRec.textContent = "NO VALID SOLUTION";
 
     const briefTnt = document.getElementById("briefTnt");
     if (briefTnt) briefTnt.textContent = "0 TNT EQ";
 
     const briefStandoff = document.getElementById("briefStandoff");
     if (briefStandoff) briefStandoff.textContent = "N/A";
+
+    const briefResult = document.getElementById("briefResult");
+    if (briefResult) briefResult.textContent = "NONE";
     return;
   }
 
   const ranked = [...valid].sort((a, b) => scoreSolution(b) - scoreSolution(a));
   const best = ranked[0];
+
   const tntOnTarget = (best.tnt * best.salvo).toFixed(0);
   const standOffEstimate = Math.max(0, payload.targetRangeMeters + Math.max(0, best.centerError)).toFixed(0);
 
   const briefRec = document.getElementById("briefRecommended");
-  if (briefRec) briefRec.textContent = `${best.label} / ${best.result}`;
+  if (briefRec) briefRec.textContent = best.label;
+
+  const briefResult = document.getElementById("briefResult");
+  if (briefResult) briefResult.textContent = best.result;
 
   const briefTnt = document.getElementById("briefTnt");
   if (briefTnt) briefTnt.textContent = `${tntOnTarget} TNT EQ`;
