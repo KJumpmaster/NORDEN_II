@@ -241,8 +241,8 @@ button {
 .flag {
   position: absolute;
   right: 210px;
-  bottom: 8px;
-  width: 120px;
+  bottom: 300px;
+  width: 100px;
   height: auto;
   z-index: 4;
   object-fit: contain;
