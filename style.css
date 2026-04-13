@@ -302,6 +302,8 @@ button {
   font-family: inherit;
   font-size: 14px;
   min-height: 36px;
+  display: flex;
+  align-items: center;
 }
 
 .output-readout {

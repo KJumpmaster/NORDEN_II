@@ -210,11 +210,14 @@ function solve() {
     const data = calculateSolution(n);
     const label = labels[n];
 
-    document.getElementById("out" + label).textContent =
-      `${data.result}
-PATTERN LENGTH: ${data.patternLength.toFixed(0)}m
-FORE: ${data.fore.toFixed(0)}m
-AFT: ${Math.abs(data.aft).toFixed(0)}m`;
+    document.getElementById(`out${label}_result`).textContent =
+      `LONG / SHORT / HIT: ${data.result}`;
+    document.getElementById(`out${label}_pattern`).textContent =
+      `PATTERN LENGTH: ${data.patternLength.toFixed(0)}m`;
+    document.getElementById(`out${label}_fore`).textContent =
+      `FORE: ${data.fore.toFixed(0)}m`;
+    document.getElementById(`out${label}_aft`).textContent =
+      `AFT: ${Math.abs(data.aft).toFixed(0)}m`;
 
     if (n === focus) focused = data;
   });
