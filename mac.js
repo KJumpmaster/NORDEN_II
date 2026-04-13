@@ -319,53 +319,67 @@ function renderSideView() {
   const targetX = w - 85;
   const releaseX = 55;
   const releaseY = 62;
+  const progress = currentFrame / (TOTAL_FRAMES - 1);
 
   // ground
   sideCtx.strokeStyle = "rgba(0,255,65,0.35)";
   sideCtx.beginPath();
   sideCtx.moveTo(30, groundY);
-  sideCtx.lineTo(w-30, groundY);
+  sideCtx.lineTo(w - 30, groundY);
   sideCtx.stroke();
 
   // target line
   sideCtx.strokeStyle = "#ffd54a";
   sideCtx.beginPath();
   sideCtx.moveTo(targetX, 20);
-  sideCtx.lineTo(targetX, groundY+8);
+  sideCtx.lineTo(targetX, groundY + 8);
   sideCtx.stroke();
 
-  visibleSolutions().forEach((sol)=>{
-    const impactX = targetX + sol.centerError; // long/short offset
-    const ctrlX = (releaseX + impactX)/2;
+  visibleSolutions().forEach((sol) => {
+    const impactX = targetX + sol.centerError;
+    const ctrlX = (releaseX + impactX) / 2;
     const ctrlY = 20;
 
-    // arc to actual impact
+    // full path
     sideCtx.strokeStyle = sol.color;
+    sideCtx.globalAlpha = 0.35;
     sideCtx.beginPath();
     sideCtx.moveTo(releaseX, releaseY);
     sideCtx.quadraticCurveTo(ctrlX, ctrlY, impactX, groundY);
     sideCtx.stroke();
+    sideCtx.globalAlpha = 1;
 
-    // impact dot
+    // moving marker along quadratic curve
+    const t = progress;
+    const x = ((1 - t) * (1 - t) * releaseX) + (2 * (1 - t) * t * ctrlX) + (t * t * impactX);
+    const y = ((1 - t) * (1 - t) * releaseY) + (2 * (1 - t) * t * ctrlY) + (t * t * groundY);
+
     sideCtx.fillStyle = sol.color;
     sideCtx.beginPath();
-    sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI*2);
+    sideCtx.arc(x, y, 4, 0, Math.PI * 2);
     sideCtx.fill();
 
-    // error indicator
-    sideCtx.strokeStyle = "#ff5555";
-    sideCtx.beginPath();
-    sideCtx.moveTo(targetX, groundY+14);
-    sideCtx.lineTo(impactX, groundY+14);
-    sideCtx.stroke();
+    // impact dot and indicator after most of the animation
+    if (progress >= 0.82) {
+      sideCtx.fillStyle = sol.color;
+      sideCtx.beginPath();
+      sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI * 2);
+      sideCtx.fill();
 
-    sideCtx.fillStyle = "#ff5555";
-    const tag = sol.centerError > 0 ? "LONG" : "SHORT";
-    sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX+impactX)/2 - 20, groundY+28);
+      sideCtx.strokeStyle = "#ff5555";
+      sideCtx.beginPath();
+      sideCtx.moveTo(targetX, groundY + 14);
+      sideCtx.lineTo(impactX, groundY + 14);
+      sideCtx.stroke();
+
+      const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
+      if (activeFilter !== "all") {
+        sideCtx.fillStyle = "#ff5555";
+        sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX + impactX) / 2 - 20, groundY + 28);
+      }
+    }
   });
 }
-
-
 
 function renderTopView() {
   const w = topCanvas.clientWidth;
@@ -377,8 +391,9 @@ function renderTopView() {
 
   drawGrid(topCtx, w, h, 52, 0.13);
 
-  const cx = w/2;
-  const cy = h/2;
+  const cx = w / 2;
+  const cy = h / 2;
+  const progress = currentFrame / (TOTAL_FRAMES - 1);
 
   let scale = 0.25;
   if (zoomLevel === 'FAR') scale = 0.15;
@@ -389,55 +404,74 @@ function renderTopView() {
   const jetY = 40;
   topCtx.fillStyle = "#00ff41";
   topCtx.beginPath();
-  topCtx.moveTo(cx-8, jetY+8);
-  topCtx.lineTo(cx+8, jetY+8);
-  topCtx.lineTo(cx, jetY-8);
+  topCtx.moveTo(cx - 8, jetY + 8);
+  topCtx.lineTo(cx + 8, jetY + 8);
+  topCtx.lineTo(cx, jetY - 8);
   topCtx.closePath();
   topCtx.fill();
 
   // target X
   topCtx.strokeStyle = "#ffd54a";
+  topCtx.lineWidth = 1.5;
   topCtx.beginPath();
-  topCtx.moveTo(cx-10, cy-10);
-  topCtx.lineTo(cx+10, cy+10);
-  topCtx.moveTo(cx+10, cy-10);
-  topCtx.lineTo(cx-10, cy+10);
+  topCtx.moveTo(cx - 10, cy - 10);
+  topCtx.lineTo(cx + 10, cy + 10);
+  topCtx.moveTo(cx + 10, cy - 10);
+  topCtx.lineTo(cx - 10, cy + 10);
   topCtx.stroke();
 
-  visibleSolutions().forEach((sol)=>{
+  visibleSolutions().forEach((sol) => {
     let error = sol.centerError;
 
     // GBU guidance tightening
-    if(sol.smart){
+    if (sol.smart) {
       error *= 0.5;
     }
 
-    const baseY = cy + (error * scale);
+    const impactCenterY = cy + (error * scale);
     const count = sol.salvo || 1;
-    const spacing = (sol.patternLength || 40) * scale / Math.max(count-1,1);
+    const spacing = (sol.patternLength || 40) * scale / Math.max(count - 1, 1);
 
-    for(let i=0;i<count;i++){
-      const offset = (i - (count-1)/2) * spacing;
-      const impactX = cx;
-      const impactY = baseY + offset;
+    // moving marker along attack axis
+    const markerY = jetY + ((impactCenterY - jetY) * progress);
+    topCtx.strokeStyle = sol.color;
+    topCtx.lineWidth = 2;
+    topCtx.globalAlpha = 0.55;
+    topCtx.beginPath();
+    topCtx.moveTo(cx, jetY + 10);
+    topCtx.lineTo(cx, impactCenterY);
+    topCtx.stroke();
+    topCtx.globalAlpha = 1;
 
-      topCtx.fillStyle = sol.color;
-      topCtx.beginPath();
-      topCtx.arc(impactX, impactY, 3, 0, Math.PI*2);
-      topCtx.fill();
+    topCtx.fillStyle = sol.color;
+    topCtx.beginPath();
+    topCtx.arc(cx, markerY, 4, 0, Math.PI * 2);
+    topCtx.fill();
 
-      if (zoomLevel === 'CLOSE'){
-        topCtx.globalAlpha = 0.25;
+    // Only show impacts once the frame has progressed far enough
+    if (progress >= 0.8) {
+      for (let i = 0; i < count; i++) {
+        const offset = (i - (count - 1) / 2) * spacing;
+        const impactX = cx;
+        const impactY = impactCenterY + offset;
+
+        topCtx.fillStyle = sol.color;
         topCtx.beginPath();
-        topCtx.arc(impactX, impactY, sol.blastRadius * scale * 0.4, 0, Math.PI*2);
-        topCtx.stroke();
-        topCtx.globalAlpha = 1;
+        topCtx.arc(impactX, impactY, 3, 0, Math.PI * 2);
+        topCtx.fill();
+
+        if (zoomLevel === 'CLOSE') {
+          topCtx.globalAlpha = 0.22;
+          topCtx.strokeStyle = sol.color;
+          topCtx.beginPath();
+          topCtx.arc(impactX, impactY, sol.blastRadius * scale * 0.4, 0, Math.PI * 2);
+          topCtx.stroke();
+          topCtx.globalAlpha = 1;
+        }
       }
     }
   });
 }
-
-
 
 function hexToRgba(hex, alpha) {
   const clean = hex.replace("#", "");
