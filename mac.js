@@ -366,6 +366,7 @@ function renderSideView() {
 }
 
 
+
 function renderTopView() {
   const w = topCanvas.clientWidth;
   const h = topCanvas.clientHeight;
@@ -379,11 +380,20 @@ function renderTopView() {
   const cx = w/2;
   const cy = h/2;
 
-  // zoom scaling
   let scale = 0.25;
   if (zoomLevel === 'FAR') scale = 0.15;
   if (zoomLevel === 'NORMAL') scale = 0.35;
   if (zoomLevel === 'CLOSE') scale = 0.6;
+
+  // draw jet at top (release point)
+  const jetY = 40;
+  topCtx.fillStyle = "#00ff41";
+  topCtx.beginPath();
+  topCtx.moveTo(cx-8, jetY+8);
+  topCtx.lineTo(cx+8, jetY+8);
+  topCtx.lineTo(cx, jetY-8);
+  topCtx.closePath();
+  topCtx.fill();
 
   // target X
   topCtx.strokeStyle = "#ffd54a";
@@ -395,9 +405,14 @@ function renderTopView() {
   topCtx.stroke();
 
   visibleSolutions().forEach((sol)=>{
-    const baseY = cy + (sol.centerError * scale);
+    let error = sol.centerError;
 
-    // SALVO DOTS
+    // GBU guidance tightening
+    if(sol.smart){
+      error *= 0.5;
+    }
+
+    const baseY = cy + (error * scale);
     const count = sol.salvo || 1;
     const spacing = (sol.patternLength || 40) * scale / Math.max(count-1,1);
 
@@ -421,6 +436,7 @@ function renderTopView() {
     }
   });
 }
+
 
 
 function hexToRgba(hex, alpha) {
