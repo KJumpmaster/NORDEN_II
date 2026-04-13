@@ -347,3 +347,8 @@ function getBombBySelect(n) {
 }
 
 init();
+
+
+function openMAC() {
+  window.open("mac.html", "_blank");
+}
