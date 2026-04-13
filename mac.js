@@ -349,23 +349,30 @@ function renderSideView() {
     sideCtx.fill();
 
     // impact dot and indicator after most of the animation
-    if (progress >= 0.82) {
-      sideCtx.fillStyle = sol.color;
-      sideCtx.beginPath();
-      sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI * 2);
-      sideCtx.fill();
+    
+// Always show impact + label if single solution, otherwise only near impact
+const showLabels = (activeFilter !== "all") || (progress >= 0.82);
 
-      sideCtx.strokeStyle = "#ff5555";
-      sideCtx.beginPath();
-      sideCtx.moveTo(targetX, groundY + 14);
-      sideCtx.lineTo(impactX, groundY + 14);
-      sideCtx.stroke();
+if (showLabels) {
+  sideCtx.fillStyle = sol.color;
+  sideCtx.beginPath();
+  sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI * 2);
+  sideCtx.fill();
 
-      const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
-      if (activeFilter !== "all") {
-        sideCtx.fillStyle = "#ff5555";
-        sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX + impactX) / 2 - 20, groundY + 28);
-      }
+  sideCtx.strokeStyle = "#ff5555";
+  sideCtx.beginPath();
+  sideCtx.moveTo(targetX, groundY + 14);
+  sideCtx.lineTo(impactX, groundY + 14);
+  sideCtx.stroke();
+
+  const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
+
+  if (activeFilter !== "all") {
+    sideCtx.fillStyle = "#ff5555";
+    sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX + impactX) / 2 - 20, groundY + 28);
+  }
+}
+
     }
   });
 }
@@ -376,7 +383,18 @@ function renderTopView() {
 
   topCtx.clearRect(0, 0, w, h);
   topCtx.fillStyle = "rgba(0,0,0,0.2)";
-  topCtx.fillRect(0, 0, w, h);
+  
+// background zoom simulation
+let bgScale = 1;
+if (zoomLevel === 'FAR') bgScale = 1.2;
+if (zoomLevel === 'NORMAL') bgScale = 1;
+if (zoomLevel === 'CLOSE') bgScale = 0.8;
+
+topCtx.save();
+topCtx.scale(bgScale, bgScale);
+topCtx.fillRect(0, 0, w/bgScale, h/bgScale);
+topCtx.restore();
+
 
   drawGrid(topCtx, w, h, 52, 0.13);
 
