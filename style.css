@@ -222,8 +222,8 @@ button {
 .radar-box {
   margin-top: 14px;
   width: 100%;
-  max-width: 240px;
-  height: 140px;
+  max-width: 290px;
+  height: 190px;
   border: 1px solid #00ff41;
   background: #000;
   overflow: hidden;
@@ -240,9 +240,9 @@ button {
 
 .flag {
   position: absolute;
-  right: 210px;
-  bottom: 300px;
-  width: 100px;
+  right: 225px;
+  bottom: 320px;
+  width: 80px;
   height: auto;
   z-index: 4;
   object-fit: contain;
