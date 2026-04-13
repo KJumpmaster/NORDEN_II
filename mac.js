@@ -54,14 +54,10 @@ function init() {
   populateSolutionCards();
   buildTimelineStrip();
   updateRecommendation();
+  updateBriefBlock();
   syncFilterButtons();
   resizeCanvases();
   render();
-
-  const globeVideo = document.getElementById("globeVideo");
-  if (globeVideo) {
-    globeVideo.onerror = () => { globeVideo.style.display = "none"; };
-  }
 
   window.addEventListener("resize", () => {
     resizeCanvases();
@@ -84,6 +80,7 @@ function bindControls() {
       syncFilterButtons();
       populateSolutionCards();
       updateRecommendation();
+      updateBriefBlock();
       render();
     });
   });
@@ -272,112 +269,54 @@ function renderSideView() {
 
   drawGrid(sideCtx, w, h, 48, 0.08);
 
-  const releaseX = 55;
   const groundY = h - 55;
   const targetX = w - 85;
+  const releaseX = 55;
+  const releaseY = 62;
 
-  // Ground
+  // ground
   sideCtx.strokeStyle = "rgba(0,255,65,0.35)";
-  sideCtx.lineWidth = 1;
   sideCtx.beginPath();
   sideCtx.moveTo(30, groundY);
-  sideCtx.lineTo(w - 30, groundY);
+  sideCtx.lineTo(w-30, groundY);
   sideCtx.stroke();
 
-  // Target reference
+  // target line
   sideCtx.strokeStyle = "#ffd54a";
-  sideCtx.lineWidth = 1.5;
   sideCtx.beginPath();
   sideCtx.moveTo(targetX, 20);
-  sideCtx.lineTo(targetX, groundY + 34);
+  sideCtx.lineTo(targetX, groundY+8);
   sideCtx.stroke();
-  sideCtx.fillStyle = "#ffd54a";
-  sideCtx.font = "13px monospace";
-  sideCtx.fillText("TARGET", targetX - 22, 16);
 
-  sideCtx.fillStyle = "#00ff41";
-  sideCtx.font = "14px monospace";
-  sideCtx.fillText("RELEASE", 28, 28);
+  visibleSolutions().forEach((sol)=>{
+    const impactX = targetX + sol.centerError; // long/short offset
+    const ctrlX = (releaseX + impactX)/2;
+    const ctrlY = 20;
 
-  visibleSolutions().forEach((sol) => {
-    const releaseY = 58 + (sol.id - 1) * 10;
-    const progress = currentFrame / (TOTAL_FRAMES - 1);
-    const curvature = Math.max(38, (payload.altitudeFeet / 12000) * 120 + sol.drag * 18);
-
-    // Place actual impact relative to target based on computed error
-    const pxPerMeter = 0.08; // keeps long/short visible without flying off screen
-    let impactX = targetX + (sol.centerError * pxPerMeter);
-    impactX = Math.max(releaseX + 110, Math.min(w - 35, impactX));
-
-    const points = [];
-    const steps = 80;
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps;
-      const x = releaseX + (impactX - releaseX) * t;
-      const yLinear = releaseY + (groundY - releaseY) * t;
-      const arc = Math.sin(Math.PI * t) * curvature;
-      const y = yLinear - arc;
-      points.push({ x, y });
-    }
-    const markerIndex = Math.max(0, Math.min(points.length - 1, Math.round(progress * steps)));
-    const marker = points[markerIndex];
-
-    sideCtx.strokeStyle = sol.color;
-    sideCtx.lineWidth = 2;
-    sideCtx.shadowColor = sol.color;
-    sideCtx.shadowBlur = 10;
-    sideCtx.beginPath();
-    points.forEach((p, idx) => {
-      if (idx === 0) sideCtx.moveTo(p.x, p.y);
-      else sideCtx.lineTo(p.x, p.y);
-    });
-    sideCtx.stroke();
-    sideCtx.shadowBlur = 0;
-
-    // moving ordnance
-    sideCtx.fillStyle = sol.color;
-    sideCtx.beginPath();
-    sideCtx.arc(marker.x, marker.y, 5, 0, Math.PI * 2);
-    sideCtx.fill();
-
-    // actual impact point + blast ring
-    sideCtx.fillStyle = sol.color;
-    sideCtx.beginPath();
-    sideCtx.arc(impactX, groundY, 5, 0, Math.PI * 2);
-    sideCtx.fill();
-
-    sideCtx.globalAlpha = 0.35;
+    // arc to actual impact
     sideCtx.strokeStyle = sol.color;
     sideCtx.beginPath();
-    sideCtx.arc(impactX, groundY, Math.min(24, sol.blastRadius * 0.18), 0, Math.PI * 2);
+    sideCtx.moveTo(releaseX, releaseY);
+    sideCtx.quadraticCurveTo(ctrlX, ctrlY, impactX, groundY);
     sideCtx.stroke();
-    sideCtx.globalAlpha = 1;
 
-    // Long/Short indicator line
-    if (Math.abs(sol.centerError) > 1) {
-      sideCtx.strokeStyle = "#ff6f61";
-      sideCtx.lineWidth = 1.5;
-      sideCtx.beginPath();
-      sideCtx.moveTo(targetX, groundY + 16);
-      sideCtx.lineTo(impactX, groundY + 16);
-      sideCtx.stroke();
+    // impact dot
+    sideCtx.fillStyle = sol.color;
+    sideCtx.beginPath();
+    sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI*2);
+    sideCtx.fill();
 
-      sideCtx.fillStyle = "#ff6f61";
-      sideCtx.font = "12px monospace";
-      let label = sol.centerError > 0 ? "LONG" : "SHORT";
-      let labelX = ((targetX + impactX) / 2) - 24;
-      sideCtx.fillText(`${label} ${Math.abs(sol.centerError).toFixed(0)}m`, labelX, groundY + 31);
-    }
+    // error indicator
+    sideCtx.strokeStyle = "#ff5555";
+    sideCtx.beginPath();
+    sideCtx.moveTo(targetX, groundY+14);
+    sideCtx.lineTo(impactX, groundY+14);
+    sideCtx.stroke();
+
+    sideCtx.fillStyle = "#ff5555";
+    const tag = sol.centerError > 0 ? "LONG" : "SHORT";
+    sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX+impactX)/2 - 20, groundY+28);
   });
-
-  // target X marker on ground
-  sideCtx.strokeStyle = "#ffd54a";
-  sideCtx.beginPath();
-  sideCtx.moveTo(targetX - 10, groundY - 10);
-  sideCtx.lineTo(targetX + 10, groundY + 10);
-  sideCtx.moveTo(targetX + 10, groundY - 10);
-  sideCtx.lineTo(targetX - 10, groundY + 10);
-  sideCtx.stroke();
 }
 
 function renderTopView() {
@@ -385,99 +324,54 @@ function renderTopView() {
   const h = topCanvas.clientHeight;
 
   topCtx.clearRect(0, 0, w, h);
-  topCtx.fillStyle = "rgba(0,0,0,0.14)";
+  topCtx.fillStyle = "rgba(0,0,0,0.18)";
   topCtx.fillRect(0, 0, w, h);
 
-  drawGrid(topCtx, w, h, 42, 0.14);
+  drawGrid(topCtx, w, h, 52, 0.13);
 
   const cx = w / 2;
   const cy = h / 2;
-  const progress = currentFrame / (TOTAL_FRAMES - 1);
+
+  // target X
+  topCtx.strokeStyle = "#ffd54a";
+  topCtx.lineWidth = 1.5;
+  topCtx.beginPath();
+  topCtx.moveTo(cx - 10, cy - 10);
+  topCtx.lineTo(cx + 10, cy + 10);
+  topCtx.moveTo(cx + 10, cy - 10);
+  topCtx.lineTo(cx - 10, cy + 10);
+  topCtx.stroke();
+
+  const scale = 0.55; // tighter zoom
   const sols = visibleSolutions();
 
-  // zoomed target X
-  topCtx.strokeStyle = "#ffd54a";
-  topCtx.lineWidth = 2;
-  topCtx.beginPath();
-  topCtx.moveTo(cx - 12, cy - 12);
-  topCtx.lineTo(cx + 12, cy + 12);
-  topCtx.moveTo(cx + 12, cy - 12);
-  topCtx.lineTo(cx - 12, cy + 12);
-  topCtx.stroke();
-  topCtx.fillStyle = "#ffd54a";
-  topCtx.font = "12px monospace";
-  topCtx.fillText("TARGET", cx - 24, cy - 18);
-
-  // common origin area, very close together
-  const baseStartX = cx;
-  const baseStartY = 54;
-
   sols.forEach((sol) => {
-    const startX = baseStartX + (sol.id - 2) * 14;
-    const startY = baseStartY;
+    // Collinear with target axis:
+    // SHORT (negative centerError) should be ABOVE target,
+    // LONG (positive centerError) should be BELOW target.
+    const impactX = cx;
+    const impactY = cy + (sol.centerError * scale);
 
-    // Use real impact offset, zoomed in
-    const pxPerMeter = 0.14;
-    const centerImpactX = cx + (sol.centerError * pxPerMeter);
-    const centerImpactY = cy;
-
-    const markerX = startX + (centerImpactX - startX) * progress;
-    const markerY = startY + (centerImpactY - startY) * progress;
-
-    // ingress path
-    topCtx.strokeStyle = sol.color;
-    topCtx.lineWidth = 2;
-    topCtx.shadowColor = sol.color;
-    topCtx.shadowBlur = 8;
-    topCtx.beginPath();
-    topCtx.moveTo(startX, startY);
-    topCtx.lineTo(centerImpactX, centerImpactY);
-    topCtx.stroke();
-    topCtx.shadowBlur = 0;
-
-    // moving ordnance
     topCtx.fillStyle = sol.color;
     topCtx.beginPath();
-    topCtx.arc(markerX, markerY, 4.5, 0, Math.PI * 2);
+    topCtx.arc(impactX, impactY, 5, 0, Math.PI * 2);
     topCtx.fill();
 
-    // show actual salvo impact points across pattern
-    const count = Math.max(1, sol.salvo);
-    const spacingPx = count <= 1 ? 0 : Math.max(10, (sol.patternLength * 0.16) / Math.max(1, count - 1));
-    const centerIndex = (count - 1) / 2;
-
-    for (let i = 0; i < count; i++) {
-      const impactX = centerImpactX + ((i - centerIndex) * spacingPx);
-      const impactY = centerImpactY;
-
-      topCtx.fillStyle = sol.color;
-      topCtx.beginPath();
-      topCtx.arc(impactX, impactY, 4, 0, Math.PI * 2);
-      topCtx.fill();
-
-      // blast circles
-      const blastPx = Math.max(12, sol.blastRadius * 0.22);
-      topCtx.globalAlpha = 0.26;
-      topCtx.fillStyle = hexToRgba(sol.color, 0.10);
-      topCtx.strokeStyle = sol.color;
-      topCtx.beginPath();
-      topCtx.arc(impactX, impactY, blastPx, 0, Math.PI * 2);
-      topCtx.fill();
-      topCtx.stroke();
-      topCtx.globalAlpha = 1;
-    }
-
-    // fore/aft bracket on actual pattern
-    const patternPx = Math.max(16, sol.patternLength * 0.16);
+    topCtx.globalAlpha = 0.35;
     topCtx.strokeStyle = sol.color;
+    topCtx.lineWidth = 2;
     topCtx.beginPath();
-    topCtx.moveTo(centerImpactX - patternPx / 2, centerImpactY + 18);
-    topCtx.lineTo(centerImpactX + patternPx / 2, centerImpactY + 18);
+    topCtx.arc(impactX, impactY, Math.max(20, sol.blastRadius * 0.32), 0, Math.PI * 2);
     topCtx.stroke();
+    topCtx.globalAlpha = 1;
 
-    topCtx.fillStyle = sol.color;
-    topCtx.font = "13px monospace";
-    topCtx.fillText(sol.label, startX - 4, startY - 10);
+    // Small label only when filtered to one solution, to avoid clutter
+    if (activeFilter !== "all") {
+      const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
+      topCtx.fillStyle = sol.color;
+      topCtx.font = "12px monospace";
+      topCtx.fillText(`${sol.label} ${tag}`, impactX + 10, impactY - 8);
+    }
   });
 }
 
@@ -491,3 +385,19 @@ function hexToRgba(hex, alpha) {
 }
 
 init();
+
+
+function updateBriefBlock() {
+  const sols = visibleSolutions();
+  const ranked = [...sols].sort((a, b) => scoreSolution(b) - scoreSolution(a));
+  const best = ranked[0];
+  if (!best) return;
+  const tntOnTarget = (best.tnt * best.salvo).toFixed(0);
+  const standOffEstimate = Math.max(0, payload.targetRangeMeters + Math.max(0, best.centerError)).toFixed(0);
+
+  document.getElementById("briefFilter").textContent = activeFilter === "all" ? "ALL" : activeFilter;
+  document.getElementById("briefPrimary").textContent = ["A","B","C"][Math.max(0, (payload.focus || 1) - 1)] || "A";
+  document.getElementById("briefRecommended").textContent = `${best.label} / ${best.result}`;
+  document.getElementById("briefTnt").textContent = `${tntOnTarget} TNT EQ`;
+  document.getElementById("briefStandoff").textContent = `${standOffEstimate} M`;
+}

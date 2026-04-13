@@ -16,9 +16,15 @@
       </div>
 
       <div class="header-right">
-        <div class="globe-box">
-          <img id="globePreview" class="globe-preview" src="globe_preview.png" alt="Global strike preview">
+        <div class="brief-box">
+          <div class="brief-title">UPPER-RIGHT DATA BLOCK</div>
+          <div class="brief-row"><span class="k">ACTIVE FILTER</span><span id="briefFilter" class="v">ALL</span></div>
+          <div class="brief-row"><span class="k">PRIMARY SOLUTION</span><span id="briefPrimary" class="v">A</span></div>
+          <div class="brief-row"><span class="k">RECOMMENDED</span><span id="briefRecommended" class="v">STANDBY</span></div>
+          <div class="brief-row"><span class="k">TNT ON TARGET</span><span id="briefTnt" class="v">0 TNT EQ</span></div>
+          <div class="brief-row"><span class="k">EST. STANDOFF</span><span id="briefStandoff" class="v">0 M</span></div>
         </div>
+      </div>
       </div>
 
       <div class="mission-summary">
@@ -37,7 +43,7 @@
           <div class="panel-title">SIDE VIEW KILL CHAIN</div>
           <div class="panel-subtitle">RELEASE → FLIGHT PATH → IMPACT</div>
         </div>
-        <canvas id="sideViewCanvas"></canvas>
+        <div class="canvas-stage"><img src="jet.png" class="release-jet side-release-jet" alt="Release aircraft"><canvas id="sideViewCanvas"></canvas></div>
         <div class="legend">
           <div class="legend-item"><span class="dot a"></span>A TRAJECTORY</div>
           <div class="legend-item"><span class="dot b"></span>B TRAJECTORY</div>
@@ -53,8 +59,7 @@
         </div>
         <div class="top-panel-stage">
           <canvas id="topViewCanvas"></canvas>
-          
-        </div>
+          </div>
         <div class="legend">
           <div class="legend-item"><span class="dot a"></span>A BLAST / PATTERN</div>
           <div class="legend-item"><span class="dot b"></span>B BLAST / PATTERN</div>
