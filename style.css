@@ -244,7 +244,7 @@ button {
 }
 /* ===== RADAR PANEL ===== */
 .radar-box {
-  width: 300px;
+  width: 290px;
   height: 250px;
   margin-bottom: 10px;
   border: 1px solid #00ff41;
@@ -252,8 +252,8 @@ button {
 }
 
 .radar-video {
-  width: 200%;
-  height: 120%;
+  width: 75%;
+  height: 75%;
   object-fit: cover;
   opacity: 0.6;
 }
