@@ -381,22 +381,23 @@ function renderTopView() {
 
   drawGrid(topCtx, w, h, 52, 0.13);
 
-  const cx = w / 2;
-  const cy = h / 2;
+  const cx = w/2;
+  const cy = h/2;
   const progress = currentFrame / (TOTAL_FRAMES - 1);
 
+  // zoom clarity scaling (visual only)
   let scale = 0.25;
   if (zoomLevel === 'FAR') scale = 0.15;
   if (zoomLevel === 'NORMAL') scale = 0.35;
   if (zoomLevel === 'CLOSE') scale = 0.6;
 
-  // draw jet at top (release point)
+  // jet (release)
   const jetY = 40;
   topCtx.fillStyle = "#00ff41";
   topCtx.beginPath();
-  topCtx.moveTo(cx - 8, jetY + 8);
-  topCtx.lineTo(cx + 8, jetY + 8);
-  topCtx.lineTo(cx, jetY - 8);
+  topCtx.moveTo(cx-8, jetY+8);
+  topCtx.lineTo(cx+8, jetY+8);
+  topCtx.lineTo(cx, jetY-8);
   topCtx.closePath();
   topCtx.fill();
 
@@ -404,57 +405,59 @@ function renderTopView() {
   topCtx.strokeStyle = "#ffd54a";
   topCtx.lineWidth = 1.5;
   topCtx.beginPath();
-  topCtx.moveTo(cx - 10, cy - 10);
-  topCtx.lineTo(cx + 10, cy + 10);
-  topCtx.moveTo(cx + 10, cy - 10);
-  topCtx.lineTo(cx - 10, cy + 10);
+  topCtx.moveTo(cx-10, cy-10);
+  topCtx.lineTo(cx+10, cy+10);
+  topCtx.moveTo(cx+10, cy-10);
+  topCtx.lineTo(cx-10, cy+10);
   topCtx.stroke();
 
-  visibleSolutions().forEach((sol) => {
-    let error = sol.centerError;
+  const sols = visibleSolutions();
 
-    // GBU guidance tightening
-    if (sol.smart) {
-      error *= 0.5;
-    }
+  sols.forEach((sol) => {
+
+    let error = sol.centerError;
+    if (sol.smart) error *= 0.5;
 
     const impactCenterY = cy + (error * scale);
-    const count = sol.salvo || 1;
-    const spacing = (sol.patternLength || 40) * scale / Math.max(count - 1, 1);
 
-    // moving marker along attack axis
-    const markerY = jetY + ((impactCenterY - jetY) * progress);
+    const count = sol.salvo || 1;
+    const spacing = (sol.patternLength || 40) * scale / Math.max(count-1,1);
+
+    // clean axis line
     topCtx.strokeStyle = sol.color;
-    topCtx.lineWidth = 2;
-    topCtx.globalAlpha = 0.55;
+    topCtx.globalAlpha = 0.25;
     topCtx.beginPath();
-    topCtx.moveTo(cx, jetY + 10);
+    topCtx.moveTo(cx, jetY);
     topCtx.lineTo(cx, impactCenterY);
     topCtx.stroke();
     topCtx.globalAlpha = 1;
 
+    // moving marker (kept from working build)
+    const markerY = jetY + ((impactCenterY - jetY) * progress);
     topCtx.fillStyle = sol.color;
     topCtx.beginPath();
-    topCtx.arc(cx, markerY, 4, 0, Math.PI * 2);
+    topCtx.arc(cx, markerY, 4, 0, Math.PI*2);
     topCtx.fill();
 
-    // Only show impacts once the frame has progressed far enough
-    if (progress >= 0.8) {
-      for (let i = 0; i < count; i++) {
-        const offset = (i - (count - 1) / 2) * spacing;
-        const impactX = cx;
+    // impacts (reduced clutter when ALL)
+    const showImpacts = (activeFilter !== "all") || (progress >= 0.8);
+
+    if (showImpacts) {
+      for (let i=0;i<count;i++){
+        const offset = (i - (count-1)/2) * spacing;
         const impactY = impactCenterY + offset;
 
         topCtx.fillStyle = sol.color;
         topCtx.beginPath();
-        topCtx.arc(impactX, impactY, 3, 0, Math.PI * 2);
+        topCtx.arc(cx, impactY, 3, 0, Math.PI*2);
         topCtx.fill();
 
-        if (zoomLevel === 'CLOSE') {
-          topCtx.globalAlpha = 0.22;
+        // CLOSE zoom = blast clarity
+        if (zoomLevel === 'CLOSE'){
+          topCtx.globalAlpha = 0.2;
           topCtx.strokeStyle = sol.color;
           topCtx.beginPath();
-          topCtx.arc(impactX, impactY, sol.blastRadius * scale * 0.4, 0, Math.PI * 2);
+          topCtx.arc(cx, impactY, sol.blastRadius * scale * 0.4, 0, Math.PI*2);
           topCtx.stroke();
           topCtx.globalAlpha = 1;
         }
