@@ -8,7 +8,6 @@
 </head>
 <body>
   <div class="cockpit">
-    <!-- LEFT PANEL -->
     <section class="panel left-panel">
       <h2>LOADOUT</h2>
 
@@ -39,12 +38,18 @@
           <div>DISTANCE</div>
         </div>
         <input id="dist" type="number" value="3">
+        <div class="unit-label">METRES</div>
       </div>
 
       <div id="adv" class="adv">AIRFRAME LIMITS NOMINAL</div>
+
+      <div class="radar-box">
+        <video id="radarVideo" class="radar-video" autoplay loop muted playsinline>
+          <source src="radar.mp4" type="video/mp4">
+        </video>
+      </div>
     </section>
 
-    <!-- CENTER PANEL -->
     <section class="panel center-panel">
       <div class="state-panel">
         <div class="state-title">AIRCRAFT STATE</div>
@@ -90,7 +95,6 @@
       <img id="flag" class="flag" alt="Country flag">
     </section>
 
-    <!-- RIGHT PANEL -->
     <section class="panel right-panel">
       <h2>COMMAND</h2>
 

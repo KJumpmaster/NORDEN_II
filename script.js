@@ -41,6 +41,9 @@ function init() {
   loadCountry();
   updateFocus();
   [1,2,3].forEach(syncSolution);
+
+  const video = document.getElementById("radarVideo");
+  video.onerror = () => { video.style.display = "none"; };
 }
 
 function loadCountry() {
@@ -94,12 +97,8 @@ function updateFlag() {
 
   if (!country) return;
 
-  flag.onerror = () => {
-    flag.style.display = "none";
-  };
-  flag.onload = () => {
-    flag.style.display = "block";
-  };
+  flag.onerror = () => { flag.style.display = "none"; };
+  flag.onload = () => { flag.style.display = "block"; };
   flag.src = country.flag;
 }
 
@@ -154,7 +153,7 @@ function solve() {
   const alt = parseFloat(document.getElementById("alt").value || "0") * 0.3048;
   const spd = parseFloat(document.getElementById("spd").value || "0") * 0.447;
   const dive = parseFloat(document.getElementById("dive").value || "0") * Math.PI / 180;
-  const distTarget = parseFloat(document.getElementById("dist").value || "0") * 1000;
+  const distTarget = parseFloat(document.getElementById("dist").value || "0");
 
   const focus = document.getElementById("focus").value;
   const bomb = getBombBySelect(focus);
@@ -197,6 +196,10 @@ function solve() {
 
   document.getElementById("pattern").textContent =
     `SALVO ${salvo} | PATTERN ${patternLength.toFixed(0)}m | FORE ${fore.toFixed(0)}m | AFT ${Math.abs(aft).toFixed(0)}m`;
+}
+
+function applySalvo() {
+  document.getElementById("focusStatus").textContent = document.getElementById("focusStatus").textContent;
 }
 
 function estimatePatternLength(salvo, blast) {
