@@ -83,8 +83,8 @@
             <span class="solution-title">A</span>
             <span class="solution-indicator output-indicator">OUT</span>
           </div>
-          <div class="output-slot">RESULT</div>
-          <div class="output-slot">PATTERN / FORE / AFT</div>
+          <div class="output-slot">LONG / SHORT / HIT</div>
+          <div class="output-slot">PATTERN LENGTH</div>
           <div id="outA" class="solution-readout output-readout">STANDBY</div>
         </div>
 
@@ -93,8 +93,8 @@
             <span class="solution-title">B</span>
             <span class="solution-indicator output-indicator">OUT</span>
           </div>
-          <div class="output-slot">RESULT</div>
-          <div class="output-slot">PATTERN / FORE / AFT</div>
+          <div class="output-slot">LONG / SHORT / HIT</div>
+          <div class="output-slot">PATTERN LENGTH</div>
           <div id="outB" class="solution-readout output-readout">STANDBY</div>
         </div>
 
@@ -103,8 +103,8 @@
             <span class="solution-title">C</span>
             <span class="solution-indicator output-indicator">OUT</span>
           </div>
-          <div class="output-slot">RESULT</div>
-          <div class="output-slot">PATTERN / FORE / AFT</div>
+          <div class="output-slot">LONG / SHORT / HIT</div>
+          <div class="output-slot">PATTERN LENGTH</div>
           <div id="outC" class="solution-readout output-readout">STANDBY</div>
         </div>
       </div>
@@ -129,10 +129,6 @@
         <div id="ccrp" class="state-badge">CCRP: YES</div>
         <div id="smart" class="state-badge smart-off">SMART MUNITIONS: NO</div>
       </div>
-
-      <div class="flag-anchor">
-        <img id="flag" class="flag" alt="Country flag">
-      </div>
     </section>
 
     <section class="panel right-panel">
@@ -146,8 +142,8 @@
       </select>
 
       <button onclick="solve()">SOLVE</button>
+      <button onclick="armLoad()">ARM LOAD</button>
       <button onclick="fireSolution()">FIRE</button>
-      <button onclick="applySalvo()">ARM LOAD</button>
 
       <div id="focusStatus" class="command-box">ACTIVE SOLUTION: A</div>
       <div id="res" class="command-box">READY</div>

@@ -20,6 +20,7 @@ const BOMBS = [
 ];
 
 let fireTimerIds = [];
+let armedSolution = null;
 
 function init() {
   const countryEl = document.getElementById("country");
@@ -64,7 +65,6 @@ function loadCountry() {
     });
 
   loadAircraft();
-  updateFlag();
 }
 
 function loadAircraft() {
@@ -96,17 +96,6 @@ function clampSpeed() {
   }
 }
 
-function updateFlag() {
-  const countryId = document.getElementById("country").value;
-  const country = COUNTRIES.find(c => c.id === countryId);
-  const flag = document.getElementById("flag");
-
-  if (!country || !flag) return;
-
-  flag.onerror = () => { flag.style.display = "none"; };
-  flag.onload = () => { flag.style.display = "block"; };
-  flag.src = country.flag;
-}
 
 function syncSolution(n) {
   const bomb = getBombBySelect(n);
@@ -128,6 +117,10 @@ function syncSolution(n) {
   }
 
   updateSmartBadge();
+
+  if (armedSolution === n) {
+    previewArmedSolution(n);
+  }
 }
 
 function updateSmartBadge() {
@@ -151,7 +144,6 @@ function updateFocus() {
   const labels = { "1": "A", "2": "B", "3": "C" };
   document.getElementById("focusStatus").textContent = `ACTIVE SOLUTION: ${labels[value]}`;
   updateSmartBadge();
-  previewReleaseChain(parseInt(value, 10));
 }
 
 function calculateSolution(n) {
@@ -220,7 +212,7 @@ function solve() {
 
     document.getElementById("out" + label).textContent =
       `${data.result}
-PATTERN: ${data.patternLength.toFixed(0)}m
+PATTERN LENGTH: ${data.patternLength.toFixed(0)}m
 FORE: ${data.fore.toFixed(0)}m
 AFT: ${Math.abs(data.aft).toFixed(0)}m`;
 
@@ -234,15 +226,15 @@ AFT: ${Math.abs(data.aft).toFixed(0)}m`;
     document.getElementById("pattern").textContent =
       `SALVO ${focused.salvo} | PATTERN ${focused.patternLength.toFixed(0)}m | FORE ${focused.fore.toFixed(0)}m | AFT ${Math.abs(focused.aft).toFixed(0)}m`;
   }
-
-  previewReleaseChain(focus);
 }
 
-function applySalvo() {
-  document.getElementById("focusStatus").textContent = document.getElementById("focusStatus").textContent;
+function armLoad() {
+  const solutionNumber = parseInt(document.getElementById("focus").value, 10);
+  armedSolution = solutionNumber;
+  previewArmedSolution(solutionNumber);
 }
 
-function previewReleaseChain(solutionNumber) {
+function previewArmedSolution(solutionNumber) {
   clearFireTimers();
   resetReleaseOverlay();
 
@@ -261,10 +253,13 @@ function previewReleaseChain(solutionNumber) {
 }
 
 function fireSolution() {
-  clearFireTimers();
-  resetReleaseOverlay();
-
   const solutionNumber = parseInt(document.getElementById("focus").value, 10);
+  if (armedSolution !== solutionNumber) {
+    document.getElementById("releaseStatus").textContent = "ARM LOAD REQUIRED BEFORE FIRE";
+    return;
+  }
+
+  clearFireTimers();
   const bomb = getBombBySelect(solutionNumber);
   const salvo = parseInt(document.getElementById("salvo" + solutionNumber).value, 10);
   const points = getReleasePointOrder(salvo);
@@ -280,10 +275,6 @@ function fireSolution() {
     if (!el) return;
 
     fireTimerIds.push(setTimeout(() => {
-      el.classList.add("armed");
-    }, Math.max(0, fireStart - 100)));
-
-    fireTimerIds.push(setTimeout(() => {
       el.classList.remove("armed");
       el.classList.add("firing");
     }, fireStart));
@@ -297,6 +288,7 @@ function fireSolution() {
   fireTimerIds.push(setTimeout(() => {
     document.getElementById("releaseStatus").textContent =
       `RELEASE COMPLETE | ${bomb.name.toUpperCase()} | ${salvo} STATIONS SPENT`;
+    armedSolution = null;
   }, 180 * points.length + 260));
 }
 
