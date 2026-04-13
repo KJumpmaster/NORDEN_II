@@ -25,7 +25,7 @@ function init() {
     countryEl.innerHTML += `<option value="${c.id}">${c.name}</option>`;
   });
 
-  [1,2,3].forEach(i => {
+  [1, 2, 3].forEach(i => {
     const bombEl = document.getElementById("bomb" + i);
     const salvoEl = document.getElementById("salvo" + i);
 
@@ -33,17 +33,19 @@ function init() {
       bombEl.innerHTML += `<option value="${b.id}">${b.name}</option>`;
     });
 
-    [1,2,4,6,8].forEach(v => {
+    [1, 2, 4, 6, 8].forEach(v => {
       salvoEl.innerHTML += `<option value="${v}">SALVO ${v}</option>`;
     });
   });
 
   loadCountry();
   updateFocus();
-  [1,2,3].forEach(syncSolution);
+  [1, 2, 3].forEach(syncSolution);
 
   const video = document.getElementById("radarVideo");
-  video.onerror = () => { video.style.display = "none"; };
+  if (video) {
+    video.onerror = () => { video.style.display = "none"; };
+  }
 }
 
 function loadCountry() {
@@ -95,7 +97,7 @@ function updateFlag() {
   const country = COUNTRIES.find(c => c.id === countryId);
   const flag = document.getElementById("flag");
 
-  if (!country) return;
+  if (!country || !flag) return;
 
   flag.onerror = () => { flag.style.display = "none"; };
   flag.onload = () => { flag.style.display = "block"; };
@@ -147,7 +149,7 @@ function updateFocus() {
   updateSmartBadge();
 }
 
-function solve() {
+function calculateSolution(n) {
   clampSpeed();
 
   const alt = parseFloat(document.getElementById("alt").value || "0") * 0.3048;
@@ -155,66 +157,77 @@ function solve() {
   const dive = parseFloat(document.getElementById("dive").value || "0") * Math.PI / 180;
   const distTarget = parseFloat(document.getElementById("dist").value || "0");
 
+  const bomb = getBombBySelect(n);
+  const salvo = parseInt(document.getElementById("salvo" + n).value, 10);
+
+  let vx = spd * Math.cos(dive);
+  let vy = spd * Math.sin(dive);
+  let t = 0;
+  let x = 0;
+  let y = alt;
+  const dt = 0.1;
+
+  while (y > 0 && t < 120) {
+    vx *= (1 - 0.01 * bomb.drag);
+    vy -= 9.81 * dt;
+    x += vx * dt;
+    y += vy * dt;
+    t += dt;
+  }
+
+  const centerError = x - distTarget;
+  const blast = Math.cbrt(bomb.tnt) * 15;
+  const spacing = Math.max(12, blast * 0.7);
+  const impacts = buildSalvoOffsets(salvo, spacing).map(offset => centerError + offset);
+
+  const bestAbsError = Math.min(...impacts.map(v => Math.abs(v)));
+  const avgError = impacts.reduce((sum, v) => sum + v, 0) / impacts.length;
+  const fore = Math.max(...impacts);
+  const aft = Math.min(...impacts);
+  const patternLength = fore - aft;
+
+  let result = "MISS";
+  if (bestAbsError <= blast) result = "DIRECT HIT";
+  else if (bestAbsError <= blast * 1.75) result = "NEAR HIT";
+  else if (avgError > 0) result = "LONG";
+  else result = "SHORT";
+
+  return {
+    result,
+    centerError,
+    bestAbsError,
+    tof: t,
+    salvo,
+    patternLength,
+    fore,
+    aft
+  };
+}
+
+function solve() {
   const labels = { 1: "A", 2: "B", 3: "C" };
-  let activeResult = null;
+  const focus = parseInt(document.getElementById("focus").value, 10);
+  let focused = null;
 
-  [1, 2, 3].forEach((n) => {
-    const bomb = getBombBySelect(n);
-    const salvo = parseInt(document.getElementById("salvo" + n).value, 10);
+  [1, 2, 3].forEach(n => {
+    const data = calculateSolution(n);
+    const label = labels[n];
 
-    let vx = spd * Math.cos(dive);
-    let vy = spd * Math.sin(dive);
-    let t = 0;
-    let x = 0;
-    let y = alt;
-    const dt = 0.1;
+    document.getElementById("out" + label).textContent =
+      `${data.result}
+PATTERN: ${data.patternLength.toFixed(0)}m
+FORE: ${data.fore.toFixed(0)}m
+AFT: ${Math.abs(data.aft).toFixed(0)}m`;
 
-    while (y > 0 && t < 120) {
-      vx *= (1 - 0.01 * bomb.drag);
-      vy -= 9.81 * dt;
-      x += vx * dt;
-      y += vy * dt;
-      t += dt;
-    }
-
-    const centerError = x - distTarget;
-    const blast = Math.cbrt(bomb.tnt) * 15;
-    const spacing = Math.max(12, blast * 0.7);
-    const impacts = buildSalvoOffsets(salvo, spacing).map(offset => centerError + offset);
-
-    const bestAbsError = Math.min(...impacts.map(v => Math.abs(v)));
-    const avgError = impacts.reduce((sum, v) => sum + v, 0) / impacts.length;
-    const fore = Math.max(...impacts);
-    const aft = Math.min(...impacts);
-    const patternLength = fore - aft;
-
-    let result = "MISS";
-    if (bestAbsError <= blast) result = "DIRECT HIT";
-    else if (bestAbsError <= blast * 1.75) result = "NEAR HIT";
-    else if (avgError > 0) result = "LONG";
-    else result = "SHORT";
-
-    const output = [
-      result,
-      `PATTERN: ${patternLength.toFixed(0)}m`,
-      `FORE: ${fore.toFixed(0)}m`,
-      `AFT: ${Math.abs(aft).toFixed(0)}m`,
-    ].join("\n");
-
-    const outputEl = document.getElementById("out" + labels[n]);
-    if (outputEl) outputEl.textContent = output;
-
-    if (String(document.getElementById("focus").value) === String(n)) {
-      activeResult = { result, centerError, bestAbsError, t, salvo, patternLength, fore, aft };
-    }
+    if (n === focus) focused = data;
   });
 
-  if (activeResult) {
+  if (focused) {
     document.getElementById("res").textContent =
-      `${activeResult.result} | CENTER ERR: ${activeResult.centerError.toFixed(0)}m | BEST: ${activeResult.bestAbsError.toFixed(0)}m | TOF: ${activeResult.t.toFixed(1)}s`;
+      `${focused.result} | CENTER ERR: ${focused.centerError.toFixed(0)}m | BEST: ${focused.bestAbsError.toFixed(0)}m | TOF: ${focused.tof.toFixed(1)}s`;
 
     document.getElementById("pattern").textContent =
-      `SALVO ${activeResult.salvo} | PATTERN ${activeResult.patternLength.toFixed(0)}m | FORE ${activeResult.fore.toFixed(0)}m | AFT ${Math.abs(activeResult.aft).toFixed(0)}m`;
+      `SALVO ${focused.salvo} | PATTERN ${focused.patternLength.toFixed(0)}m | FORE ${focused.fore.toFixed(0)}m | AFT ${Math.abs(focused.aft).toFixed(0)}m`;
   }
 }
 

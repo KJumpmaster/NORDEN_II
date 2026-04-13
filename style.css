@@ -166,10 +166,16 @@ button {
   z-index: 5;
 }
 
+.output-solutions {
+  left: auto;
+  right: 12px;
+}
+
 .solution-card {
   border: 1px solid #00ff41;
   background: rgba(0, 255, 65, 0.045);
   padding: 8px;
+  min-height: 176px;
 }
 
 .sol-a { border-color: #00ff41; }
@@ -219,37 +225,62 @@ button {
   text-shadow: 0 0 6px rgba(0,255,65,0.35);
 }
 
-.media-anchor {
+.output-card {
+  background: rgba(0, 255, 65, 0.035);
+}
+
+.output-indicator {
+  color: #8dffab;
+  border-color: #1f4f28;
+  background: rgba(0, 255, 65, 0.06);
+}
+
+.output-slot {
+  width: 100%;
+  margin-bottom: 6px;
+  background: #000;
+  color: #7be392;
+  border: 1px solid #333;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  min-height: 36px;
+}
+
+.output-readout {
+  min-height: 52px;
+  white-space: pre-line;
+}
+
+.flag-anchor {
   position: absolute;
-  right: 14px;
-  bottom: 92px;
+  right: 18px;
+  bottom: 78px;
   width: 120px;
   height: 190px;
   z-index: 7;
 }
 
-.radar-video {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 1px solid #444;
-  background: #000;
-  opacity: 0.55;
-  z-index: 1;
-}
-
 .flag {
   position: absolute;
   left: 0;
-  bottom: 48px;
+  bottom: 0;
   width: 120px;
   height: auto;
   z-index: 2;
   object-fit: contain;
   background: transparent;
+}
+
+.under-aircraft {
+  top: auto;
+  right: auto;
+  left: 50%;
+  bottom: 182px;
+  transform: translateX(-50%);
+  width: 250px;
+  text-align: center;
+  z-index: 6;
 }
 
 .right-panel h2,
@@ -268,72 +299,49 @@ button {
   background: rgba(0, 255, 65, 0.05);
 }
 
+.radar-box {
+  margin-top: 14px;
+  width: 100%;
+  height: 180px;
+  border: 1px solid #00ff41;
+  background: #000;
+  overflow: hidden;
+}
+
+.radar-video-panel {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.55;
+  background: #000;
+}
+
 @media (max-width: 1280px) {
   .cockpit {
     grid-template-columns: 1fr;
   }
 
-  .solutions {
-    position: static;
-    width: 100%;
-    margin-top: 14px;
-  }
-
-  .state-panel {
-    position: static;
-    width: 100%;
-    margin-bottom: 12px;
-    text-align: left;
-  }
-
-  .media-anchor {
-    position: static;
-    width: 120px;
-    height: 190px;
-    margin-top: 14px;
-  }
-}
-
-
-.output-solutions {
-  left: auto;
-  right: 12px;
-}
-
-.output-card {
-  background: rgba(0, 255, 65, 0.035);
-}
-
-.output-label {
-  min-width: 54px;
-  padding: 3px 6px;
-  text-align: center;
-  font-size: 12px;
-  color: #8dffab;
-  border: 1px solid #1f4f28;
-  background: rgba(0, 255, 65, 0.06);
-}
-
-.output-readout {
-  min-height: 92px;
-  white-space: pre-line;
-}
-
-.state-panel {
-  top: auto;
-  right: auto;
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-  width: 260px;
-  text-align: center;
-  z-index: 6;
-}
-
-@media (max-width: 1280px) {
+  .solutions,
   .output-solutions {
     position: static;
     width: 100%;
+    margin-top: 14px;
+  }
+
+  .state-panel,
+  .under-aircraft {
+    position: static;
+    width: 100%;
+    margin-bottom: 12px;
+    transform: none;
+    text-align: left;
+  }
+
+  .flag-anchor {
+    position: static;
+    width: 120px;
+    height: 190px;
     margin-top: 14px;
   }
 }

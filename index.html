@@ -45,13 +45,6 @@
     </section>
 
     <section class="panel center-panel">
-      <div class="state-panel">
-        <div class="state-title">AIRCRAFT STATE</div>
-        <div id="laser" class="state-badge">LASER: NO</div>
-        <div id="ccrp" class="state-badge">CCRP: YES</div>
-        <div id="smart" class="state-badge smart-off">SMART MUNITIONS: NO</div>
-      </div>
-
       <div class="solutions">
         <div class="solution-card sol-a">
           <div class="solution-head">
@@ -88,34 +81,44 @@
         <div class="solution-card sol-a output-card">
           <div class="solution-head">
             <span class="solution-title">A</span>
-            <span class="output-label">OUTPUT</span>
+            <span class="solution-indicator output-indicator">OUT</span>
           </div>
+          <div class="output-slot">RESULT</div>
+          <div class="output-slot">PATTERN / FORE / AFT</div>
           <div id="outA" class="solution-readout output-readout">STANDBY</div>
         </div>
 
         <div class="solution-card sol-b output-card">
           <div class="solution-head">
             <span class="solution-title">B</span>
-            <span class="output-label">OUTPUT</span>
+            <span class="solution-indicator output-indicator">OUT</span>
           </div>
+          <div class="output-slot">RESULT</div>
+          <div class="output-slot">PATTERN / FORE / AFT</div>
           <div id="outB" class="solution-readout output-readout">STANDBY</div>
         </div>
 
         <div class="solution-card sol-c output-card">
           <div class="solution-head">
             <span class="solution-title">C</span>
-            <span class="output-label">OUTPUT</span>
+            <span class="solution-indicator output-indicator">OUT</span>
           </div>
+          <div class="output-slot">RESULT</div>
+          <div class="output-slot">PATTERN / FORE / AFT</div>
           <div id="outC" class="solution-readout output-readout">STANDBY</div>
         </div>
       </div>
 
       <img src="b52.png" alt="B-52 outline" class="b52">
 
-      <div class="media-anchor">
-        <video id="radarVideo" class="radar-video" autoplay loop muted playsinline>
-          <source src="radar.mp4" type="video/mp4">
-        </video>
+      <div class="state-panel under-aircraft">
+        <div class="state-title">AIRCRAFT STATE</div>
+        <div id="laser" class="state-badge">LASER: NO</div>
+        <div id="ccrp" class="state-badge">CCRP: YES</div>
+        <div id="smart" class="state-badge smart-off">SMART MUNITIONS: NO</div>
+      </div>
+
+      <div class="flag-anchor">
         <img id="flag" class="flag" alt="Country flag">
       </div>
     </section>
@@ -136,6 +139,12 @@
       <div id="focusStatus" class="command-box">ACTIVE SOLUTION: A</div>
       <div id="res" class="command-box">READY</div>
       <div id="pattern" class="command-box">PATTERN DATA STANDBY</div>
+
+      <div class="radar-box">
+        <video id="radarVideo" class="radar-video-panel" autoplay loop muted playsinline>
+          <source src="radar.mp4" type="video/mp4">
+        </video>
+      </div>
     </section>
   </div>
 
