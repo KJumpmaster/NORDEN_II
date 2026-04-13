@@ -2,129 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NORDEN II</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="cockpit">
+
+<div class="cockpit">
+
+  <!-- LEFT PANEL -->
   <section class="panel left-panel">
-      <h2>LOADOUT</h2>
+    <h2>LOADOUT</h2>
 
-  <div class="radar-box">
-    <video class="radar-video" autoplay loop muted>
-      <source src="Deep_Screen_D_Radar_Design.mp4">
-    </video>
-  </div>
+    <label>COUNTRY</label>
+    <select id="country"></select>
 
-  <!-- rest of your inputs -->
-</section>
+    <label>AIRCRAFT</label>
+    <select id="ac"></select>
 
-      
-      <label for="country">COUNTRY</label>
-      <select id="country" onchange="loadCountry()"></select>
-
-      <label for="ac">AIRCRAFT</label>
-      <select id="ac" onchange="loadAircraft()"></select>
-
-      <div class="flight-grid">
-        <div class="grid-item">
-          <div class="mini-label">ALTITUDE</div>
-          <input id="alt" type="number" value="8000">
-        </div>
-        <div class="grid-item">
-          <div class="mini-label">SPEED</div>
-          <input id="spd" type="number" value="400" oninput="clampSpeed()">
-        </div>
-        <div class="grid-item">
-          <div class="mini-label">DIVE</div>
-          <input id="dive" type="number" value="0">
-        </div>
+    <div class="flight-grid">
+      <div>
+        <div class="mini-label">ALTITUDE</div>
+        <input value="8000">
       </div>
-
-      <div class="standoff-block">
-        <div class="standoff-label">
-          <div>STAND OFF</div>
-          <div>DISTANCE</div>
-        </div>
-        <input id="dist" type="number" value="3">
-        <div class="unit-label">METRES</div>
+      <div>
+        <div class="mini-label">SPEED</div>
+        <input value="400">
       </div>
-
-      <div id="adv" class="adv">AIRFRAME LIMITS NOMINAL</div>
-    </section>
-
-    <section class="panel center-panel">
-      <div class="state-panel">
-        <div class="state-title">AIRCRAFT STATE</div>
-        <div id="laser" class="state-badge">LASER: NO</div>
-        <div id="ccrp" class="state-badge">CCRP: YES</div>
-        <div id="smart" class="state-badge smart-off">SMART MUNITIONS: NO</div>
+      <div>
+        <div class="mini-label">DIVE</div>
+        <input value="0">
       </div>
+    </div>
 
-      <div class="solutions">
-        <div class="solution-card sol-a">
-          <div class="solution-head">
-            <span class="solution-title">A</span>
-            <span id="smart-ind-1" class="solution-indicator">STD</span>
-          </div>
-          <select id="bomb1" onchange="syncSolution(1)"></select>
-          <select id="salvo1" onchange="syncSolution(1)"></select>
-          <div id="out1" class="solution-readout">READY</div>
-        </div>
+    <div class="standoff-block">
+      <div>STAND OFF</div>
+      <div>DISTANCE</div>
+      <input value="3">
+      <div class="unit-label">METRES</div>
+    </div>
 
-        <div class="solution-card sol-b">
-          <div class="solution-head">
-            <span class="solution-title">B</span>
-            <span id="smart-ind-2" class="solution-indicator">STD</span>
-          </div>
-          <select id="bomb2" onchange="syncSolution(2)"></select>
-          <select id="salvo2" onchange="syncSolution(2)"></select>
-          <div id="out2" class="solution-readout">READY</div>
-        </div>
+    <div class="adv">AIRFRAME LIMITS NOMINAL</div>
+  </section>
 
-        <div class="solution-card sol-c">
-          <div class="solution-head">
-            <span class="solution-title">C</span>
-            <span id="smart-ind-3" class="solution-indicator">STD</span>
-          </div>
-          <select id="bomb3" onchange="syncSolution(3)"></select>
-          <select id="salvo3" onchange="syncSolution(3)"></select>
-          <div id="out3" class="solution-readout">READY</div>
-        </div>
-      </div>
+  <!-- CENTER PANEL -->
+  <section class="panel center-panel">
 
-      <img src="b52.png" alt="B-52 outline" class="b52">
+    <div class="solutions">
+      <div class="solution-card">A</div>
+      <div class="solution-card">B</div>
+      <div class="solution-card">C</div>
+    </div>
 
-    </section>
+    <img src="b52.png" class="b52">
 
-    <section class="panel right-panel">
-      <h2>COMMAND</h2>
+    <!-- FLAG (separate layer) -->
+    <img src="flag_britain.png" class="flag">
 
-      <label for="focus">FOCUS</label>
-      <select id="focus" onchange="updateFocus()">
-        <option value="1">FOCUS A</option>
-        <option value="2">FOCUS B</option>
-        <option value="3">FOCUS C</option>
-      </select>
+  </section>
 
-      <button onclick="solve()">SOLVE</button>
-      <button onclick="applySalvo()">ARM LOAD</button>
+  <!-- RIGHT PANEL -->
+  <section class="panel right-panel">
+    <h2>COMMAND</h2>
 
-      <div id="focusStatus" class="command-box">ACTIVE SOLUTION: A</div>
-      <div id="res" class="command-box">READY</div>
-      <div id="pattern" class="command-box">PATTERN DATA STANDBY</div>
-      
-      <!-- 👇 RADAR GOES HERE -->
-      <div class="radar-box">
-      <video class="radar-video" autoplay loop muted>
-      <source src="Deep_Screen_D_Radar_Design.mp4">
-    </video>
-  </div>
-</section>
-    </section>
-  </div>
+    <select>
+      <option>FOCUS A</option>
+    </select>
 
-  <script src="script.js"></script>
+    <button>SOLVE</button>
+    <button>ARM LOAD</button>
+
+    <div class="command-box">READY</div>
+
+    <!-- RADAR (ONLY ONE — FINAL LOCATION) -->
+    <div class="radar-box">
+      <video class="radar-video" autoplay loop muted playsinline>
+        <source src="Deep_Screen_D_Radar_Design.mp4">
+      </video>
+    </div>
+
+  </section>
+
+</div>
+
 </body>
 </html>
