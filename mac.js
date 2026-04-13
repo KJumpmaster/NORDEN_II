@@ -1,5 +1,6 @@
 const TOTAL_FRAMES = 20;
 let currentFrame = 0;
+let zoomLevel = 'NORMAL';
 let playing = false;
 let playTimer = null;
 let activeFilter = "all";
@@ -70,7 +71,21 @@ function bindControls() {
   document.getElementById("nextBtn").addEventListener("click", () => setFrame(currentFrame + 1));
   document.getElementById("playBtn").addEventListener("click", togglePlay);
   document.getElementById("printBtn").addEventListener("click", () => window.print());
-  document.getElementById("frameSlider").addEventListener("input", (e) => {
+  
+// Zoom controls
+const zoomModes = ['FAR','NORMAL','CLOSE'];
+let zoomIndex = 1;
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'z'){
+    zoomIndex = (zoomIndex+1)%3;
+    zoomLevel = zoomModes[zoomIndex];
+    render();
+  }
+});
+
+document.getElementById("frameSlider").addEventListener("input", (e) => {
+
     setFrame(parseInt(e.target.value, 10));
   });
 
@@ -350,61 +365,63 @@ function renderSideView() {
   });
 }
 
+
 function renderTopView() {
   const w = topCanvas.clientWidth;
   const h = topCanvas.clientHeight;
 
   topCtx.clearRect(0, 0, w, h);
-  topCtx.fillStyle = "rgba(0,0,0,0.18)";
+  topCtx.fillStyle = "rgba(0,0,0,0.2)";
   topCtx.fillRect(0, 0, w, h);
 
   drawGrid(topCtx, w, h, 52, 0.13);
 
-  const cx = w / 2;
-  const cy = h / 2;
+  const cx = w/2;
+  const cy = h/2;
+
+  // zoom scaling
+  let scale = 0.25;
+  if (zoomLevel === 'FAR') scale = 0.15;
+  if (zoomLevel === 'NORMAL') scale = 0.35;
+  if (zoomLevel === 'CLOSE') scale = 0.6;
 
   // target X
   topCtx.strokeStyle = "#ffd54a";
-  topCtx.lineWidth = 1.5;
   topCtx.beginPath();
-  topCtx.moveTo(cx - 10, cy - 10);
-  topCtx.lineTo(cx + 10, cy + 10);
-  topCtx.moveTo(cx + 10, cy - 10);
-  topCtx.lineTo(cx - 10, cy + 10);
+  topCtx.moveTo(cx-10, cy-10);
+  topCtx.lineTo(cx+10, cy+10);
+  topCtx.moveTo(cx+10, cy-10);
+  topCtx.lineTo(cx-10, cy+10);
   topCtx.stroke();
 
-  const scale = 0.55; // tighter zoom
-  const sols = visibleSolutions();
+  visibleSolutions().forEach((sol)=>{
+    const baseY = cy + (sol.centerError * scale);
 
-  sols.forEach((sol) => {
-    // Collinear with target axis:
-    // SHORT (negative centerError) should be ABOVE target,
-    // LONG (positive centerError) should be BELOW target.
-    const impactX = cx;
-    const impactY = cy + (sol.centerError * scale);
+    // SALVO DOTS
+    const count = sol.salvo || 1;
+    const spacing = (sol.patternLength || 40) * scale / Math.max(count-1,1);
 
-    topCtx.fillStyle = sol.color;
-    topCtx.beginPath();
-    topCtx.arc(impactX, impactY, 5, 0, Math.PI * 2);
-    topCtx.fill();
+    for(let i=0;i<count;i++){
+      const offset = (i - (count-1)/2) * spacing;
+      const impactX = cx;
+      const impactY = baseY + offset;
 
-    topCtx.globalAlpha = 0.35;
-    topCtx.strokeStyle = sol.color;
-    topCtx.lineWidth = 2;
-    topCtx.beginPath();
-    topCtx.arc(impactX, impactY, Math.max(20, sol.blastRadius * 0.32), 0, Math.PI * 2);
-    topCtx.stroke();
-    topCtx.globalAlpha = 1;
-
-    // Small label only when filtered to one solution, to avoid clutter
-    if (activeFilter !== "all") {
-      const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
       topCtx.fillStyle = sol.color;
-      topCtx.font = "12px monospace";
-      topCtx.fillText(`${sol.label} ${tag}`, impactX + 10, impactY - 8);
+      topCtx.beginPath();
+      topCtx.arc(impactX, impactY, 3, 0, Math.PI*2);
+      topCtx.fill();
+
+      if (zoomLevel === 'CLOSE'){
+        topCtx.globalAlpha = 0.25;
+        topCtx.beginPath();
+        topCtx.arc(impactX, impactY, sol.blastRadius * scale * 0.4, 0, Math.PI*2);
+        topCtx.stroke();
+        topCtx.globalAlpha = 1;
+      }
     }
   });
 }
+
 
 function hexToRgba(hex, alpha) {
   const clean = hex.replace("#", "");
