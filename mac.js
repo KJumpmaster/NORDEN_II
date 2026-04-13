@@ -54,14 +54,10 @@ function init() {
   populateSolutionCards();
   buildTimelineStrip();
   updateRecommendation();
+  updateBriefBlock();
   syncFilterButtons();
   resizeCanvases();
   render();
-
-  const globeVideo = document.getElementById("globeVideo");
-  if (globeVideo) {
-    globeVideo.onerror = () => { globeVideo.style.display = "none"; };
-  }
 
   window.addEventListener("resize", () => {
     resizeCanvases();
@@ -84,6 +80,7 @@ function bindControls() {
       syncFilterButtons();
       populateSolutionCards();
       updateRecommendation();
+      updateBriefBlock();
       render();
     });
   });
@@ -178,6 +175,21 @@ function updateRecommendation() {
 
   document.getElementById("recommendation").textContent =
     `RECOMMENDED SOLUTION: ${best.label} | ${best.weapon} | ${best.result} | EFFECT ON TARGET ${tntOnTarget} TNT EQ | EST. STANDOFF ${standOffEstimate}m`;
+}
+
+function updateBriefBlock() {
+  const sols = visibleSolutions();
+  const ranked = [...sols].sort((a, b) => scoreSolution(b) - scoreSolution(a));
+  const best = ranked[0];
+  if (!best) return;
+  const tntOnTarget = (best.tnt * best.salvo).toFixed(0);
+  const standOffEstimate = Math.max(0, payload.targetRangeMeters + Math.max(0, best.centerError)).toFixed(0);
+
+  document.getElementById("briefFilter").textContent = activeFilter === "all" ? "ALL" : activeFilter;
+  document.getElementById("briefPrimary").textContent = ["A","B","C"][Math.max(0, (payload.focus || 1) - 1)] || "A";
+  document.getElementById("briefRecommended").textContent = `${best.label} / ${best.result}`;
+  document.getElementById("briefTnt").textContent = `${tntOnTarget} TNT EQ`;
+  document.getElementById("briefStandoff").textContent = `${standOffEstimate} M`;
 }
 
 function resizeCanvases() {
@@ -342,9 +354,12 @@ function renderTopView() {
   const progress = currentFrame / (TOTAL_FRAMES - 1);
   const sols = visibleSolutions();
 
+  const baseStartX = cx;
+  const baseStartY = 54;
+
   sols.forEach((sol) => {
-    const startX = w * (0.18 + (sol.id - 1) * 0.22);
-    const startY = 44;
+    const startX = baseStartX + (sol.id - 2) * 22;
+    const startY = baseStartY;
     const targetOffsetX = (sol.id - 2) * 10;
     const targetOffsetY = (sol.id - 2) * 8;
 
