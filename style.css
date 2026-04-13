@@ -222,7 +222,7 @@ button {
 .flag {
   position: absolute;
   right: 193px;
-  bottom: 200px;
+  bottom: 300px;
   width: 120px;
   z-index: 4;
 }
