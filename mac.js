@@ -188,7 +188,7 @@ function updateRecommendation() {
 
   if (!valid.length) {
     const recEl = document.getElementById("recommendation");
-    if (recEl) recEl.textContent = "NO RECOMMENDED FIRING SOLUTION";
+    if (recEl) recEl.textContent = "NO VALID FIRING SOLUTION";
 
     const briefRec = document.getElementById("briefRecommended");
     if (briefRec) briefRec.textContent = "NONE";
@@ -209,7 +209,7 @@ function updateRecommendation() {
   const recEl = document.getElementById("recommendation");
   if (recEl) {
     recEl.textContent =
-      `RECOMMENDED SOLUTION: ${best.label} | ${best.weapon} | ${best.result} | EFFECT ON TARGET ${tntOnTarget} TNT EQ | EST. STANDOFF ${standOffEstimate}m`;
+      `PRIMARY SOLUTION: ${best.label} (${best.weapon}) | EFFECT: ${best.result} | ON-TARGET YIELD: ${tntOnTarget} TNT EQ | STANDOFF: ${standOffEstimate}m`;
   }
 }
 
