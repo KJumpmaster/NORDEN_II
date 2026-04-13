@@ -146,6 +146,37 @@ function updateFocus() {
   updateSmartBadge();
 }
 
+
+const BALLISTIC_MODEL = {
+  baseDragK: 0.010,
+  dragScale: 0.002,
+  smartRangeBonus: 1.06,
+  smartErrorReduction: 0.55,
+  smartCaptureMeters: 1800
+};
+
+function simulateBombFlight(altMeters, speedMps, diveRad, bomb) {
+  const g = 9.81;
+
+  // Treat positive dive as nose-down / toward the ground.
+  const vx0 = Math.max(0, speedMps * Math.cos(diveRad));
+  const vz0 = Math.max(0, speedMps * Math.sin(diveRad));
+
+  // Vertical motion to ground: alt = vz0*t + 0.5*g*t^2
+  const tof = (-vz0 + Math.sqrt((vz0 * vz0) + (2 * g * altMeters))) / g;
+
+  // Mild exponential horizontal slowdown instead of the old per-frame speed collapse.
+  const dragK = BALLISTIC_MODEL.baseDragK + (BALLISTIC_MODEL.dragScale * bomb.drag);
+  let rangeMeters = vx0 * (1 - Math.exp(-dragK * tof)) / dragK;
+
+  // Guided weapons get a modest terminal / glide benefit.
+  if (bomb.smart) {
+    rangeMeters *= BALLISTIC_MODEL.smartRangeBonus;
+  }
+
+  return { tof, rangeMeters };
+}
+
 function calculateSolution(n) {
   clampSpeed();
 
@@ -157,24 +188,20 @@ function calculateSolution(n) {
   const bomb = getBombBySelect(n);
   const salvo = parseInt(document.getElementById("salvo" + n).value, 10);
 
-  let vx = spd * Math.cos(dive);
-  let vy = spd * Math.sin(dive);
-  let t = 0;
-  let x = 0;
-  let y = alt;
-  const dt = 0.1;
+  const flight = simulateBombFlight(alt, spd, dive, bomb);
+  let centerError = flight.rangeMeters - distTarget;
 
-  while (y > 0 && t < 120) {
-    vx *= (1 - 0.01 * bomb.drag);
-    vy -= 9.81 * dt;
-    x += vx * dt;
-    y += vy * dt;
-    t += dt;
+  // Guided weapons should pull closer to the aimpoint when they are inside
+  // a realistic terminal correction basket.
+  if (bomb.smart && Math.abs(centerError) <= BALLISTIC_MODEL.smartCaptureMeters) {
+    centerError *= BALLISTIC_MODEL.smartErrorReduction;
   }
 
-  const centerError = x - distTarget;
   const blast = Math.cbrt(bomb.tnt) * 15;
-  const spacing = Math.max(12, blast * 0.7);
+  const spacing = bomb.smart
+    ? Math.max(10, blast * 0.45)
+    : Math.max(12, blast * 0.7);
+
   const impacts = buildSalvoOffsets(salvo, spacing).map(offset => centerError + offset);
 
   const bestAbsError = Math.min(...impacts.map(v => Math.abs(v)));
@@ -193,7 +220,7 @@ function calculateSolution(n) {
     result,
     centerError,
     bestAbsError,
-    tof: t,
+    tof: flight.tof,
     salvo,
     patternLength,
     fore,
