@@ -356,6 +356,13 @@ function renderSideView() {
       sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI * 2);
       sideCtx.fill();
 
+      // impact pulse
+      sideCtx.globalAlpha = 0.3;
+      sideCtx.beginPath();
+      sideCtx.arc(impactX, groundY, 10 + (Math.sin(currentFrame)*4), 0, Math.PI*2);
+      sideCtx.stroke();
+      sideCtx.globalAlpha = 1;
+
       sideCtx.strokeStyle = "#ff5555";
       sideCtx.beginPath();
       sideCtx.moveTo(targetX, groundY + 14);
@@ -452,6 +459,13 @@ function renderTopView() {
         topCtx.beginPath();
         topCtx.arc(cx, impactY, 3, 0, Math.PI*2);
         topCtx.fill();
+
+        // impact pulse
+        topCtx.globalAlpha = 0.25;
+        topCtx.beginPath();
+        topCtx.arc(cx, impactY, 8 + (Math.sin(currentFrame)*3), 0, Math.PI*2);
+        topCtx.stroke();
+        topCtx.globalAlpha = 1;
 
         // CLOSE zoom = blast clarity
         if (zoomLevel === 'CLOSE'){
