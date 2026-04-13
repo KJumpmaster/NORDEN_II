@@ -8,7 +8,6 @@
 </head>
 <body>
   <div class="cockpit">
-    <!-- LEFT PANEL -->
     <section class="panel left-panel">
       <h2>LOADOUT</h2>
 
@@ -39,12 +38,12 @@
           <div>DISTANCE</div>
         </div>
         <input id="dist" type="number" value="3">
+        <div class="unit-label">METRES</div>
       </div>
 
       <div id="adv" class="adv">AIRFRAME LIMITS NOMINAL</div>
     </section>
 
-    <!-- CENTER PANEL -->
     <section class="panel center-panel">
       <div class="state-panel">
         <div class="state-title">AIRCRAFT STATE</div>
@@ -77,7 +76,7 @@
         <div class="solution-card sol-c">
           <div class="solution-head">
             <span class="solution-title">C</span>
-            <span id="smart-ind-3" class="solution-indicator">STD</span>
+            <span id="smart-ind-3" class="solution-indicator">SMART</span>
           </div>
           <select id="bomb3" onchange="syncSolution(3)"></select>
           <select id="salvo3" onchange="syncSolution(3)"></select>
@@ -87,10 +86,14 @@
 
       <img src="b52.png" alt="B-52 outline" class="b52">
 
-      <img id="flag" class="flag" alt="Country flag">
+      <div class="media-anchor">
+        <video class="radar-video" autoplay loop muted playsinline>
+          <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
+        </video>
+        <img id="flag" class="flag" alt="Country flag">
+      </div>
     </section>
 
-    <!-- RIGHT PANEL -->
     <section class="panel right-panel">
       <h2>COMMAND</h2>
 
