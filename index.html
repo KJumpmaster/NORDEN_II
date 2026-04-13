@@ -1,86 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NORDEN II</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>NORDEN II</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="cockpit">
 
-  <!-- LEFT PANEL -->
-  <section class="panel left-panel">
-    <h2>LOADOUT</h2>
+<section class="panel left-panel">
+<h2>LOADOUT</h2>
 
-    <label>COUNTRY</label>
-    <select id="country"></select>
+<label>COUNTRY</label>
+<select></select>
 
-    <label>AIRCRAFT</label>
-    <select id="ac"></select>
+<label>AIRCRAFT</label>
+<select></select>
 
-    <div class="flight-grid">
-      <div>
-        <div class="mini-label">ALTITUDE</div>
-        <input value="8000">
-      </div>
-      <div>
-        <div class="mini-label">SPEED</div>
-        <input value="400">
-      </div>
-      <div>
-        <div class="mini-label">DIVE</div>
-        <input value="0">
-      </div>
-    </div>
+<div class="flight-grid">
+<div><div class="mini-label">ALTITUDE</div><input value="8000"></div>
+<div><div class="mini-label">SPEED</div><input value="400"></div>
+<div><div class="mini-label">DIVE</div><input value="0"></div>
+</div>
 
-    <div class="standoff-block">
-      <div>STAND OFF</div>
-      <div>DISTANCE</div>
-      <input value="3">
-      <div class="unit-label">METRES</div>
-    </div>
+<div class="standoff-block">
+<div>STAND OFF</div>
+<div>DISTANCE</div>
+<input value="3">
+<div class="unit-label">METRES</div>
+</div>
 
-    <div class="adv">AIRFRAME LIMITS NOMINAL</div>
-  </section>
+<div class="adv">AIRFRAME LIMITS NOMINAL</div>
+</section>
 
-  <!-- CENTER PANEL -->
-  <section class="panel center-panel">
+<section class="panel center-panel">
 
-    <div class="solutions">
-      <div class="solution-card">A</div>
-      <div class="solution-card">B</div>
-      <div class="solution-card">C</div>
-    </div>
+<div class="solutions">
+<div class="solution-card">A</div>
+<div class="solution-card">B</div>
+<div class="solution-card">C</div>
+</div>
 
-    <img src="b52.png" class="b52">
+<img src="b52.png" class="b52">
+<img src="flag_britain.png" class="flag">
 
-    <!-- FLAG (separate layer) -->
-    <img src="flag_britain.png" class="flag">
+</section>
 
-  </section>
+<section class="panel right-panel">
+<h2>COMMAND</h2>
 
-  <!-- RIGHT PANEL -->
-  <section class="panel right-panel">
-    <h2>COMMAND</h2>
+<select><option>FOCUS A</option></select>
+<button>SOLVE</button>
+<button>ARM LOAD</button>
 
-    <select>
-      <option>FOCUS A</option>
-    </select>
+<div class="command-box">READY</div>
 
-    <button>SOLVE</button>
-    <button>ARM LOAD</button>
+<div class="radar-box">
+<video class="radar-video" autoplay loop muted>
+<source src="Deep_Screen_D_Radar_Design.mp4">
+</video>
+</div>
 
-    <div class="command-box">READY</div>
-
-    <!-- RADAR (ONLY ONE — FINAL LOCATION) -->
-    <div class="radar-box">
-      <video class="radar-video" autoplay loop muted playsinline>
-        <source src="Deep_Screen_D_Radar_Design.mp4">
-      </video>
-    </div>
-
-  </section>
+</section>
 
 </div>
 

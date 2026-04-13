@@ -1,94 +1,87 @@
 body {
-  margin: 0;
-  background: black;
-  color: #00ff41;
-  font-family: monospace;
+margin:0;
+background:black;
+color:#00ff41;
+font-family:monospace;
 }
 
 .cockpit {
-  display: grid;
-  grid-template-columns: 300px 1fr 260px;
-  gap: 10px;
-  padding: 10px;
+display:grid;
+grid-template-columns:300px 1fr 260px;
+gap:10px;
+padding:10px;
 }
 
 .panel {
-  border: 2px solid #00ff41;
-  padding: 10px;
-  position: relative;
+border:2px solid #00ff41;
+padding:10px;
+position:relative;
 }
 
-/* LEFT PANEL */
+/* LEFT */
 .flight-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:6px;
 }
 
-.standoff-block {
-  margin-top: 10px;
-}
-
-.unit-label {
-  font-size: 10px;
-}
-
-.adv {
-  margin-top: 10px;
-  border: 1px solid gold;
-  color: gold;
-  padding: 6px;
+input,select {
+max-width:100%;
 }
 
 /* CENTER */
+.center-panel {
+position:relative;
+}
+
 .b52 {
-  width: 100%;
-  max-height: 450px;
-  object-fit: contain;
+width:100%;
+max-height:450px;
+object-fit:contain;
 }
 
 /* SOLUTIONS */
 .solutions {
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  width: 260px;
+position:absolute;
+top:20px;
+left:20px;
+width:260px;
 }
 
 .solution-card {
-  border: 1px solid #00ff41;
-  margin-bottom: 6px;
-  padding: 6px;
+border:1px solid #00ff41;
+margin-bottom:6px;
+padding:6px;
 }
 
-/* FLAG (independent layer) */
+/* FLAG */
 .flag {
-  position: absolute;
-  right: 200px;
-  bottom: 120px;
-  width: 120px;
-  z-index: 5;
+position:absolute;
+right:200px;
+bottom:120px;
+width:120px;
+z-index:5;
 }
 
-/* RIGHT PANEL */
+/* RIGHT */
 .command-box {
-  border: 1px solid #00ff41;
-  padding: 8px;
-  margin-top: 10px;
+border:1px solid #00ff41;
+padding:8px;
+margin-top:10px;
 }
 
-/* RADAR (FINAL FIXED VERSION) */
+/* RADAR */
 .radar-box {
-  width: 100%;
-  height: 220px;
-  margin-top: 12px;
-  border: 1px solid #00ff41;
-  overflow: hidden;
+width:100%;
+height:220px;
+margin-top:12px;
+border:1px solid #00ff41;
+overflow:hidden;
 }
 
 .radar-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.6;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0.6;
 }
