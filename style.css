@@ -221,8 +221,8 @@ button {
 
 .flag {
   position: absolute;
-  right: 214px;
-  bottom: 575px;
+  right: 224px;
+  bottom: 585px;
   width: 120px;
   z-index: 4;
 }
