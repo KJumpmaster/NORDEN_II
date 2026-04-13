@@ -57,6 +57,7 @@ function init() {
   updateRecommendation();
   updateBriefBlock();
   syncFilterButtons();
+  updateZoomHint();
   resizeCanvases();
   render();
 
@@ -72,18 +73,6 @@ function bindControls() {
   document.getElementById("playBtn").addEventListener("click", togglePlay);
   document.getElementById("printBtn").addEventListener("click", () => window.print());
   
-// Zoom controls
-const zoomModes = ['FAR','NORMAL','CLOSE'];
-let zoomIndex = 1;
-
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'z'){
-    zoomIndex = (zoomIndex+1)%3;
-    zoomLevel = zoomModes[zoomIndex];
-    render();
-  }
-});
-
 document.getElementById("frameSlider").addEventListener("input", (e) => {
 
     setFrame(parseInt(e.target.value, 10));
@@ -507,4 +496,20 @@ function updateBriefBlock() {
   document.getElementById("briefRecommended").textContent = `${best.label} / ${best.result}`;
   document.getElementById("briefTnt").textContent = `${tntOnTarget} TNT EQ`;
   document.getElementById("briefStandoff").textContent = `${standOffEstimate} M`;
+}
+
+
+function cycleZoom() {
+  const zoomModes = ["FAR", "NORMAL", "CLOSE"];
+  const current = zoomModes.indexOf(zoomLevel);
+  zoomLevel = zoomModes[(current + 1 + zoomModes.length) % zoomModes.length];
+  updateZoomHint();
+  render();
+}
+
+function updateZoomHint() {
+  const el = document.querySelector(".zoom-hint");
+  if (el) {
+    el.textContent = `HIT Z TO ZOOM (${zoomLevel})`;
+  }
 }
