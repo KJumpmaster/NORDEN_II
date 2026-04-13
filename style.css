@@ -242,11 +242,6 @@ button {
   min-height: 44px;
   background: rgba(0, 255, 65, 0.05);
 }
-
-@media (max-width: 1280px) {
-  .cockpit {
-    grid-template-columns: 1fr;
-  }
 /* ===== RADAR PANEL ===== */
 .radar-box {
   width: 200px;
@@ -257,11 +252,28 @@ button {
 }
 
 .radar-video {
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   opacity: 0.6;
 }
+
+@media (max-width: 1280px) {
+  .cockpit {
+    grid-template-columns: 1fr;
+  }
+
+  .solutions {
+    position: static;
+    width: 100%;
+    margin-top: 14px;
+  }
+}
+@media (max-width: 1280px) {
+  .cockpit {
+    grid-template-columns: 1fr;
+  }
+
   .solutions {
     position: static;
     width: 100%;
