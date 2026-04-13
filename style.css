@@ -246,14 +246,14 @@ button {
 .radar-box {
   width: 290px;
   height: 250px;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
   border: 1px solid #00ff41;
   overflow: hidden;
 }
 
 .radar-video {
-  width: 75%;
-  height: 75%;
+  width: 85%;
+  height: 85%;
   object-fit: cover;
   opacity: 0.6;
 }
