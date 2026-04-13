@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Wing USA</title>
+  <link rel="stylesheet" href="style.css?v=131108" />
+</head>
+<body>
+  <div class="app">
+    <section class="main">
+      <section class="banner-hero" aria-label="USA command banner">
+        <div class="banner-media">
+          <video
+            id="countryBannerVideo"
+            class="banner-video"
+            src="USA_Banner.mp4"
+            poster="USA_Banner_poster.jpg"
+            muted
+            playsinline
+            preload="metadata"
+          ></video>
+          <div class="banner-overlay"></div>
+          <div class="banner-grid"></div>
+        </div>
+
+        <div class="banner-shell">
+          <div class="banner-copy">
+            <div class="banner-kicker-row"><div class="banner-kicker">CAOC / USA Air Wing</div><a class="banner-link-button" href="https://skypilot-toc-g3bsg3f0g4fjg8c9.westus3-01.azurewebsites.net/">Back to CAOC</a></div>
+            <h1>Commander's Aircraft Tracking System</h1>
+            <p>
+              Squadron-ready aircraft tracking, kneeboard reference, and research flow for the USA air wing.
+              Banner autoplays once per browser visit profile, then drops into quiet banner mode.
+            </p>
+
+            <div class="banner-meta">
+              <div class="banner-chip">Wing: USA</div>
+              <div class="banner-chip">Tree Mode: C.A.T.S.</div>
+              <div class="banner-chip">Kneeboard View Ready</div>
+            </div>
+          </div>
+
+          <div class="banner-actions">
+           <div class="banner-status" id="bannerStatusText"></div>
+          </div>
+        </div>
+
+        <div class="inventory-safety-note" id="inventorySafetyNote">
+          Reminder: export your DRR after major kneeboard updates.
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <div class="toolbar-block">
+          <strong>C.A.T.S. (Commander's Aircraft Tracking System)</strong>
+          <span>USA Air Wing / Squadron Overview</span>
+          <div class="toolbar-subline">
+            <div class="toolbar-subpill">CAOC Level: Wing</div>
+            <div class="toolbar-subpill">Unit Level: Squadron</div>
+            <div class="toolbar-subpill">Pilot Sheet: Kneeboard</div>
+          </div>
+          <div class="toolbar-summary" id="inventorySummary">In Hangar 0/0 · FMC 0 · Pilot Certified 0 · 0%</div>
+
+          <div class="command-strip" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-start;width:100%;margin:12px 0 0 0;">
+            <button id="replayBannerBtn" class="banner-button primary" type="button">Replay Banner</button>
+            <button id="printTreeBtn" class="banner-button secondary" type="button">Print Tree</button>
+            <button id="rulesToggleBtn" class="banner-button danger" type="button">Override Game Rules</button>
+            <button id="exportDrrBtn" class="banner-button secondary" type="button" title="Defense Readiness Report. Export the current nation inventory.">Export DRR</button>
+            <button id="exportSofBtn" class="banner-button secondary" type="button" title="Status of Forces. Export all saved nation inventories.">Export SoF</button>
+            <button id="importReadinessBtn" class="banner-button secondary" type="button" title="Import a previously saved DRR or SoF file.">Import DRR / SoF</button>
+            <input id="importReadinessInput" type="file" accept=".json,application/json" hidden />
+          </div>
+        </div>
+
+        <div class="legend legend-expanded">
+          <div class="pill"><span class="dot premium"></span> Premium</div>
+          <div class="pill"><span class="dot squadron"></span> Squadron</div>
+          <div class="pill"><span class="dot event"></span> Event</div>
+          <div class="pill"><span class="dot pack"></span> Pack</div>
+          <div class="pill legend-note"><span class="legend-swatch legend-swatch-available"></span> Available = unlocked and ready to research</div>
+          <div class="pill legend-note"><span class="legend-swatch legend-swatch-researched"></span> Researched = research complete and ready to purchase</div>
+          <div class="pill legend-note"><span class="legend-swatch legend-swatch-obtained"></span> Purchased / In Hangar = bought and now in hangar</div>
+          <div class="pill legend-note"><span class="legend-swatch legend-swatch-fmc"></span> FMC = all modifications researched</div>
+          <div class="pill legend-note"><span class="legend-swatch legend-swatch-pilot"></span> Pilot Certified = trained crew assigned to operate it</div>
+        </div>
+      </div>
+
+      <div class="tree-scroll">
+        <div class="tree-shell" id="treeShell">
+          <div class="tree-grid"></div>
+          <div class="rank-layer" id="rankLayer"></div>
+          <div class="edge-layer" id="edgeLayer"></div>
+          <div class="node-layer" id="nodeLayer"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h2>Kneeboard Details</h2>
+        <p>Select a kneeboard in the tree to inspect aircraft metadata, grouped members, and airframe tags.</p>
+      </div>
+
+      <div class="detail" id="detailPanel">
+        <div class="empty-state">Pick a kneeboard in the tree.</div>
+      </div>
+    </aside>
+  </div>
+
+
+  <div class="cats-modal-backdrop" id="rulesModalBackdrop" hidden>
+    <div class="cats-modal danger" role="dialog" aria-modal="true" aria-labelledby="rulesModalTitle" aria-describedby="rulesModalText">
+      <div class="cats-modal-kicker">Override Warning</div>
+      <h3 id="rulesModalTitle">Unsaved kneeboard changes detected</h3>
+      <p id="rulesModalText">
+Continuing without exporting your progress, notes, and collection may cause some or all of that information to be lost later. Use Export DRR / SoF on the top command row before switching into override mode.
+      </p>
+      <div class="cats-modal-actions">
+        <button id="rulesModalContinueBtn" class="banner-button danger" type="button">Continue without saving</button>
+        <button id="rulesModalBackBtn" class="banner-button secondary" type="button">Go back and save</button>
+      </div>
+    </div>
+  </div>
+
+<div class="consent-overlay" id="consentOverlay" hidden>
+    <div class="consent-modal" role="dialog" aria-modal="true" aria-labelledby="consentTitle">
+      <div class="consent-eyebrow">Cookie Settings</div>
+      <h2 id="consentTitle">This website uses cookies.</h2>
+      <p class="consent-copy">
+        We use cookies to keep your C.A.T.S. progress, notes, and preferences working smoothly. You can choose which categories to allow below.
+      </p>
+
+      <div class="consent-list">
+        <label class="consent-row is-locked">
+          <span class="consent-row-copy">
+            <span class="consent-row-title">Necessary</span>
+            <span class="consent-row-text">Required for the site to run and for core browser storage used by this page.</span>
+          </span>
+          <span class="consent-toggle-wrap">
+            <input id="consentNecessary" type="checkbox" checked disabled />
+            <span class="consent-lock">Always on</span>
+          </span>
+        </label>
+
+        <label class="consent-row">
+          <span class="consent-row-copy">
+            <span class="consent-row-title">Preferences</span>
+            <span class="consent-row-text">Helps keep local site preferences and quality-of-life settings on this browser.</span>
+          </span>
+          <input id="consentPreferences" type="checkbox" checked />
+        </label>
+
+        <label class="consent-row">
+          <span class="consent-row-copy">
+            <span class="consent-row-title">Statistics</span>
+            <span class="consent-row-text">Optional usage stats for improving the site.</span>
+          </span>
+          <input id="consentStatistics" type="checkbox" />
+        </label>
+
+        <label class="consent-row">
+          <span class="consent-row-copy">
+            <span class="consent-row-title">Marketing</span>
+            <span class="consent-row-text">Optional marketing and promotional cookies.</span>
+          </span>
+          <input id="consentMarketing" type="checkbox" />
+        </label>
+      </div>
+
+      <div class="consent-actions">
+        <button id="consentDeny" class="banner-button secondary" type="button">Deny</button>
+        <button id="consentAllowSelection" class="banner-button secondary" type="button">Allow selection</button>
+        <button id="consentAllowAll" class="banner-button primary" type="button">Allow all</button>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+  <div class="status" id="statusBox">SCRIPT BOOTED</div>
+
+  <script src="engine.js?v=131109"></script>
+</body>
+</html>
