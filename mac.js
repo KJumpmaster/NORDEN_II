@@ -272,19 +272,55 @@ function renderSideView() {
 
   drawGrid(sideCtx, w, h, 48, 0.08);
 
+  const releaseX = 55;
+  const groundY = h - 55;
+  const targetX = w - 85;
+
+  // Ground
   sideCtx.strokeStyle = "rgba(0,255,65,0.35)";
   sideCtx.lineWidth = 1;
   sideCtx.beginPath();
-  sideCtx.moveTo(30, h - 55);
-  sideCtx.lineTo(w - 30, h - 55);
+  sideCtx.moveTo(30, groundY);
+  sideCtx.lineTo(w - 30, groundY);
   sideCtx.stroke();
+
+  // Target reference
+  sideCtx.strokeStyle = "#ffd54a";
+  sideCtx.lineWidth = 1.5;
+  sideCtx.beginPath();
+  sideCtx.moveTo(targetX, 20);
+  sideCtx.lineTo(targetX, groundY + 34);
+  sideCtx.stroke();
+  sideCtx.fillStyle = "#ffd54a";
+  sideCtx.font = "13px monospace";
+  sideCtx.fillText("TARGET", targetX - 22, 16);
 
   sideCtx.fillStyle = "#00ff41";
   sideCtx.font = "14px monospace";
-  sideCtx.fillText("RELEASE", 32, 28);
+  sideCtx.fillText("RELEASE", 28, 28);
 
   visibleSolutions().forEach((sol) => {
-    const { points, marker, targetX, groundY } = getTrajectoryPoints(sol, w, h);
+    const releaseY = 58 + (sol.id - 1) * 10;
+    const progress = currentFrame / (TOTAL_FRAMES - 1);
+    const curvature = Math.max(38, (payload.altitudeFeet / 12000) * 120 + sol.drag * 18);
+
+    // Place actual impact relative to target based on computed error
+    const pxPerMeter = 0.08; // keeps long/short visible without flying off screen
+    let impactX = targetX + (sol.centerError * pxPerMeter);
+    impactX = Math.max(releaseX + 110, Math.min(w - 35, impactX));
+
+    const points = [];
+    const steps = 80;
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const x = releaseX + (impactX - releaseX) * t;
+      const yLinear = releaseY + (groundY - releaseY) * t;
+      const arc = Math.sin(Math.PI * t) * curvature;
+      const y = yLinear - arc;
+      points.push({ x, y });
+    }
+    const markerIndex = Math.max(0, Math.min(points.length - 1, Math.round(progress * steps)));
+    const marker = points[markerIndex];
 
     sideCtx.strokeStyle = sol.color;
     sideCtx.lineWidth = 2;
@@ -298,33 +334,50 @@ function renderSideView() {
     sideCtx.stroke();
     sideCtx.shadowBlur = 0;
 
+    // moving ordnance
     sideCtx.fillStyle = sol.color;
     sideCtx.beginPath();
     sideCtx.arc(marker.x, marker.y, 5, 0, Math.PI * 2);
     sideCtx.fill();
 
-    if (currentFrame >= TOTAL_FRAMES - 4) {
-      sideCtx.strokeStyle = sol.color;
-      sideCtx.globalAlpha = 0.45;
+    // actual impact point + blast ring
+    sideCtx.fillStyle = sol.color;
+    sideCtx.beginPath();
+    sideCtx.arc(impactX, groundY, 5, 0, Math.PI * 2);
+    sideCtx.fill();
+
+    sideCtx.globalAlpha = 0.35;
+    sideCtx.strokeStyle = sol.color;
+    sideCtx.beginPath();
+    sideCtx.arc(impactX, groundY, Math.min(24, sol.blastRadius * 0.18), 0, Math.PI * 2);
+    sideCtx.stroke();
+    sideCtx.globalAlpha = 1;
+
+    // Long/Short indicator line
+    if (Math.abs(sol.centerError) > 1) {
+      sideCtx.strokeStyle = "#ff6f61";
+      sideCtx.lineWidth = 1.5;
       sideCtx.beginPath();
-      sideCtx.arc(targetX, groundY, Math.min(22, sol.blastRadius * 0.18), 0, Math.PI * 2);
+      sideCtx.moveTo(targetX, groundY + 16);
+      sideCtx.lineTo(impactX, groundY + 16);
       sideCtx.stroke();
-      sideCtx.globalAlpha = 1;
+
+      sideCtx.fillStyle = "#ff6f61";
+      sideCtx.font = "12px monospace";
+      let label = sol.centerError > 0 ? "LONG" : "SHORT";
+      let labelX = ((targetX + impactX) / 2) - 24;
+      sideCtx.fillText(`${label} ${Math.abs(sol.centerError).toFixed(0)}m`, labelX, groundY + 31);
     }
   });
 
-  const targetX = w - 55;
-  const targetY = h - 55;
+  // target X marker on ground
   sideCtx.strokeStyle = "#ffd54a";
-  sideCtx.lineWidth = 1.5;
   sideCtx.beginPath();
-  sideCtx.moveTo(targetX - 12, targetY);
-  sideCtx.lineTo(targetX + 12, targetY);
-  sideCtx.moveTo(targetX, targetY - 12);
-  sideCtx.lineTo(targetX, targetY + 12);
+  sideCtx.moveTo(targetX - 10, groundY - 10);
+  sideCtx.lineTo(targetX + 10, groundY + 10);
+  sideCtx.moveTo(targetX + 10, groundY - 10);
+  sideCtx.lineTo(targetX - 10, groundY + 10);
   sideCtx.stroke();
-  sideCtx.fillStyle = "#ffd54a";
-  sideCtx.fillText("TOC", targetX - 10, targetY - 18);
 }
 
 function renderTopView() {
@@ -332,56 +385,94 @@ function renderTopView() {
   const h = topCanvas.clientHeight;
 
   topCtx.clearRect(0, 0, w, h);
-  topCtx.fillStyle = "rgba(0,0,0,0.18)";
+  topCtx.fillStyle = "rgba(0,0,0,0.14)";
   topCtx.fillRect(0, 0, w, h);
 
-  drawGrid(topCtx, w, h, 52, 0.13);
+  drawGrid(topCtx, w, h, 42, 0.14);
 
   const cx = w / 2;
   const cy = h / 2;
   const progress = currentFrame / (TOTAL_FRAMES - 1);
   const sols = visibleSolutions();
 
+  // zoomed target X
+  topCtx.strokeStyle = "#ffd54a";
+  topCtx.lineWidth = 2;
+  topCtx.beginPath();
+  topCtx.moveTo(cx - 12, cy - 12);
+  topCtx.lineTo(cx + 12, cy + 12);
+  topCtx.moveTo(cx + 12, cy - 12);
+  topCtx.lineTo(cx - 12, cy + 12);
+  topCtx.stroke();
+  topCtx.fillStyle = "#ffd54a";
+  topCtx.font = "12px monospace";
+  topCtx.fillText("TARGET", cx - 24, cy - 18);
+
+  // common origin area, very close together
+  const baseStartX = cx;
+  const baseStartY = 54;
+
   sols.forEach((sol) => {
-    const startX = w * (0.18 + (sol.id - 1) * 0.22);
-    const startY = 44;
-    const targetOffsetX = (sol.id - 2) * 10;
-    const targetOffsetY = (sol.id - 2) * 8;
+    const startX = baseStartX + (sol.id - 2) * 14;
+    const startY = baseStartY;
 
-    const markerX = startX + ((cx + targetOffsetX) - startX) * progress;
-    const markerY = startY + ((cy + targetOffsetY) - startY) * progress;
+    // Use real impact offset, zoomed in
+    const pxPerMeter = 0.14;
+    const centerImpactX = cx + (sol.centerError * pxPerMeter);
+    const centerImpactY = cy;
 
+    const markerX = startX + (centerImpactX - startX) * progress;
+    const markerY = startY + (centerImpactY - startY) * progress;
+
+    // ingress path
     topCtx.strokeStyle = sol.color;
     topCtx.lineWidth = 2;
     topCtx.shadowColor = sol.color;
-    topCtx.shadowBlur = 10;
+    topCtx.shadowBlur = 8;
     topCtx.beginPath();
     topCtx.moveTo(startX, startY);
-    topCtx.lineTo(cx + targetOffsetX, cy + targetOffsetY);
+    topCtx.lineTo(centerImpactX, centerImpactY);
     topCtx.stroke();
     topCtx.shadowBlur = 0;
 
+    // moving ordnance
     topCtx.fillStyle = sol.color;
     topCtx.beginPath();
     topCtx.arc(markerX, markerY, 4.5, 0, Math.PI * 2);
     topCtx.fill();
 
-    const blastPx = Math.max(22, sol.blastRadius * 0.34);
-    const patternPx = Math.max(26, sol.patternLength * 0.16);
+    // show actual salvo impact points across pattern
+    const count = Math.max(1, sol.salvo);
+    const spacingPx = count <= 1 ? 0 : Math.max(10, (sol.patternLength * 0.16) / Math.max(1, count - 1));
+    const centerIndex = (count - 1) / 2;
 
-    topCtx.globalAlpha = 0.32;
-    topCtx.fillStyle = hexToRgba(sol.color, 0.12);
+    for (let i = 0; i < count; i++) {
+      const impactX = centerImpactX + ((i - centerIndex) * spacingPx);
+      const impactY = centerImpactY;
+
+      topCtx.fillStyle = sol.color;
+      topCtx.beginPath();
+      topCtx.arc(impactX, impactY, 4, 0, Math.PI * 2);
+      topCtx.fill();
+
+      // blast circles
+      const blastPx = Math.max(12, sol.blastRadius * 0.22);
+      topCtx.globalAlpha = 0.26;
+      topCtx.fillStyle = hexToRgba(sol.color, 0.10);
+      topCtx.strokeStyle = sol.color;
+      topCtx.beginPath();
+      topCtx.arc(impactX, impactY, blastPx, 0, Math.PI * 2);
+      topCtx.fill();
+      topCtx.stroke();
+      topCtx.globalAlpha = 1;
+    }
+
+    // fore/aft bracket on actual pattern
+    const patternPx = Math.max(16, sol.patternLength * 0.16);
     topCtx.strokeStyle = sol.color;
     topCtx.beginPath();
-    topCtx.arc(cx + targetOffsetX, cy + targetOffsetY, blastPx, 0, Math.PI * 2);
-    topCtx.fill();
-    topCtx.stroke();
-    topCtx.globalAlpha = 1;
-
-    topCtx.strokeStyle = sol.color;
-    topCtx.beginPath();
-    topCtx.moveTo(cx + targetOffsetX - patternPx / 2, cy + targetOffsetY);
-    topCtx.lineTo(cx + targetOffsetX + patternPx / 2, cy + targetOffsetY);
+    topCtx.moveTo(centerImpactX - patternPx / 2, centerImpactY + 18);
+    topCtx.lineTo(centerImpactX + patternPx / 2, centerImpactY + 18);
     topCtx.stroke();
 
     topCtx.fillStyle = sol.color;

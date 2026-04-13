@@ -424,3 +424,6 @@ body::before {
   opacity: 0.88;
   filter: brightness(0.92);
 }
+
+#topViewCanvas { background-position: center center; }
+.toc-marker{display:none !important;}
