@@ -1,35 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>NORDEN II</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NORDEN II</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="cockpit">
+    <section class="panel left-panel">
+      <h2>LOADOUT</h2>
 
-<div class="cockpit">
+      <label for="country">COUNTRY</label>
+      <select id="country" onchange="loadCountry()"></select>
 
-<div class="panel center-panel">
+      <label for="ac">AIRCRAFT</label>
+      <select id="ac" onchange="loadAircraft()"></select>
 
-<div class="state-panel">
-<div>LASER: NO</div>
-<div>CCRP: YES</div>
-<div>SMART: NO</div>
-</div>
+      <div class="flight-grid">
+        <div class="grid-item">
+          <div class="mini-label">ALTITUDE</div>
+          <input id="alt" type="number" value="8000">
+        </div>
+        <div class="grid-item">
+          <div class="mini-label">SPEED</div>
+          <input id="spd" type="number" value="400" oninput="clampSpeed()">
+        </div>
+        <div class="grid-item">
+          <div class="mini-label">DIVE</div>
+          <input id="dive" type="number" value="0">
+        </div>
+      </div>
 
-<img src="b52.png" class="b52">
+      <div class="standoff-block">
+        <div class="standoff-label">
+          <div>STAND OFF</div>
+          <div>DISTANCE</div>
+        </div>
+        <input id="dist" type="number" value="3">
+        <div class="unit-label">METRES</div>
+      </div>
 
-<div class="media-anchor">
-  <video autoplay loop muted class="radar">
-    <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
-  </video>
+      <div id="adv" class="adv">AIRFRAME LIMITS NOMINAL</div>
+    </section>
 
-  <img src="flag_britain.png" class="flag">
-</div>
+    <section class="panel center-panel">
+      <div class="state-panel">
+        <div class="state-title">AIRCRAFT STATE</div>
+        <div id="laser" class="state-badge">LASER: NO</div>
+        <div id="ccrp" class="state-badge">CCRP: YES</div>
+        <div id="smart" class="state-badge smart-off">SMART MUNITIONS: NO</div>
+      </div>
 
-</div>
+      <div class="solutions">
+        <div class="solution-card sol-a">
+          <div class="solution-head">
+            <span class="solution-title">A</span>
+            <span id="smart-ind-1" class="solution-indicator">STD</span>
+          </div>
+          <select id="bomb1" onchange="syncSolution(1)"></select>
+          <select id="salvo1" onchange="syncSolution(1)"></select>
+          <div id="out1" class="solution-readout">READY</div>
+        </div>
 
-</div>
+        <div class="solution-card sol-b">
+          <div class="solution-head">
+            <span class="solution-title">B</span>
+            <span id="smart-ind-2" class="solution-indicator">STD</span>
+          </div>
+          <select id="bomb2" onchange="syncSolution(2)"></select>
+          <select id="salvo2" onchange="syncSolution(2)"></select>
+          <div id="out2" class="solution-readout">READY</div>
+        </div>
 
+        <div class="solution-card sol-c">
+          <div class="solution-head">
+            <span class="solution-title">C</span>
+            <span id="smart-ind-3" class="solution-indicator">STD</span>
+          </div>
+          <select id="bomb3" onchange="syncSolution(3)"></select>
+          <select id="salvo3" onchange="syncSolution(3)"></select>
+          <div id="out3" class="solution-readout">READY</div>
+        </div>
+      </div>
+
+      <img src="b52.png" alt="B-52 outline" class="b52">
+
+      <div class="media-anchor">
+        <video id="radarVideo" class="radar-video" autoplay loop muted playsinline>
+          <source src="Deep_Screen_D_Radar_Design.mp4" type="video/mp4">
+        </video>
+        <img id="flag" class="flag" alt="Country flag">
+      </div>
+    </section>
+
+    <section class="panel right-panel">
+      <h2>COMMAND</h2>
+
+      <label for="focus">FOCUS</label>
+      <select id="focus" onchange="updateFocus()">
+        <option value="1">FOCUS A</option>
+        <option value="2">FOCUS B</option>
+        <option value="3">FOCUS C</option>
+      </select>
+
+      <button onclick="solve()">SOLVE</button>
+      <button onclick="applySalvo()">ARM LOAD</button>
+
+      <div id="focusStatus" class="command-box">ACTIVE SOLUTION: A</div>
+      <div id="res" class="command-box">READY</div>
+      <div id="pattern" class="command-box">PATTERN DATA STANDBY</div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

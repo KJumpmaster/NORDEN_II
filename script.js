@@ -41,6 +41,9 @@ function init() {
   loadCountry();
   updateFocus();
   [1,2,3].forEach(syncSolution);
+
+  const video = document.getElementById("radarVideo");
+  video.onerror = () => { video.style.display = "none"; };
 }
 
 function loadCountry() {
@@ -94,12 +97,8 @@ function updateFlag() {
 
   if (!country) return;
 
-  flag.onerror = () => {
-    flag.style.display = "none";
-  };
-  flag.onload = () => {
-    flag.style.display = "block";
-  };
+  flag.onerror = () => { flag.style.display = "none"; };
+  flag.onload = () => { flag.style.display = "block"; };
   flag.src = country.flag;
 }
 
