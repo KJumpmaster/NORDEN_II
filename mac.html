@@ -15,6 +15,12 @@
         <div id="missionStamp" class="mission-stamp">ANALYSIS PIPELINE READY</div>
       </div>
 
+      <div class="header-right">
+        <div class="globe-box">
+          <img id="globePreview" class="globe-preview" src="globe_preview.png" alt="Global strike preview">
+        </div>
+      </div>
+
       <div class="mission-summary">
         <div class="summary-box"><span class="label">AIRCRAFT</span><span id="summaryAircraft" class="value">B-52H</span></div>
         <div class="summary-box"><span class="label">COUNTRY</span><span id="summaryCountry" class="value">USA</span></div>
@@ -43,7 +49,7 @@
       <section class="panel top-panel">
         <div class="panel-head">
           <div class="panel-title">TOP-DOWN PATTERN / EFFECTS</div>
-          <div class="panel-subtitle">PATTERN LENGTH • FORE • AFT • BLAST OVERLAP</div>
+          <div class="panel-subtitle">CONVERGENCE • PATTERN • FORE • AFT • BLAST</div>
         </div>
         <div class="top-panel-stage">
           <canvas id="topViewCanvas"></canvas>
@@ -59,8 +65,16 @@
       <section class="panel solutions-panel">
         <div class="panel-head">
           <div class="panel-title">COMPARATIVE SOLUTION BOARD</div>
-          <div class="panel-subtitle">INPUT / OUTPUT / EFFECT</div>
+          <div class="panel-subtitle">INPUT / OUTPUT / EFFECT / FILTER</div>
         </div>
+
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="all">SHOW ALL</button>
+          <button class="filter-btn" data-filter="A">A ONLY</button>
+          <button class="filter-btn" data-filter="B">B ONLY</button>
+          <button class="filter-btn" data-filter="C">C ONLY</button>
+        </div>
+
         <div id="solutionCards" class="solution-cards"></div>
       </section>
 

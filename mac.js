@@ -2,6 +2,7 @@ const TOTAL_FRAMES = 20;
 let currentFrame = 0;
 let playing = false;
 let playTimer = null;
+let activeFilter = "all";
 
 const FALLBACK_PAYLOAD = {
   generatedAt: new Date().toISOString(),
@@ -21,7 +22,6 @@ const FALLBACK_PAYLOAD = {
 
 let payload = FALLBACK_PAYLOAD;
 let sideCanvas, topCanvas, sideCtx, topCtx;
-let tocImg = null;
 
 function getPayload() {
   try {
@@ -35,23 +35,34 @@ function getPayload() {
   }
 }
 
+function visibleSolutions() {
+  if (activeFilter === "all") return payload.solutions;
+  return payload.solutions.filter(sol => sol.label === activeFilter);
+}
+
 function init() {
   payload = getPayload();
+  activeFilter = ["A", "B", "C"].includes(["A","B","C"][Math.max(0, (payload.focus || 1) - 1)]) ? ["A","B","C"][Math.max(0, (payload.focus || 1) - 1)] : "all";
 
   sideCanvas = document.getElementById("sideViewCanvas");
   topCanvas = document.getElementById("topViewCanvas");
   sideCtx = sideCanvas.getContext("2d");
   topCtx = topCanvas.getContext("2d");
 
-  tocImg = document.getElementById("tocMarker");
-
   bindControls();
   populateSummary();
   populateSolutionCards();
   buildTimelineStrip();
   updateRecommendation();
+  syncFilterButtons();
   resizeCanvases();
   render();
+
+  const globeVideo = document.getElementById("globeVideo");
+  if (globeVideo) {
+    globeVideo.onerror = () => { globeVideo.style.display = "none"; };
+  }
+
   window.addEventListener("resize", () => {
     resizeCanvases();
     render();
@@ -65,6 +76,22 @@ function bindControls() {
   document.getElementById("printBtn").addEventListener("click", () => window.print());
   document.getElementById("frameSlider").addEventListener("input", (e) => {
     setFrame(parseInt(e.target.value, 10));
+  });
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeFilter = btn.dataset.filter;
+      syncFilterButtons();
+      populateSolutionCards();
+      updateRecommendation();
+      render();
+    });
+  });
+}
+
+function syncFilterButtons() {
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.filter === activeFilter);
   });
 }
 
@@ -84,9 +111,11 @@ function populateSummary() {
 function populateSolutionCards() {
   const wrap = document.getElementById("solutionCards");
   wrap.innerHTML = "";
+  const sols = visibleSolutions();
 
-  payload.solutions.forEach((sol, idx) => {
-    const cls = idx === 1 ? "b" : idx === 2 ? "c" : "a";
+  sols.forEach((sol, idx) => {
+    const cls = sol.label === "B" ? "b" : sol.label === "C" ? "c" : "a";
+    const standOffEstimate = Math.max(0, payload.targetRangeMeters + Math.max(0, sol.centerError));
     const card = document.createElement("div");
     card.className = `solution-card ${cls}`;
     card.innerHTML = `
@@ -103,6 +132,8 @@ function populateSolutionCards() {
       <div class="metric"><span class="k">FORE</span><span class="v">${sol.fore.toFixed(0)} m</span></div>
       <div class="metric"><span class="k">AFT</span><span class="v">${Math.abs(sol.aft).toFixed(0)} m</span></div>
       <div class="metric"><span class="k">BEST ERROR</span><span class="v">${sol.bestAbsError.toFixed(0)} m</span></div>
+      <div class="metric"><span class="k">EFFECT ON TARGET</span><span class="v">${(sol.tnt * sol.salvo).toFixed(0)} TNT EQ</span></div>
+      <div class="metric"><span class="k">RELEASE / STANDOFF</span><span class="v">${standOffEstimate.toFixed(0)} m</span></div>
     `;
     wrap.appendChild(card);
   });
@@ -125,23 +156,28 @@ function updateTimelineStrip() {
   });
 }
 
-function updateRecommendation() {
-  const ranked = [...payload.solutions].sort((a, b) => {
-    const rank = (sol) => {
-      if (sol.result === "DIRECT HIT") return 0;
-      if (sol.result === "NEAR HIT") return 1;
-      if (sol.result === "LONG" || sol.result === "SHORT") return 2;
-      return 3;
-    };
-    const ra = rank(a);
-    const rb = rank(b);
-    if (ra !== rb) return ra - rb;
-    return a.bestAbsError - b.bestAbsError;
-  });
+function scoreSolution(sol) {
+  let score = 0;
+  if (sol.result === "DIRECT HIT") score += 1000;
+  else if (sol.result === "NEAR HIT") score += 750;
+  else if (sol.result === "LONG" || sol.result === "SHORT") score += 450;
+  else score += 200;
 
+  score += (sol.tnt * sol.salvo) * 0.65;
+  score += Math.max(0, payload.targetRangeMeters + Math.max(0, sol.centerError)) * 0.04;
+  score -= sol.bestAbsError * 1.35;
+  return score;
+}
+
+function updateRecommendation() {
+  const sols = visibleSolutions();
+  const ranked = [...sols].sort((a, b) => scoreSolution(b) - scoreSolution(a));
   const best = ranked[0];
+  const tntOnTarget = (best.tnt * best.salvo).toFixed(0);
+  const standOffEstimate = Math.max(0, payload.targetRangeMeters + Math.max(0, best.centerError)).toFixed(0);
+
   document.getElementById("recommendation").textContent =
-    `RECOMMENDED SOLUTION: ${best.label} | ${best.weapon} | ${best.result} | BEST ERROR ${best.bestAbsError.toFixed(0)}m`;
+    `RECOMMENDED SOLUTION: ${best.label} | ${best.weapon} | ${best.result} | EFFECT ON TARGET ${tntOnTarget} TNT EQ | EST. STANDOFF ${standOffEstimate}m`;
 }
 
 function resizeCanvases() {
@@ -165,11 +201,7 @@ function togglePlay() {
 
   if (playing) {
     playTimer = setInterval(() => {
-      if (currentFrame >= TOTAL_FRAMES - 1) {
-        currentFrame = 0;
-      } else {
-        currentFrame += 1;
-      }
+      currentFrame = currentFrame >= TOTAL_FRAMES - 1 ? 0 : currentFrame + 1;
       document.getElementById("frameSlider").value = currentFrame;
       render();
     }, 260);
@@ -210,7 +242,7 @@ function getTrajectoryPoints(sol, width, height) {
   const releaseX = marginX;
   const targetX = width - marginX;
   const groundY = height - 55;
-  const releaseY = 55 + (sol.id - 1) * 10;
+  const releaseY = 58 + (sol.id - 1) * 10;
   const progress = currentFrame / (TOTAL_FRAMES - 1);
 
   const points = [];
@@ -240,7 +272,6 @@ function renderSideView() {
 
   drawGrid(sideCtx, w, h, 48, 0.08);
 
-  // ground line
   sideCtx.strokeStyle = "rgba(0,255,65,0.35)";
   sideCtx.lineWidth = 1;
   sideCtx.beginPath();
@@ -248,12 +279,11 @@ function renderSideView() {
   sideCtx.lineTo(w - 30, h - 55);
   sideCtx.stroke();
 
-  // aircraft release icon
   sideCtx.fillStyle = "#00ff41";
   sideCtx.font = "14px monospace";
   sideCtx.fillText("RELEASE", 32, 28);
 
-  payload.solutions.forEach((sol) => {
+  visibleSolutions().forEach((sol) => {
     const { points, marker, targetX, groundY } = getTrajectoryPoints(sol, w, h);
 
     sideCtx.strokeStyle = sol.color;
@@ -268,13 +298,11 @@ function renderSideView() {
     sideCtx.stroke();
     sideCtx.shadowBlur = 0;
 
-    // marker
     sideCtx.fillStyle = sol.color;
     sideCtx.beginPath();
     sideCtx.arc(marker.x, marker.y, 5, 0, Math.PI * 2);
     sideCtx.fill();
 
-    // impact / blast ring when close to final frames
     if (currentFrame >= TOTAL_FRAMES - 4) {
       sideCtx.strokeStyle = sol.color;
       sideCtx.globalAlpha = 0.45;
@@ -285,7 +313,6 @@ function renderSideView() {
     }
   });
 
-  // target line / marker
   const targetX = w - 55;
   const targetY = h - 55;
   sideCtx.strokeStyle = "#ffd54a";
@@ -313,56 +340,53 @@ function renderTopView() {
   const cx = w / 2;
   const cy = h / 2;
   const progress = currentFrame / (TOTAL_FRAMES - 1);
+  const sols = visibleSolutions();
 
-  payload.solutions.forEach((sol) => {
-    const spreadX = 90 + (sol.id - 2) * 30;
-    const startY = 60;
-    const endY = cy;
-    const markerY = startY + (endY - startY) * progress;
-    const markerX = cx + (sol.id - 2) * 42;
+  sols.forEach((sol) => {
+    const startX = w * (0.18 + (sol.id - 1) * 0.22);
+    const startY = 44;
+    const targetOffsetX = (sol.id - 2) * 10;
+    const targetOffsetY = (sol.id - 2) * 8;
 
-    // ingress line
+    const markerX = startX + ((cx + targetOffsetX) - startX) * progress;
+    const markerY = startY + ((cy + targetOffsetY) - startY) * progress;
+
     topCtx.strokeStyle = sol.color;
     topCtx.lineWidth = 2;
     topCtx.shadowColor = sol.color;
-    topCtx.shadowBlur = 8;
+    topCtx.shadowBlur = 10;
     topCtx.beginPath();
-    topCtx.moveTo(markerX, 25);
-    topCtx.lineTo(markerX, markerY);
+    topCtx.moveTo(startX, startY);
+    topCtx.lineTo(cx + targetOffsetX, cy + targetOffsetY);
     topCtx.stroke();
     topCtx.shadowBlur = 0;
 
-    // munition position
     topCtx.fillStyle = sol.color;
     topCtx.beginPath();
     topCtx.arc(markerX, markerY, 4.5, 0, Math.PI * 2);
     topCtx.fill();
 
-    // pattern line on ground
-    const forePx = Math.max(24, sol.patternLength * 0.12);
-    topCtx.globalAlpha = 0.85;
-    topCtx.strokeStyle = sol.color;
-    topCtx.beginPath();
-    topCtx.moveTo(cx - forePx / 2 + (sol.id - 2) * 14, cy + (sol.id - 2) * 18);
-    topCtx.lineTo(cx + forePx / 2 + (sol.id - 2) * 14, cy + (sol.id - 2) * 18);
-    topCtx.stroke();
-    topCtx.globalAlpha = 1;
+    const blastPx = Math.max(22, sol.blastRadius * 0.34);
+    const patternPx = Math.max(26, sol.patternLength * 0.16);
 
-    // blast radius
-    const blastPx = Math.max(26, sol.blastRadius * 0.34);
-    topCtx.globalAlpha = 0.38;
+    topCtx.globalAlpha = 0.32;
     topCtx.fillStyle = hexToRgba(sol.color, 0.12);
     topCtx.strokeStyle = sol.color;
     topCtx.beginPath();
-    topCtx.arc(cx + (sol.id - 2) * 14, cy + (sol.id - 2) * 18, blastPx, 0, Math.PI * 2);
+    topCtx.arc(cx + targetOffsetX, cy + targetOffsetY, blastPx, 0, Math.PI * 2);
     topCtx.fill();
     topCtx.stroke();
     topCtx.globalAlpha = 1;
 
-    // label
+    topCtx.strokeStyle = sol.color;
+    topCtx.beginPath();
+    topCtx.moveTo(cx + targetOffsetX - patternPx / 2, cy + targetOffsetY);
+    topCtx.lineTo(cx + targetOffsetX + patternPx / 2, cy + targetOffsetY);
+    topCtx.stroke();
+
     topCtx.fillStyle = sol.color;
     topCtx.font = "13px monospace";
-    topCtx.fillText(sol.label, cx + (sol.id - 2) * 14 - 5, cy - blastPx - 10);
+    topCtx.fillText(sol.label, startX - 4, startY - 10);
   });
 }
 
