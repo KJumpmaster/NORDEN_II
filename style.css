@@ -240,7 +240,7 @@ button {
 .flag {
   position: absolute;
   right: 150px;
-  bottom: 55px;
+  bottom: 155px;
   width: 120px;
   z-index: 4;
 }
