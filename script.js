@@ -211,8 +211,9 @@ function calculateSolution(n) {
   const patternLength = fore - aft;
 
   let result = "MISS";
-  if (bestAbsError <= blast) result = "DIRECT HIT";
-  else if (bestAbsError <= blast * 1.75) result = "NEAR HIT";
+  if (bestAbsError <= 15) result = "DIRECT HIT";
+  else if (bestAbsError <= blast * 0.5) result = "NEAR HIT";
+  else if (bestAbsError <= blast) result = "MARGINAL HIT";
   else if (avgError > 0) result = "LONG";
   else result = "SHORT";
 

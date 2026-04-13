@@ -157,8 +157,9 @@ function scoreSolution(sol) {
   let score = 0;
   if (sol.result === "DIRECT HIT") score += 1000;
   else if (sol.result === "NEAR HIT") score += 750;
-  else if (sol.result === "LONG" || sol.result === "SHORT") score += 450;
-  else score += 200;
+  else if (sol.result === "MARGINAL HIT") score += 300;
+  else if (sol.result === "LONG" || sol.result === "SHORT") score += 150;
+  else score += 0;
 
   score += (sol.tnt * sol.salvo) * 0.65;
   score += Math.max(0, payload.targetRangeMeters + Math.max(0, sol.centerError)) * 0.04;
