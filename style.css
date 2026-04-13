@@ -252,7 +252,7 @@ button {
 }
 
 .radar-video {
-  width: 100%;
+  width: 200%;
   height: 100%;
   object-fit: cover;
   opacity: 0.6;
