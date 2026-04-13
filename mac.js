@@ -57,7 +57,6 @@ function init() {
   updateRecommendation();
   updateBriefBlock();
   syncFilterButtons();
-  updateZoomHint();
   resizeCanvases();
   render();
 
@@ -73,6 +72,18 @@ function bindControls() {
   document.getElementById("playBtn").addEventListener("click", togglePlay);
   document.getElementById("printBtn").addEventListener("click", () => window.print());
   
+// Zoom controls
+const zoomModes = ['FAR','NORMAL','CLOSE'];
+let zoomIndex = 1;
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'z'){
+    zoomIndex = (zoomIndex+1)%3;
+    zoomLevel = zoomModes[zoomIndex];
+    render();
+  }
+});
+
 document.getElementById("frameSlider").addEventListener("input", (e) => {
 
     setFrame(parseInt(e.target.value, 10));
@@ -349,30 +360,23 @@ function renderSideView() {
     sideCtx.fill();
 
     // impact dot and indicator after most of the animation
-    
-// Always show impact + label if single solution, otherwise only near impact
-const showLabels = (activeFilter !== "all") || (progress >= 0.82);
+    if (progress >= 0.82) {
+      sideCtx.fillStyle = sol.color;
+      sideCtx.beginPath();
+      sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI * 2);
+      sideCtx.fill();
 
-if (showLabels) {
-  sideCtx.fillStyle = sol.color;
-  sideCtx.beginPath();
-  sideCtx.arc(impactX, groundY, 4.5, 0, Math.PI * 2);
-  sideCtx.fill();
+      sideCtx.strokeStyle = "#ff5555";
+      sideCtx.beginPath();
+      sideCtx.moveTo(targetX, groundY + 14);
+      sideCtx.lineTo(impactX, groundY + 14);
+      sideCtx.stroke();
 
-  sideCtx.strokeStyle = "#ff5555";
-  sideCtx.beginPath();
-  sideCtx.moveTo(targetX, groundY + 14);
-  sideCtx.lineTo(impactX, groundY + 14);
-  sideCtx.stroke();
-
-  const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
-
-  if (activeFilter !== "all") {
-    sideCtx.fillStyle = "#ff5555";
-    sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX + impactX) / 2 - 20, groundY + 28);
-  }
-}
-
+      const tag = sol.centerError > 0 ? "LONG" : sol.centerError < 0 ? "SHORT" : "HIT";
+      if (activeFilter !== "all") {
+        sideCtx.fillStyle = "#ff5555";
+        sideCtx.fillText(tag + " " + Math.abs(sol.centerError).toFixed(0) + "m", (targetX + impactX) / 2 - 20, groundY + 28);
+      }
     }
   });
 }
@@ -383,18 +387,7 @@ function renderTopView() {
 
   topCtx.clearRect(0, 0, w, h);
   topCtx.fillStyle = "rgba(0,0,0,0.2)";
-  
-// background zoom simulation
-let bgScale = 1;
-if (zoomLevel === 'FAR') bgScale = 1.2;
-if (zoomLevel === 'NORMAL') bgScale = 1;
-if (zoomLevel === 'CLOSE') bgScale = 0.8;
-
-topCtx.save();
-topCtx.scale(bgScale, bgScale);
-topCtx.fillRect(0, 0, w/bgScale, h/bgScale);
-topCtx.restore();
-
+  topCtx.fillRect(0, 0, w, h);
 
   drawGrid(topCtx, w, h, 52, 0.13);
 
@@ -514,20 +507,4 @@ function updateBriefBlock() {
   document.getElementById("briefRecommended").textContent = `${best.label} / ${best.result}`;
   document.getElementById("briefTnt").textContent = `${tntOnTarget} TNT EQ`;
   document.getElementById("briefStandoff").textContent = `${standOffEstimate} M`;
-}
-
-
-function cycleZoom() {
-  const zoomModes = ["FAR", "NORMAL", "CLOSE"];
-  const current = zoomModes.indexOf(zoomLevel);
-  zoomLevel = zoomModes[(current + 1 + zoomModes.length) % zoomModes.length];
-  updateZoomHint();
-  render();
-}
-
-function updateZoomHint() {
-  const el = document.querySelector(".zoom-hint");
-  if (el) {
-    el.textContent = `HIT Z TO ZOOM (${zoomLevel})`;
-  }
 }
