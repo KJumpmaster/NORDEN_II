@@ -12,140 +12,15 @@ const AIRCRAFT = [
 ];
 
 const BOMBS = [
-  { id: "mk82", name: "Mk 82", nation: "usa", tnt: 118, drag: 1.0, smart: false },
-  { id: "mk84", name: "Mk 84", nation: "usa", tnt: 428, drag: 1.3, smart: false },
-  { id: "gbu12", name: "GBU-12", nation: "usa", tnt: 87, drag: 1.15, smart: true },
-  { id: "gbu10", name: "GBU-10", nation: "usa", tnt: 428, drag: 1.35, smart: true },
-  { id: "gp1000", name: "1000 lb GP", nation: "britain", tnt: 240, drag: 1.18, smart: false },
-  { id: "ret1000", name: "1000 lb Retarded", nation: "britain", tnt: 240, drag: 1.28, smart: false },
-  { id: "fab500", name: "FAB-500", nation: "ussr", tnt: 213, drag: 1.1, smart: false },
-  { id: "fab250", name: "FAB-250", nation: "ussr", tnt: 100, drag: 1.0, smart: false }
+  { id: "mk82", name: "Mk 82", tnt: 118, drag: 1.0, smart: false },
+  { id: "mk84", name: "Mk 84", tnt: 428, drag: 1.3, smart: false },
+  { id: "fab500", name: "FAB-500", tnt: 213, drag: 1.1, smart: false },
+  { id: "gbu12", name: "GBU-12", tnt: 87, drag: 1.15, smart: true },
+  { id: "gbu10", name: "GBU-10", tnt: 428, drag: 1.35, smart: true }
 ];
-
 
 let fireTimerIds = [];
 let armedSolution = null;
-
-const TYPEAHEAD_TIMEOUT_MS = 1500;
-const bombTypeAhead = {
-  bufferBySelectId: {},
-  timerBySelectId: {}
-};
-
-function getBombFilterCountry() {
-  const aircraft = getSelectedAircraft();
-  if (aircraft && aircraft.country) return aircraft.country;
-  return document.getElementById("country")?.value || "";
-}
-
-function isWatupMode() {
-  return !!document.getElementById("watupToggle")?.checked;
-}
-
-function getFilteredBombs() {
-  const country = getBombFilterCountry();
-  if (isWatupMode()) return [...BOMBS];
-  return BOMBS.filter(b => b.nation === country);
-}
-
-function populateBombSelects() {
-  const filteredBombs = getFilteredBombs();
-  const hint = document.getElementById("bombModeHint");
-  const countryId = getBombFilterCountry();
-  const countryName =
-    COUNTRIES.find(c => c.id === countryId)?.name?.toUpperCase() || "SELECTED NATION";
-
-  [1, 2, 3].forEach(i => {
-    const bombEl = document.getElementById("bomb" + i);
-    if (!bombEl) return;
-
-    const previousValue = bombEl.value;
-    bombEl.innerHTML = "";
-
-    filteredBombs.forEach(b => {
-      bombEl.innerHTML += `<option value="${b.id}">${isWatupMode() ? `${b.name} [${b.nation.toUpperCase()}]` : b.name}</option>`;
-    });
-
-    const hasPrevious = filteredBombs.some(b => b.id === previousValue);
-    if (hasPrevious) {
-      bombEl.value = previousValue;
-    } else if (filteredBombs.length) {
-      bombEl.value = filteredBombs[0].id;
-    }
-  });
-
-  if (hint) {
-    hint.textContent = isWatupMode()
-      ? "All bombs available"
-      : `Filtered by selected aircraft nation: ${countryName}`;
-  }
-
-  [1, 2, 3].forEach(syncSolution);
-  updateSmartBadge();
-}
-
-function resetTypeAheadForSelect(selectId) {
-  bombTypeAhead.bufferBySelectId[selectId] = "";
-  if (bombTypeAhead.timerBySelectId[selectId]) {
-    clearTimeout(bombTypeAhead.timerBySelectId[selectId]);
-    bombTypeAhead.timerBySelectId[selectId] = null;
-  }
-}
-
-function handleBombTypeAhead(event) {
-  if (event.ctrlKey || event.metaKey || event.altKey) return;
-  if (event.key.length !== 1) return;
-  if (!/[a-z0-9\s\-]/i.test(event.key)) return;
-
-  const select = event.currentTarget;
-  const selectId = select.id;
-  const typed = event.key.toLowerCase();
-
-  bombTypeAhead.bufferBySelectId[selectId] =
-    (bombTypeAhead.bufferBySelectId[selectId] || "") + typed;
-
-  if (bombTypeAhead.timerBySelectId[selectId]) {
-    clearTimeout(bombTypeAhead.timerBySelectId[selectId]);
-  }
-
-  bombTypeAhead.timerBySelectId[selectId] = setTimeout(() => {
-    bombTypeAhead.bufferBySelectId[selectId] = "";
-    bombTypeAhead.timerBySelectId[selectId] = null;
-  }, TYPEAHEAD_TIMEOUT_MS);
-
-  const needle = (bombTypeAhead.bufferBySelectId[selectId] || "").trim().toLowerCase();
-  if (!needle) return;
-
-  const options = Array.from(select.options);
-  let match = options.find(opt => opt.textContent.toLowerCase().startsWith(needle));
-  if (!match) {
-    match = options.find(opt => opt.textContent.toLowerCase().includes(needle));
-  }
-
-  if (match) {
-    select.value = match.value;
-    const solutionNumber = parseInt(selectId.replace("bomb", ""), 10);
-    if (!Number.isNaN(solutionNumber)) syncSolution(solutionNumber);
-    event.preventDefault();
-  }
-}
-
-function initBombModeUi() {
-  const watupToggle = document.getElementById("watupToggle");
-  if (watupToggle) {
-    watupToggle.addEventListener("change", () => {
-      populateBombSelects();
-    });
-  }
-
-  [1, 2, 3].forEach(i => {
-    const bombEl = document.getElementById("bomb" + i);
-    if (bombEl) {
-      bombEl.addEventListener("keydown", handleBombTypeAhead);
-    }
-  });
-}
-
 
 function init() {
   const countryEl = document.getElementById("country");
@@ -154,14 +29,18 @@ function init() {
   });
 
   [1, 2, 3].forEach(i => {
+    const bombEl = document.getElementById("bomb" + i);
     const salvoEl = document.getElementById("salvo" + i);
+
+    BOMBS.forEach(b => {
+      bombEl.innerHTML += `<option value="${b.id}">${b.name}</option>`;
+    });
 
     [1, 2, 4, 6, 8].forEach(v => {
       salvoEl.innerHTML += `<option value="${v}">SALVO ${v}</option>`;
     });
   });
 
-  initBombModeUi();
   loadCountry();
   updateFocus();
   [1, 2, 3].forEach(syncSolution);
@@ -186,7 +65,6 @@ function loadCountry() {
     });
 
   loadAircraft();
-  populateBombSelects();
 }
 
 function loadAircraft() {
@@ -502,7 +380,7 @@ function getSelectedAircraft() {
 
 function getBombBySelect(n) {
   const id = document.getElementById("bomb" + n).value;
-  return BOMBS.find(b => b.id === id) || getFilteredBombs()[0] || BOMBS[0];
+  return BOMBS.find(b => b.id === id) || BOMBS[0];
 }
 
 init();
